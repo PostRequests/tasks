@@ -80,12 +80,49 @@ void task4(Menu m) {
 	endTask(m);
 }
 void task5(Menu m) {
+	Coordinate pos = m.startPos;
+	int num;
+	int* pNum = &num;
+	setCursorPosition(pos);
+	std::cout << "Введите число: ";
+	std::cin >> *pNum;
+
+	nextLine(pos);
+	std::cout << "Ваше число " << ((*pNum < 0) ? "отрицательное" : "положительное");
+	m.startPos = pos;
 	endTask(m);
 }
 void task6(Menu m) {
+	srand(time(0));
+	int a = rand() % 100;
+	int b = rand() % 100;
+	int* pa = &a;
+	int* pb = &b;
+	setCursorPosition(m.startPos);
+	std::cout << "Я загадал 2 числа a = " << *pa << " и  б = " << *pb;
+	nextLine(m.startPos);
+	std::cout << "Адрес числа a = " << pa << " и адрес б = " << pb;
+	nextLine(m.startPos, 2);
+	std::cout << "А теперь меняем их местами";
+	int temp = *pa;
+	*pa = *pb;
+	*pb = temp;
+	nextLine(m.startPos, 2);
+	std::cout << "Теперь значение числа a = " << *pa << " а  б = " << *pb;
+	nextLine(m.startPos);
+	std::cout << "Адрес числа a = " << pa << " и адрес б = " << pb;
 	endTask(m);
 }
 void task7(Menu m) {
+	int ma[]{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }; // Изначальный массив
+	int sizeArr = sizeof(ma) / sizeof(ma[0]); // Размер начального массива
+	setCursorPosition(m.startPos);
+	std::cout << "Содержание массива: ";
+	nextLine(m.startPos);
+	show(ma, sizeArr);
+	nextLine(m.startPos);
+	std::cout << "Сумма массива = " << getSumRange(ma, sizeArr);
+
 	endTask(m);
 }
 

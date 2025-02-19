@@ -24,6 +24,12 @@ int getSumRange(int arr[], int i, int j) {
         return arr[i];
     return arr[j] + getSumRange(arr, i, j - 1);
 }
+int getSumRange(int* arr, int size) {
+    int* end = arr + size;
+    int result = 0;
+    for (; arr != end; result += *arr, arr++);
+    return result;
+}
 
 int getSumRangeArr(int arr[], int size, int i, int j) {
     if (i > j)

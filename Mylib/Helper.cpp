@@ -1,12 +1,13 @@
 
 #include <iostream>
 #include "Header.h"
+#include <limits>
 
 
 bool clearCinOnError() {
     if (std::cin.fail()) {
         std::cin.clear();
-       // std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        ///std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         return true; // Ошибка была
     }
     return false; // Ошибки нет
