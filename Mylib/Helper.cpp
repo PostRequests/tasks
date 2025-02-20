@@ -28,7 +28,7 @@ int getValidInt(const char p[]) {
 }
 
 void gitPush(const char* text) {
-    system("git add .");
+    system("git add .>nul");
     char gitText[] = "git commit -m \"";
     char* temp = new char[getCharLen(gitText) + getCharLen(text) + 2];
     copyStr(temp, gitText);
