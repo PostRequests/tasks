@@ -88,6 +88,19 @@ int* findMin(int* a, int* b) {
     return (*a < *b) ? a : b;
 }
 
+int getNegativeCount(int* arr, int size) {
+    int count = 0;
+    for (int i = 0; i < size; i++) if (arr[i] < 0) count++;
+    return count;
+}
+
+
+int getPositiveCount(int* arr, int size) {
+    int count = 0;
+    for (int i = 0; i < size; i++) if (arr[i] > 0) count++;
+    return count;
+}
+
 void randIntArr(int arr[], int size, int min, int max) {
     static bool firstCall = true;
     if (firstCall) {
@@ -97,22 +110,79 @@ void randIntArr(int arr[], int size, int min, int max) {
     for (int i = 0; i < size; i++)
         arr[i] = rand() % (max - min + 1) + min;
 }
+int* getRepeatedElements(int* arr1, int size1, int* arr2, int size2, int repeated) {
+    int* newArr = new int[repeated];
+    int* temp = newArr;
+    for (int a = 0; a < size1; a++) {
+        bool isUnique = true;
 
-int getUniqueCount(int* A, int M, int* B, int N) {
+        for (int self = 0; self < a; self++) {
+            if (arr1[a] == arr1[self]) {
+                isUnique = false;
+                break;
+            }
+        }
+        if (!isUnique) continue;
+
+        bool foundInArr2 = false;
+        for (int b = 0; b < size2; b++) {
+            if (arr1[a] == arr2[b]) {
+                foundInArr2 = true;
+                break;
+            }
+        }
+        if (foundInArr2) {
+            *temp = arr1[a];
+            temp++;
+        }
+           
+    }
+
+    return newArr;
+}
+int getRepeatedCount(int* arr1, int size1, int* arr2, int size2) {
+    int repeated = 0;
+
+    for (int a = 0; a < size1; a++) {
+        bool isUnique = true;
+
+        for (int self = 0; self < a; self++) {
+            if (arr1[a] == arr1[self]) {
+                isUnique = false; 
+                break;
+            }
+        }
+        if (!isUnique) continue; 
+
+        bool foundInArr2 = false;
+        for (int b = 0; b < size2; b++) {
+            if (arr1[a] == arr2[b]) {
+                foundInArr2 = true;
+                break;
+            }
+        }
+        if (foundInArr2) repeated++;
+    }
+
+    return repeated;
+}
+
+
+int getUniqueCount(int* arr1, int size1, int* arr2, int size2) {
     int unique = 0;
-    for (int a = 0; a < M; a++) {
+    for (int a = 0; a < size1; a++) {
         bool uniq = true;
         // ѕровер€ем, встречаетс€ ли число в самом себе
-        for (int self = a; self < M; self++) {
-            if (A[a] == A[self] && a != self) {
+        for (int self = a; self < size1; self++) {
+            if (arr1[a] == arr1[self] && a != self) {
                 uniq = false;
                 break;
             }
         }
         if (!uniq) continue;
 
-        for (int b = 0; b < N; b++) {
-            if (A[a] == B[b]) {
+        for (int b = 0; b < size2; b++) {
+            if (arr1[a] == arr2[b]) {
                 uniq = false;
                 break;
             }
@@ -122,27 +192,27 @@ int getUniqueCount(int* A, int M, int* B, int N) {
     return unique;
 }
 
-int* getUniqueElements(int* A, int M, int* B, int N, int unique) {
+int* getUniqueElements(int* arr1, int size1, int* arr2, int size2, int unique) {
     int* C = new int[unique];
     int* temp = C;
-    for (int a = 0; a < M; a++) {
+    for (int a = 0; a < size1; a++) {
         bool uniq = true;
-        for (int self = a; self < M; self++) {
-            if (A[a] == A[self] && a != self) {
+        for (int self = a; self < size1; self++) {
+            if (arr1[a] == arr1[self] && a != self) {
                 uniq = false;
                 break;
             }
         }
         if (!uniq) continue;
 
-        for (int b = 0; b < N; b++) {
-            if (A[a] == B[b]) {
+        for (int b = 0; b < size2; b++) {
+            if (arr1[a] == arr2[b]) {
                 uniq = false;
                 break;
             }
         }
         if (uniq) {
-            *temp = A[a];
+            *temp = arr1[a];
             temp++;
         }
     }

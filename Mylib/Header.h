@@ -33,6 +33,39 @@ int getValidInt(Menu &m, const char text[]);
 /*Calc*/
 
 /// <summary>
+///Считает количество положительных значений в массиве
+/// </summary>
+/// <param name="arr">Массив А</param>
+/// <param name="size">Размер массива А</param>
+/// <returns>Возвращает количество положительных элементов массива</returns>
+int getPositiveCount(int* arr, int size);
+/// <summary>
+///Считает количество отрицательных значений в массиве
+/// </summary>
+/// <param name="arr">Массив А</param>
+/// <param name="size">Размер массива А</param>
+/// <returns>Возвращает количество отрицательных элементов массива</returns>
+int getNegativeCount(int* arr, int size);
+/// <summary>
+/// Возвращает указатель на массив с повторяющимися элементами из двух массивов (Предварительно нужно подсчитать количество повторяющихся элементов)
+/// </summary>
+/// <param name="arr1">Массив А</param>
+/// <param name="size1">Размер массива А</param>
+/// <param name="arr2">Массив B</param>
+/// <param name="size2">Размер массива B</param>
+/// <param name="repeated">количество повторяющихся элементов массива</param>
+/// <returns>Возвращает указатель на массив с повторяющимися элементами из двух массивов</returns>
+int* getRepeatedElements(int* arr1, int size1, int* arr2, int size2, int repeated);
+/// <summary>
+/// Считает количество повторяющихся элементов из 2х массивов
+/// </summary>
+/// <param name="arr1">Массив 1</param>
+/// <param name="size1">Размерность массива 1</param>
+/// <param name="arr2">Массив 2</param>
+/// <param name="size2">Размерность массива 2</param>
+/// <returns>Количество повторяющихся элементов в массиве</returns>
+int getRepeatedCount(int* arr1, int size1, int* arr2, int size2);
+/// <summary>
 /// Склеивает два целочисленных массива в один
 /// </summary>
 /// <param name="arr1">Массив 1</param>

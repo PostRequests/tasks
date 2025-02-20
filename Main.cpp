@@ -131,7 +131,29 @@ void task3(Menu m) {
 /// Даны два массива: А[M] и B[N] (M и N вводятся с клавиатуры). Необходимо создать третий массив минимально возможного размера, в котором нужно собрать общие элементы двух массивов без повторений.
 /// </summary>
 void task4(Menu m) {
-	
+	setCursorPosition(m.startPos);
+	int M = getValidInt(m, "Введите длину первого массива :");
+	nextLine(m.startPos);
+	int N = getValidInt(m, "Введите длину второго массива :");
+	nextLine(m.startPos, 2);
+	int* A = new int[M];
+	int* B = new int[N];
+	int randA = 1;
+	int randB = 10;
+	std::cout << "Было сгенерировано 2 массива случайными числами от "
+		<< randA << " до " << randB;
+	randIntArr(A, M, randA, randB);
+	randIntArr(B, N, randA, randB);
+	nextLine(m.startPos);
+	std::cout << "A = ";
+	show(A, M);
+	nextLine(m.startPos);
+	std::cout << "B = ";
+	show(B, N);
+	nextLine(m.startPos);
+	int L = getRepeatedCount(A, M, B, N);
+	int* C = getRepeatedElements(A, M, B, N, L);
+	show(C, L);
 	endTask(m);
 }
 /// <summary>
@@ -158,9 +180,9 @@ void task7(Menu m) {
 
 int main()
 {
-	gitPush("Задание 2: Готово");
+	
 	system("chcp 1251>nul");
-
+	gitPush("Задание 4: Готово");
 
 
 	//startMenu();
