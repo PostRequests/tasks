@@ -33,6 +33,15 @@ int getValidInt(Menu &m, const char text[]);
 /*Calc*/
 
 /// <summary>
+/// Склеивает два целочисленных массива в один
+/// </summary>
+/// <param name="arr1">Массив 1</param>
+/// <param name="size1">Размерность массива 1</param>
+/// <param name="arr2">Массив 2</param>
+/// <param name="size2">Размерность массива 2</param>
+/// <returns>Указатель на 2 склеенных массива в один</returns>
+int* joinArrays(int* arr1, int size1, int* arr2, int size2);
+/// <summary>
 /// Возвращает указатель на массив с уникальными элементами из двух массивов (Предварительно нужно подсчитать количество уникальных элементов)
 /// </summary>
 /// <param name="A">Массив А</param>

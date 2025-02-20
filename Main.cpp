@@ -33,37 +33,62 @@ void task1(Menu m) {
 	int* C = getUniqueElements(A, M, B, N, L);
 	nextLine(m.startPos);
 	show(C, L);
-	delete[] C;
 	nextLine(m.startPos);
 	std::cout << "Уникальные элементы массива B которые не встречаются в массиве A:";
-	L = getUniqueCount(B, N, A, M);
-	C  = getUniqueElements(B, N, A, M, L);
+	int L2 = getUniqueCount(B, N, A, M);
+	int* C2  = getUniqueElements(B, N, A, M, L2);
 	nextLine(m.startPos);
-	show(C, L);
+	show(C2, L2);
 
 	delete[] A;
 	delete[] B;
 	delete[] C;
-
+	delete[] C2;
 	endTask(m);
 }
 /// <summary>
 /// Даны два массива: А[M] и B[N] (M и N вводятся с клавиатуры). Необходимо создать третий массив минимально возможного размера, в котором нужно собрать элементы массивов A и B, которые не являются общими для них, без повторений.
 /// </summary>
 void task2(Menu m) {
-	int ma[]{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }; // Изначальный массив
-	int sizeArr = sizeof(ma) / sizeof(ma[0]); // Размер начального массива
-	
 	setCursorPosition(m.startPos);
-	std::cout << "Содержание изначального массива: ";
+	int M = getValidInt(m, "Введите длину первого массива :");
 	nextLine(m.startPos);
-	show(ma, sizeArr);
+	int N = getValidInt(m, "Введите длину второго массива :");
+	nextLine(m.startPos, 2);
+	int* A = new int[M];
+	int* B = new int[N];
+	int randA = 0;
+	int randB = 10;
+	std::cout << "Было сгенерировано 2 массива случайными числами от "
+		<< randA << " до " << randB;
+	randIntArr(A, M, randA, randB);
+	randIntArr(B, N, randA, randB);
 	nextLine(m.startPos);
-	std::cout << "Теперь мы его перевернули ";
-	/*Функция решения задания*/
-	reverseNumArr(ma, sizeArr);
+	std::cout << "A = ";
+	show(A, M);
 	nextLine(m.startPos);
-	show(ma, sizeArr);
+	std::cout << "B = ";
+	show(B, N);
+	nextLine(m.startPos);
+	std::cout << "Уникальные элементы массива которые не повторяются:";
+	int L = getUniqueCount(A, M, B, N);
+	int* C = getUniqueElements(A, M, B, N, L);
+	
+	int L2 = getUniqueCount(B, N, A, M);
+	int* C2 = getUniqueElements(B, N, A, M, L2);
+
+	int L3 = L + L2;
+	int* D = joinArrays(C,L,C2,L2);
+	nextLine(m.startPos);
+	show(D, L3);
+
+
+	delete[] A;
+	delete[] B;
+	delete[] C;
+	delete[] C2;
+	delete[] D;
+
 	endTask(m);
 
 }
@@ -71,26 +96,7 @@ void task2(Menu m) {
 /// Даны два массива: А[M] и B[N] (M и N вводятся с клавиатуры). Необходимо создать третий массив минимально возможного размера, в котором нужно собрать элементы обоих массивов.
 /// </summary>
 void task3(Menu m) {
-	int ma[]{ 1, 2, 4, 5, 6, 7, 8, 9, 10, 11 }; // Изначальный массив
-	int sizeArr = sizeof(ma) / sizeof(ma[0]); // Размер начального массива
-	int* pm = new int[sizeArr]; // Новый указатель на массив
-	setCursorPosition(m.startPos);
-	std::cout << "Адрес изначального массива = " << &ma;
-	nextLine(m.startPos);
-	std::cout << "Содержание изначального массива: ";
-	nextLine(m.startPos);
-	show(ma, sizeArr);
-	nextLine(m.startPos, 2);
-	std::cout << "Адрес копии массива = " << pm;
-	nextLine(m.startPos);
-	std::cout << "Содержание копированного и перевернутого массива: ";
-	nextLine(m.startPos);
-	/*Функция решения задания*/
-	copyReverseNumArr(pm, ma, sizeArr);
-	show(pm, sizeArr);
 
-	delete[] pm;
-	pm = nullptr;
 	endTask(m);
 
 }
@@ -178,6 +184,6 @@ int main()
 
 	//startMenu();
 
-	gitPush("Задание 1: Готово");
+	gitPush("Задание 2: Готово");
 }
 

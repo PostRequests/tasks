@@ -148,3 +148,13 @@ int* getUniqueElements(int* A, int M, int* B, int N, int unique) {
     }
     return C;
 }
+
+int* joinArrays(int* arr1, int size1, int* arr2, int size2) {
+    int* result = new int[size1 + size2];
+    int* start = result;
+    for (int i = 0; i < size1; i++, start++)
+        *start = arr1[i];
+    for (int i = 0; i < size2; i++, start++)
+        *start = arr2[i];
+    return result;
+}
