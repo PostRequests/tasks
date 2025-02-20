@@ -29,7 +29,7 @@ void gitPush(const char* text);
 /// <param name="p">Сообщение, которое будет выведено пользователю для запроса ввода.</param>
 /// <returns>Возвращает корректно введенное целое число.</returns>
 /// /// <param name="m">Структура меню</param>
-int getValidInt(Menu &m, const char text[]);
+int getValidInt(TaskStructure &m, const char text[]);
 /*Calc*/
 
 /// <summary>
@@ -487,10 +487,19 @@ char catchKey();
 /*Task Menu*/
 
 /// <summary>
+/// Конструктор структуры меню
+/// </summary>
+/// <param name="startPos">Координаты левого верхнего угла меню</param>
+/// <param name="countMenu">Количество элементов меню</param>
+/// <param name="elemMenu">Ссылка на массив меню</param>
+/// <param name="n">Текущий, выбранный элемент меню</param>
+/// <returns>Возвращает созданное меню</returns>
+Menu constructMenu(Coordinate startPos, int countMenu, const char* elemMenu[], int n);
+/// <summary>
 /// Очищает все указатели в меню
 /// </summary>
 /// <param name="m">Структура меню</param>
-void clearMenu(Menu& m);
+void clearMenu(TaskStructure& m);
 /// <summary>
 /// Непосредственно функция зацикливающая работу с меню
 /// </summary>
@@ -499,7 +508,7 @@ void startMenu();
 /// Задает первоначальные данные в консоль
 /// </summary>
 /// <param name="m">Структура меню</param>
-void constructMenu(Menu& m);
+void constructMenu(TaskStructure& m);
 /// <summary>
 /// Позволяет установить координаты для структуры координат
 /// </summary>
@@ -507,6 +516,11 @@ void constructMenu(Menu& m);
 /// <param name="y">Координаты по y</param>
 /// <returns>Координаты с параметрами x и y</returns>
 Coordinate setCoordinate(int x, int y);
+/// <summary>
+/// Печатает элементы меню на экране
+/// </summary>
+/// <param name="m">Структура меню</param>
+void showItemMenu(TaskStructure m);
 /// <summary>
 /// Печатает элементы меню на экране
 /// </summary>
@@ -522,34 +536,45 @@ void nextLine(Coordinate& xy, int howeMach = 1);
 /// Завершение программы task
 /// </summary>
 /// <param name="m"></param>
-void endTask(Menu& m);
+void endTask(TaskStructure& m);
 /// <summary>
 /// Рисует на экране целиком все элементы меню
 /// </summary>
 /// <param name="m">Структура меню</param>
-void showMenu(const Menu m);
+void showMenu(const TaskStructure m);
 
-void task1(Menu);
+void task1(TaskStructure);
 
-void task2(Menu);
+void task2(TaskStructure);
 
-void task3(Menu);
+void task3(TaskStructure);
 
-void task4(Menu);
+void task4(TaskStructure);
 
-void task5(Menu);
+void task5(TaskStructure);
 
-void task6(Menu);
+void task6(TaskStructure);
 
-void task7(Menu);
+void task7(TaskStructure);
 /// <summary>
 /// Изменяет номер элемента бокового меню и перерисовывает его
 /// </summary>
 /// <param name="m">Структура меню</param>
 /// <param name="direction">Направление w - Вверх, s - Вниз</param>
-void changeItemMenu(Menu &m, char direction);
+void changeItemMenu(TaskStructure &m, char direction);
 /// <summary>
 /// Печатает текст задачи
 /// </summary>
 /// <param name="m">Структура меню</param>
-void showTextMenu(Menu &m);
+void showTextMenu(TaskStructure &m);
+/// <summary>
+/// Анимирует перемещение по меню
+/// </summary>
+/// <param name="m">Структура меню</param>
+/// <returns>Возвращает номер элемента выбранного в меню</returns>
+int scrollMenu(Menu m);
+/// <summary>
+/// Очищает указатели в меню
+/// </summary>
+/// <param name="m">Структура меню</param>
+void clearMenu(Menu& m);

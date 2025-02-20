@@ -4,7 +4,7 @@
 
 void startMenu() {
 	FullScreenMode();
-	Menu menu;
+	TaskStructure menu;
 	constructMenu(menu);
 	showMenu(menu);
 	
@@ -45,7 +45,7 @@ void startMenu() {
 	clearMenu(menu);
 }
 
-void clearMenu(Menu &m) {
+void clearMenu(TaskStructure &m) {
 	for (int i = 0; i < m.countMenu; i++) {
 		delete[] m.tNames[i];
 		delete[] m.textTasks[i];
@@ -62,10 +62,28 @@ void clearMenu(Menu &m) {
 	m.head = nullptr;
 	m.theme = nullptr;
 }
-void constructMenu() {
-	return;
+void clearMenu(Menu& m) {
+	for (int i = 0; i < m.countMenu; i++) {
+		delete[] m.elemMenu[i];
+	}
+	delete[] m.elemMenu;
+	m.elemMenu = nullptr;
 }
-void constructMenu(Menu &m) {
+Menu constructMenu(Coordinate startPos, int countMenu, const char* elemMenu[], int n) {
+	Menu m;
+	m.startPos = startPos;//Координаты начала места печати меню
+	m.countMenu = countMenu; //Количество элементов в меню
+
+	m.elemMenu = new char*[countMenu];//Элементы меню
+	for (int i = 0; i < countMenu; i++)
+	{
+		m.elemMenu[i] = new char[getCharLen(elemMenu[i]) + 1];
+		copyStr(m.elemMenu[i], elemMenu[i]);
+	}
+	m.n = n; //Номер выбранного элемента меню
+	return m;
+}
+void constructMenu(TaskStructure &m) {
 	/*Изменяемые поля*/
 	m.countMenu = 7;//8й элемент выход
 	char h[] = "Домашняя работа № 20";
@@ -116,7 +134,27 @@ Coordinate setCoordinate(int x, int y) {
 	return result;
 }
 
-void showItemMenu(Menu m) {
+int scrollMenu(Menu m) {
+	showItemMenu(m);
+	while (true)
+	{
+		char key = catchKey();
+		if (key == 's') {
+			(m.n - 1 == -1) ? m.n = m.countMenu - 1 : m.n -= 1;
+			showItemMenu(m);
+		}
+		else if (key == 'w') {
+			(m.n + 1 == m.countMenu) ? m.n = 0 : m.n += 1;
+			showItemMenu(m);
+		}
+		else if (key == 13) {
+			return m.n;
+		}
+			
+	}
+}
+
+void showItemMenu(TaskStructure m) {
 	ColorANSI3b color;
 	setCursorPosition(3, 7);
 	for (int i = 0; i < m.countMenu; i++) {
@@ -127,8 +165,19 @@ void showItemMenu(Menu m) {
 	showTextMenu(m);
 	return;
 }
+void showItemMenu(Menu m) {
+	ColorANSI3b color;
+	setCursorPosition(m.startPos);
+	for (int i = 0; i < m.countMenu; i++) {
+		if (m.n == i) setColor(color.WhiteBG, color.BlackFG);
+		setCursorPosition({ m.startPos.x,  ++m.startPos.y });
+		std::cout  << m.elemMenu[i] << "  ";
+		if (m.n == i) resetColor();
+	}
+	return;
+}
 
-void showTextMenu(Menu &m) {
+void showTextMenu(TaskStructure &m) {
 	ColorANSI3b color;
 	drawEmptyRectangle(16, 9, 15, m.cS.x - 17);
 	int maxLineLength = m.cS.x - 17; // Максимальная длина строки
@@ -158,7 +207,7 @@ void showTextMenu(Menu &m) {
 	}
 }
 
-void showMenu(const Menu m) {
+void showMenu(const TaskStructure m) {
 	system("CLS");
 
 	Coordinate cHead = setCoordinate(m.cS.x / 2 - (getCharLen(m.head) / 2), 2);
@@ -182,7 +231,7 @@ void showMenu(const Menu m) {
 	std::cout << '\n';
 }
 
-void changeItemMenu(Menu &m, char direction) {
+void changeItemMenu(TaskStructure &m, char direction) {
 	if (direction == 'w') 
 		(m.n - 1 == -1) ? m.n = m.countMenu - 1 : m.n -= 1;
 	else if (direction == 's')
@@ -191,7 +240,7 @@ void changeItemMenu(Menu &m, char direction) {
 }
 
 
-void endTask(Menu& m) {
+void endTask(TaskStructure& m) {
 	setCursorPosition(m.startPos.x, ++m.startPos.y);
 	system("pause");
 	showItemMenu(m);

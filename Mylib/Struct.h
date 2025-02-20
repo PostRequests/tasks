@@ -4,13 +4,13 @@ struct Coordinate {
     int y; //Строка
 };
 
-struct menuInMenu {
+struct Menu {
     Coordinate startPos;//Координаты начала места печати меню
     int countMenu; //Количество элементов в меню
-    char* elemMenu = nullptr;//Элементы меню
+    char** elemMenu = nullptr;//Элементы меню
     int n; //Номер выбранного элемента меню
 };
-struct Menu
+struct TaskStructure
 {
     Coordinate cS;//Координаты крайней правой нижней точки консоли
     char* head = nullptr;//Заголовок с номером домашней работы

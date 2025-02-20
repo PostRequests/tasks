@@ -6,7 +6,7 @@
 /// <summary>
 /// Даны два массива: А[M] и B[N] (M и N вводятся с клавиатуры). Необходимо создать третий массив минимально возможного размера, в котором нужно собрать элементы массива A, которые не включаются в массив B, без повторений.
 /// </summary>
-void task1(Menu m) {
+void task1(TaskStructure m) {
 	
 	setCursorPosition(m.startPos);
 	int M = getValidInt(m, "Введите длину первого массива :");
@@ -49,7 +49,7 @@ void task1(Menu m) {
 /// <summary>
 /// Даны два массива: А[M] и B[N] (M и N вводятся с клавиатуры). Необходимо создать третий массив минимально возможного размера, в котором нужно собрать элементы массивов A и B, которые не являются общими для них, без повторений.
 /// </summary>
-void task2(Menu m) {
+void task2(TaskStructure m) {
 	setCursorPosition(m.startPos);
 	int M = getValidInt(m, "Введите длину первого массива :");
 	nextLine(m.startPos);
@@ -95,7 +95,7 @@ void task2(Menu m) {
 /// <summary>
 /// Даны два массива: А[M] и B[N] (M и N вводятся с клавиатуры). Необходимо создать третий массив минимально возможного размера, в котором нужно собрать элементы обоих массивов.
 /// </summary>
-void task3(Menu m) {
+void task3(TaskStructure m) {
 	setCursorPosition(m.startPos);
 	int M = getValidInt(m, "Введите длину первого массива :");
 	nextLine(m.startPos);
@@ -130,7 +130,7 @@ void task3(Menu m) {
 /// <summary>
 /// Даны два массива: А[M] и B[N] (M и N вводятся с клавиатуры). Необходимо создать третий массив минимально возможного размера, в котором нужно собрать общие элементы двух массивов без повторений.
 /// </summary>
-void task4(Menu m) {
+void task4(TaskStructure m) {
 	setCursorPosition(m.startPos);
 	int M = getValidInt(m, "Введите длину первого массива :");
 	nextLine(m.startPos);
@@ -162,7 +162,7 @@ void task4(Menu m) {
 /// <summary>
 /// Дан массив: А[M] (M вводится с клавиатуры). Необходимо удалить из массива четные или нечетные значения. Пользователь вводит данные в массив, а также с помощью меню решает, что нужно удалить.
 /// </summary>
-void task5(Menu m) {
+void task5(TaskStructure m) {
 	setCursorPosition(m.startPos);
 	int M = getValidInt(m, "Введите длину массива :");
 	nextLine(m.startPos);
@@ -176,22 +176,33 @@ void task5(Menu m) {
 	std::cout << "A = ";
 	show(A, M);
 	nextLine(m.startPos);
-	deleteNegativeElement(A, M);
-	show(A, M);
 
+	/*Создаем меню*/
+	int countMenu = 2;
+	const char* elemMenu[] = { "Удалить положительные", "Удалить отрицательные" };
+	Menu menu = constructMenu( m.startPos, countMenu, elemMenu, 0);
+	
+	int nMenu = scrollMenu(menu);
+	clearMenu(menu);
+	nextLine(m.startPos, countMenu+1);
+	if (nMenu == 0) deletePositiveElement(A, M);
+	if (nMenu == 1) deleteNegativeElement(A, M);
+	std::cout << "Теперь массив выглядит так:";
+	nextLine(m.startPos);
+	show(A, M);
 	endTask(m);
 }
 /// <summary>
 /// Написать функцию, которая получает указатель на динамический массив и его размер. Функция должна удалить из массива все простые числа и вернуть указатель на новый динамический массив.
 /// </summary>
-void task6(Menu m) {
+void task6(TaskStructure m) {
 	
 	endTask(m);
 }
 /// <summary>
 /// 
 /// </summary>
-void task7(Menu m) {
+void task7(TaskStructure m) {
 	
 	endTask(m);
 }
@@ -200,7 +211,7 @@ int main()
 {
 	
 	system("chcp 1251>nul");
-	gitPush("Копия перед глобальной переделки");
+	gitPush("Задание 5: Готово");
 
 
 	//startMenu();

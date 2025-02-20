@@ -26,7 +26,7 @@ int getValidInt(const char p[]) {
             std::cout << "Число введено некорректно! Пожалуйста, попробуйте снова.\n";
     }
 }
-int getValidInt(Menu &m, const char text[]) {
+int getValidInt(TaskStructure &m, const char text[]) {
     ColorANSI3b color;
     Coordinate pos = m.startPos;
     char numb[11];
