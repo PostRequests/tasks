@@ -37,7 +37,7 @@
       <Filter>Исходные файлы\MyLib</Filter>
     </ClCompile>
     <ClCompile Include="Mylib\TasksMenu.cpp">
-      <Filter>Исходные файлы\MyLib</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
