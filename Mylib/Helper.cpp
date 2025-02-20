@@ -36,6 +36,7 @@ void gitPush(const char* text) {
     addStr(temp, "\"");
     std::cout << temp;
     system(temp);
-    system("git push>nul");
+    system("git push");
+    system("git status");
     delete[] temp;
 }
