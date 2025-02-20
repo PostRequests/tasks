@@ -196,7 +196,20 @@ void task5(TaskStructure m) {
 /// Написать функцию, которая получает указатель на динамический массив и его размер. Функция должна удалить из массива все простые числа и вернуть указатель на новый динамический массив.
 /// </summary>
 void task6(TaskStructure m) {
-	
+	setCursorPosition(m.startPos);
+	std::cout << "Я придумал за вас динамический массив с простыми числами:";
+	int sizeA = 10;
+	int* a = new int[sizeA];//Динамический массив
+	for (int i = 0; i < sizeA; i++)
+		a[i] = i + 1;
+	nextLine(m.startPos);
+	show(a, sizeA);
+	nextLine(m.startPos);
+	std::cout << "Теперь я удалил из него простые числа:";
+	nextLine(m.startPos);
+	deletePrimeElement(a, sizeA);
+	show(a, sizeA);
+	delete[] a;
 	endTask(m);
 }
 /// <summary>
@@ -207,13 +220,13 @@ void task7(TaskStructure m) {
 	endTask(m);
 }
 
+
 int main()
 {
 	
 	system("chcp 1251>nul");
-	gitPush("Задание 5: Готово");
-
-
+	gitPush("Задание 6: Готово");
+	
 	//startMenu();
 
 	

@@ -33,6 +33,32 @@ int getValidInt(TaskStructure &m, const char text[]);
 /*Calc*/
 
 /// <summary>
+/// Считает количество не простых элементов в массиве
+/// </summary>
+/// <param name="arr">Массив который анализируем</param>
+/// <param name="size">Размер массива</param>
+/// <returns>Возвращает количество найденных не простых чисел</returns>
+int getCountNoPrime(int* arr, int size);
+/// <summary>
+/// Считает количество простых элементов в массиве
+/// </summary>
+/// <param name="arr">Массив который анализируем</param>
+/// <param name="size">Размер массива</param>
+/// <returns>Возвращает количество найденных простых чисел</returns>
+int getCountPrime(int* arr, int size);
+/// <summary>
+/// Проверяет являться ли число простым
+/// </summary>
+/// <param name="num">Проверяемое число</param>
+/// <returns>Возвращает true если число простое</returns>
+bool isPrime(int num);
+/// <summary>
+/// Удаляет простые числа из массива
+/// </summary>
+/// <param name="arr">Массив А</param>
+/// <param name="size">Размер массива А</param>
+void deletePrimeElement(int*& arr, int& size);
+/// <summary>
 /// Удаляет положительные числа из массива
 /// </summary>
 /// <param name="arr">Массив А</param>
