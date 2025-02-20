@@ -49,8 +49,32 @@ void copyStr(char* a, const char* b) {
     for (; (*a = *b); a++, b++);
 }
 
+void addStr(char* a, const char* b) {
+    while (*a) a++;
+    copyStr(a, b);
+}
+
 int getLengthNextWord(char* t) {
     int len = 0; // Вычисляемая длинна слова до пробела или конца текста
     for (; *t && *t != ' '; len++, t++);
     return len;
+}
+
+bool includeContainsOnly(char* text, const char* content) {
+    if (!*text) return false;
+    for (; (*text); text++) {
+        bool include = false;
+        for (const char* c = content; *c; c++) {
+            if (*c == *text) {
+                include = true;
+                break;
+            }
+        }
+        if (!include) return false;
+    }
+    return true;
+}
+
+bool isNumber(char* text) {
+    return includeContainsOnly(text, "1234567890-");
 }

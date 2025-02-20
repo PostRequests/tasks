@@ -18,6 +18,11 @@ bool clearCinOnError();
 /// <param name="p">Сообщение, которое будет выведено пользователю для запроса ввода.</param>
 /// <returns>Возвращает корректно введенное целое число.</returns>
 int getValidInt(const char p[]);
+/// <summary>
+/// Отправляет обновление в git hub
+/// </summary>
+/// <param name="text">Текст комментария</param>
+void gitPush(const char* text);
 
 /*Calc*/
 
@@ -244,6 +249,25 @@ void copyStr(char* copy, const char* orig);
 /// <param name="t">Указатель на начальную точку поиска слова</param>
 /// <returns>Возвращает количество символов в ближайшем слове</returns>
 int getLengthNextWord(char* t);
+/// <summary>
+/// Проверяет, содержит ли text только элементы из content
+/// </summary>
+/// <param name="text">Проверяемый текст</param>
+/// <param name="content">Разрешённые символы</param>
+/// <returns>True, если все символы из text присутствуют в content, иначе false</returns>
+bool includeContainsOnly(char* text, const char* content);
+/// <summary>
+///  Проверяет, может ли текст превратиться в целочисленное число
+/// </summary>
+/// <param name="text">Проверяемый текст</param>
+/// <returns>Возвращает true если text содержит символы "1234567890-"</returns>
+bool isNumber(char* text);
+/// <summary>
+/// Вставляет текст в конец, если достаточно памяти
+/// </summary>
+/// <param name="a">Текст в который вставляем</param>
+/// <param name="b">Текст который вставляем</param>
+void addStr(char* a, const char* b);
 
 /*Win*/
 

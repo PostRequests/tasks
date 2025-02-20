@@ -26,3 +26,16 @@ int getValidInt(const char p[]) {
             std::cout << "Число введено некорректно! Пожалуйста, попробуйте снова.\n";
     }
 }
+
+void gitPush(const char* text) {
+    system("git add .");
+    char gitText[] = "git commit -m \"";
+    char* temp = new char[getCharLen(gitText) + getCharLen(text) + 2];
+    copyStr(temp, gitText);
+    addStr(temp, text);
+    addStr(temp, "\"");
+    std::cout << temp;
+    system(temp);
+    system("git push");
+    delete[] temp;
+}

@@ -33,15 +33,15 @@ void task1(Menu m) {
 void task2(Menu m) {
 	int ma[]{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }; // Изначальный массив
 	int sizeArr = sizeof(ma) / sizeof(ma[0]); // Размер начального массива
-	/*Функция решения задания*/
-	reverseNumArr(ma, sizeArr);
+	
 	setCursorPosition(m.startPos);
 	std::cout << "Содержание изначального массива: ";
 	nextLine(m.startPos);
 	show(ma, sizeArr);
 	nextLine(m.startPos);
 	std::cout << "Теперь мы его перевернули ";
-	
+	/*Функция решения задания*/
+	reverseNumArr(ma, sizeArr);
 	nextLine(m.startPos);
 	show(ma, sizeArr);
 	endTask(m);
@@ -94,14 +94,27 @@ void task4(Menu m) {
 /// </summary>
 void task5(Menu m) {
 	Coordinate pos = m.startPos;
-	int num;
-	int* pNum = &num;
+	ColorANSI3b color;
+	char text[12];
+	char* pt = text;
 	setCursorPosition(pos);
-	std::cout << "Введите число: ";
-	std::cin >> *pNum;
-
+	while (true) {
+		std::cout << "Введите число: ";
+		std::cin >> text;
+		if (isNumber(text))
+			break;
+		else {
+			drawEmptyRectangle(16, 9, 3, m.cS.x - 17);
+			pos = m.startPos;
+			setCursorPosition(pos);
+			setColor(color.RedFG);
+			std::cout << "Число введено некорректно! Пожалуйста, попробуйте снова.";
+			resetColor();
+			nextLine(pos);
+		}
+	}
 	nextLine(pos);
-	std::cout << "Ваше число " << ((*pNum < 0) ? "отрицательное" : "положительное");
+	std::cout << "Ваше число " << ((*pt == '-') ? "отрицательное" : "положительное");
 	m.startPos = pos;
 	endTask(m);
 }
@@ -124,9 +137,9 @@ void task6(Menu m) {
 	*pa = *pb;
 	*pb = temp;
 	nextLine(m.startPos, 2);
-	std::cout << "Теперь значение числа a = " << *pa << " а  б = " << *pb;
+	std::cout << "Теперь значение числа A = " << *pa << " а  B = " << *pb;
 	nextLine(m.startPos);
-	std::cout << "Адрес числа a = " << pa << " и адрес б = " << pb;
+	std::cout << "Адрес числа A = " << pa << " и адрес B = " << pb;
 	endTask(m);
 }
 /// <summary>
@@ -148,6 +161,7 @@ void task7(Menu m) {
 int main()
 {
 	system("chcp 1251>nul");
-	startMenu();
+	gitPush("Коментарий");
+	//startMenu();
 }
 
