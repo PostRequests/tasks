@@ -154,13 +154,31 @@ void task4(Menu m) {
 	int L = getRepeatedCount(A, M, B, N);
 	int* C = getRepeatedElements(A, M, B, N, L);
 	show(C, L);
+	delete[] A;
+	delete[] B;
+	delete[] C;
 	endTask(m);
 }
 /// <summary>
 /// Дан массив: А[M] (M вводится с клавиатуры). Необходимо удалить из массива четные или нечетные значения. Пользователь вводит данные в массив, а также с помощью меню решает, что нужно удалить.
 /// </summary>
 void task5(Menu m) {
-	
+	setCursorPosition(m.startPos);
+	int M = getValidInt(m, "Введите длину массива :");
+	nextLine(m.startPos);
+	int* A = new int[M];
+	int randA = -10;
+	int randB = 10;
+	std::cout << "Было сгенерировано массив случайными числами от "
+		<< randA << " до " << randB;
+	randIntArr(A, M, randA, randB);
+	nextLine(m.startPos);
+	std::cout << "A = ";
+	show(A, M);
+	nextLine(m.startPos);
+	deleteNegativeElement(A, M);
+	show(A, M);
+
 	endTask(m);
 }
 /// <summary>
@@ -182,7 +200,7 @@ int main()
 {
 	
 	system("chcp 1251>nul");
-	gitPush("Задание 4: Готово");
+	gitPush("Копия перед глобальной переделки");
 
 
 	//startMenu();

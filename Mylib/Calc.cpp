@@ -88,11 +88,39 @@ int* findMin(int* a, int* b) {
     return (*a < *b) ? a : b;
 }
 
+void deletePositiveElement(int*& arr, int& size) {
+    int newSize = getNegativeCount(arr, size);
+    int* newArr = new int[newSize];
+    int* start = newArr;
+    for (int i = 0; i < size; i++)
+        if (arr[i] < 0) {
+            *start = arr[i];
+            start++;
+        }
+    delete[] arr;
+    size = newSize;
+    arr = newArr;
+}
+
+void deleteNegativeElement(int* &arr, int& size) {
+    int newSize = getPositiveCount(arr, size);
+    int* newArr = new int[newSize];
+    int* start = newArr;
+    for (int i = 0; i < size; i++) 
+        if (arr[i] > 0) {
+            *start = arr[i];
+            start++;
+        }
+    delete[] arr;
+    size = newSize;
+    arr = newArr;
+}
 int getNegativeCount(int* arr, int size) {
     int count = 0;
     for (int i = 0; i < size; i++) if (arr[i] < 0) count++;
     return count;
 }
+
 
 
 int getPositiveCount(int* arr, int size) {

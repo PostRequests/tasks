@@ -4,6 +4,12 @@ struct Coordinate {
     int y; //Строка
 };
 
+struct menuInMenu {
+    Coordinate startPos;//Координаты начала места печати меню
+    int countMenu; //Количество элементов в меню
+    char* elemMenu = nullptr;//Элементы меню
+    int n; //Номер выбранного элемента меню
+};
 struct Menu
 {
     Coordinate cS;//Координаты крайней правой нижней точки консоли
@@ -12,7 +18,7 @@ struct Menu
     char** tNames = nullptr; //Текст меню
     char** textTasks = nullptr;//Текст задачи
     Coordinate startPos;//Координаты поля для ввода
-    int numTasks; //Количество элементов menu
+    int countMenu; //Количество элементов menu
     int n; //Номер выделенного элемента меню
 
 };

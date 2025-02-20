@@ -33,6 +33,18 @@ int getValidInt(Menu &m, const char text[]);
 /*Calc*/
 
 /// <summary>
+/// Удаляет положительные числа из массива
+/// </summary>
+/// <param name="arr">Массив А</param>
+/// <param name="size">Размер массива А</param>
+void deletePositiveElement(int*& arr, int& size);
+/// <summary>
+/// Удаляет отрицательные числа из массива
+/// </summary>
+/// <param name="arr">Массив А</param>
+/// <param name="size">Размер массива А</param>
+void deleteNegativeElement(int* &arr, int& size);
+/// <summary>
 ///Считает количество положительных значений в массиве
 /// </summary>
 /// <param name="arr">Массив А</param>
