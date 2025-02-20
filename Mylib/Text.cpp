@@ -78,3 +78,15 @@ bool includeContainsOnly(char* text, const char* content) {
 bool isNumber(char* text) {
     return includeContainsOnly(text, "1234567890-");
 }
+
+int strToInt(char* num) {
+    int result = 0;//Результат функции
+    int multiplier = 1; //Множитель
+    bool isNegative = (*num == '-') ? true : false;
+    if (isNegative) num++;
+    char* end = num + getCharLen(num) - 1;
+    for (; end != num-1; end--, multiplier *= 10) {
+        result += (*end - '0') * multiplier;
+    }
+    return ((isNegative) ? -result : result);
+}

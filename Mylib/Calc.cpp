@@ -87,3 +87,64 @@ int* findMax(int* a, int* b) {
 int* findMin(int* a, int* b) {
     return (*a < *b) ? a : b;
 }
+
+void randIntArr(int arr[], int size, int min, int max) {
+    static bool firstCall = true;
+    if (firstCall) {
+        srand(time(0));
+        firstCall = false;
+    }
+    for (int i = 0; i < size; i++)
+        arr[i] = rand() % (max - min + 1) + min;
+}
+
+int getUniqueCount(int* A, int M, int* B, int N) {
+    int unique = 0;
+    for (int a = 0; a < M; a++) {
+        bool uniq = true;
+        // ѕровер€ем, встречаетс€ ли число в самом себе
+        for (int self = a; self < M; self++) {
+            if (A[a] == A[self] && a != self) {
+                uniq = false;
+                break;
+            }
+        }
+        if (!uniq) continue;
+
+        for (int b = 0; b < N; b++) {
+            if (A[a] == B[b]) {
+                uniq = false;
+                break;
+            }
+        }
+        if (uniq) unique++;
+    }
+    return unique;
+}
+
+int* getUniqueElements(int* A, int M, int* B, int N, int unique) {
+    int* C = new int[unique];
+    int* temp = C;
+    for (int a = 0; a < M; a++) {
+        bool uniq = true;
+        for (int self = a; self < M; self++) {
+            if (A[a] == A[self] && a != self) {
+                uniq = false;
+                break;
+            }
+        }
+        if (!uniq) continue;
+
+        for (int b = 0; b < N; b++) {
+            if (A[a] == B[b]) {
+                uniq = false;
+                break;
+            }
+        }
+        if (uniq) {
+            *temp = A[a];
+            temp++;
+        }
+    }
+    return C;
+}

@@ -54,7 +54,7 @@
       <Filter>Исходные файлы\MyLib</Filter>
     </ClInclude>
     <ClInclude Include="Mylib\Struct.h">
-      <Filter>Исходные файлы\MyLib</Filter>
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

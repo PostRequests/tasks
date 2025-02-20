@@ -23,9 +23,42 @@ int getValidInt(const char p[]);
 /// </summary>
 /// <param name="text">Текст комментария</param>
 void gitPush(const char* text);
-
+/// <summary>
+/// Функция запрашивает у пользователя ввод целого числа и проверяет его на корректность. 
+/// </summary>
+/// <param name="p">Сообщение, которое будет выведено пользователю для запроса ввода.</param>
+/// <returns>Возвращает корректно введенное целое число.</returns>
+/// /// <param name="m">Структура меню</param>
+int getValidInt(Menu &m, const char text[]);
 /*Calc*/
 
+/// <summary>
+/// Возвращает указатель на массив с уникальными элементами из двух массивов (Предварительно нужно подсчитать количество уникальных элементов)
+/// </summary>
+/// <param name="A">Массив А</param>
+/// <param name="M">Размер массива А</param>
+/// <param name="B">Массив B</param>
+/// <param name="N">Размер массива B</param>
+/// <param name="unique">количество уникальных элементов массива</param>
+/// <returns>Возвращает указатель на массив с уникальными элементами из двух массивов</returns>
+int* getUniqueElements(int* A, int M, int* B, int N, int unique);
+/// <summary>
+/// Считает количество уникальных элементов из 2х массивов
+/// </summary>
+/// <param name="A">Массив А</param>
+/// <param name="M">Размер массива А</param>
+/// <param name="B">Массив B</param>
+/// <param name="N">Размер массива B</param>
+/// <returns>Количество уникальных элементов в массиве</returns>
+int getUniqueCount(int* A, int M, int* B, int N);
+/// <summary>
+/// Случайным образом заполняет массив целочисленных значений
+/// </summary>
+/// <param name="arr">Массив для заполнения</param>
+/// <param name="size">Размер массива</param>
+/// <param name="min">Минимальное число для заполнения</param>
+/// <param name="max">Максимальное число для заполнения</param>
+void randIntArr(int arr[], int size, int min, int max);
 /// <summary>
 /// Вычисляет сумму элементов целочисленного массива
 /// </summary>
@@ -268,6 +301,12 @@ bool isNumber(char* text);
 /// <param name="a">Текст в который вставляем</param>
 /// <param name="b">Текст который вставляем</param>
 void addStr(char* a, const char* b);
+/// <summary>
+/// Преобразует текст в число (нужна предварительная проверка bool isNumber(char* text))
+/// </summary>
+/// <param name="num">Текст</param>
+/// <returns>Возвращает преобразованное число из текста</returns>
+int strToInt(char* num);
 
 /*Win*/
 
