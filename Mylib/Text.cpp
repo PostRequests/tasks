@@ -53,7 +53,26 @@ void addStr(char* a, const char* b) {
     while (*a) a++;
     copyStr(a, b);
 }
-
+void deleteSymbol(char*& text, int& size, int pos) {
+    int newSize = size - 1;
+    char* newArr = new char[newSize];
+    char* start = newArr;
+    for (int i = 0; i < size; i++)
+    {
+        if (i == pos) continue;
+        *start = text[i];
+        start++;
+    }
+    delete[] text;
+    size = newSize;
+    text = newArr;
+}
+char* newChars(const char* text, int& size) {
+    size = getCharLen(text) + 1;
+    char* result = new char[size];
+    copyStr(result, text);
+    return result;
+}
 int getLengthNextWord(char* t) {
     int len = 0; // Вычисляемая длинна слова до пробела или конца текста
     for (; *t && *t != ' '; len++, t++);

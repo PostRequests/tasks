@@ -320,6 +320,20 @@ template <typename T, size_t N, size_t M>void sortInsert(T(&a)[N][M]);
 /*Text*/
 
 /// <summary>
+/// Создает новый динамический массив с указанного текста
+/// </summary>
+/// <param name="text">Текст из которого сделать массив символов</param>
+/// <param name="size">Изменяемое значение, в него устанавливается размер массива</param>
+/// <returns>Указатель на созданный массив символов</returns>
+char* newChars(const char* text, int& size);
+/// <summary>
+/// Удаляет символ из указанной строки
+/// </summary>
+/// <param name="text">Строка</param>
+/// <param name="size">Размер строки</param>
+/// <param name="pos">Позиция в строке</param>
+void deleteSymbol(char*& text, int& size, int pos);
+/// <summary>
 /// Определяет длину текста
 /// </summary>
 /// <param name="t">Указатель на первый элемент анализируемого текста</param>
@@ -582,6 +596,8 @@ void task5(TaskStructure);
 void task6(TaskStructure);
 
 void task7(TaskStructure);
+
+void task8(TaskStructure);
 /// <summary>
 /// Изменяет номер элемента бокового меню и перерисовывает его
 /// </summary>
