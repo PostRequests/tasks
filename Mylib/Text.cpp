@@ -62,7 +62,27 @@ int getCharInTextCount(char* text, char symbol) {
     }
     return result;
 }
+void addStr(char*& text, int& size, char* text2, int pos) {
+    int size2 = getCharLen(text2);  // Размер вставляемого текста
+    if (pos < 0 || pos > size) pos = size; // Коррекция позиции вставки
+    int newSize = size + size2;
+    char* newArr = new char[newSize + 1]; 
+    char* start = newArr;
+    for (int i = 0; i < pos; i++) {
+        *start = text[i];
+        start++;
+    }
+    copyStr(start, text2);
+    start += size2;
+    for (int i = pos; i < size; i++) {
+        *start = text[i];
+        start++;
+    }
+    delete[] text;
 
+    size = newSize;
+    text = newArr;
+}
 void deleteCharsInText(char*& text, int& size, char symbol) {
     int newSize = size - getCharInTextCount(text, size);
     char* newArr = new char[newSize];

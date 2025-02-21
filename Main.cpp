@@ -2,6 +2,9 @@
 
 #include <iostream>
 #include "Mylib/Header.h"
+#ifdef max
+#undef max
+#endif
 
 /// <summary>
 /// Написать функцию, которая удаляет из строки символ с заданным номером.
@@ -56,8 +59,41 @@ void task2(TaskStructure m) {
 	endTask(m);
 
 }
-void addSymbol() {
-	return;
+void showWrappedText(TaskStructure& m, char* text) {
+	int maxLineLength = m.cS.x - 30; // Максимальная длина строки
+	int lineBreaks = 0; //Количество переносов строки
+	int currentLineLength = 5;// Количество уже использованных символов в текущей строке
+	Coordinate& s = m.startPos; //Стартовые координаты печати текста
+	setCursorPosition(s.x, s.y);
+	while (*text)
+	{
+		int len = getLengthNextWord(text);
+		currentLineLength += len;
+
+		if (currentLineLength < maxLineLength) {
+			for (int i = 0; i < len; i++)
+				if (*text == '\n') {
+					lineBreaks++;
+					currentLineLength = 0;
+					setCursorPosition(s.x, s.y + lineBreaks);
+					text++;
+				}
+				else
+					std::cout << *text++;
+			while (*text == ' ') {
+				currentLineLength++;
+				std::cout << *text++;
+			}
+		}
+		else {
+			lineBreaks++;
+			currentLineLength = 0;
+			setCursorPosition(s.x, s.y + lineBreaks);
+		}
+	}
+	m.startPos = { s.x, s.y + lineBreaks };
+
+
 }
 /// <summary>
 /// Написать функцию, которая вставляет в строку в указанную позицию заданный символ.
@@ -67,21 +103,22 @@ void task3(TaskStructure m) {
 	std::cout << "Дана строка :";
 	nextLine(m.startPos);
 	int sizeF; //Размер будущего массива
-	char* f = newChars("Еду я по выбоинам, из выбоин не выеду я.", sizeF);
+	char* f = newChars("Я помню чудное ***:\nПередо мной явилась ты,\nКак мимолётное виденье,\nКак гений чистой красоты.", sizeF);
 	nextLine(m.startPos);
-	std::cout << f;
+	showWrappedText(m, f);
 	nextLine(m.startPos, 2);
-	std::cout << "Укажите символ который нужно удалить :";
-	char symbol;
-	std::cin >> symbol;
-
-	nextLine(m.startPos, 2);
-	std::cout << "Теперь строка выглядит вот так :";
-	deleteCharsInText(f, sizeF, symbol);
+	std::cout << "Угадайте что зашифровано под *** :";
+	const int limitSymbol = 100;
+	char str[limitSymbol];
+	std::cin.getline(str, limitSymbol);
+	deleteCharsInText(f, sizeF, '*');
 	nextLine(m.startPos);
-	std::cout << f;
+	std::cout << "Подставляем значение и получаем :";
+	addStr(f, sizeF, str, 15);//Функция для решения задачи
+	nextLine(m.startPos, 2);
+	showWrappedText(m, f);
 	delete[] f;
-
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//Сбрасываем буфер потока, иначе в цикле не даст повторно ввести symbol
 	endTask(m);
 
 }
@@ -194,7 +231,7 @@ int main()
 	//char* f = newChars("Привет мир", sizeF);
 	//deleteCharsInText(f, sizeF, 'и');
 	//std::cout << f;
-	gitPush("Задание 2 работа 21: Готово");
+	gitPush("Задание 3 работа 21: Готово");
 	
 	//startMenu();
 

@@ -320,6 +320,14 @@ template <typename T, size_t N, size_t M>void sortInsert(T(&a)[N][M]);
 /*Text*/
 
 /// <summary>
+/// Вставляет строку в указанную позицию
+/// </summary>
+/// <param name="text">Искомый текст</param>
+/// <param name="size">Размер текста</param>
+/// <param name="text2">Текст который нужно вставить</param>
+/// <param name="pos">Позиция в которую нужно вставить текст</param>
+void addStr(char*& text, int& size, char* text2, int pos);
+/// <summary>
 /// Удаляет из динамического массива все символы symbol
 /// </summary>
 /// <param name="text">Текст из которого будут удалены символы</param>

@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include <Windows.h>
-
 template<size_t N>
 void randArr(char(&arr)[N], char s, char e) {
     srand(time(0));
