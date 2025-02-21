@@ -83,6 +83,9 @@ void addStr(char*& text, int& size, char* text2, int pos) {
     size = newSize;
     text = newArr;
 }
+void replase(char* text, char replaceable, char inserted) {
+    for (; *text; ++text) if (*text == replaceable) *text = inserted;
+}
 void deleteCharsInText(char*& text, int& size, char symbol) {
     int newSize = size - getCharInTextCount(text, size);
     char* newArr = new char[newSize];

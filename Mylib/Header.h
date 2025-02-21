@@ -320,6 +320,13 @@ template <typename T, size_t N, size_t M>void sortInsert(T(&a)[N][M]);
 /*Text*/
 
 /// <summary>
+/// Заменяет 1 символ в строке на другой
+/// </summary>
+/// <param name="text">Текст в котором нужно заменить символы</param>
+/// <param name="replaceable">Заменяемый символ</param>
+/// <param name="inserted">Вставляемый символ</param>
+void replase(char* text, char replaceable, char inserted);
+/// <summary>
 /// Вставляет строку в указанную позицию
 /// </summary>
 /// <param name="text">Искомый текст</param>
@@ -642,3 +649,4 @@ int scrollMenu(Menu m);
 /// </summary>
 /// <param name="m">Структура меню</param>
 void clearMenu(Menu& m);
+void showWrappedText(TaskStructure& m, char* text);

@@ -1,6 +1,8 @@
 #include <iostream>
 #include "Header.h"
-
+#ifdef max
+#undef max
+#endif
 
 void startMenu() {
 	FullScreenMode();
@@ -182,7 +184,7 @@ void showItemMenu(Menu m) {
 
 void showTextMenu(TaskStructure &m) {
 	ColorANSI3b color;
-	drawEmptyRectangle(16, 9, 15, m.cS.x - 17);
+	drawEmptyRectangle(16, 9, m.startPos.y, m.cS.x - 17);
 	int maxLineLength = m.cS.x - 17; // Максимальная длина строки
 	int lineBreaks = 0; //Количество переносов строки
 	int currentLineLength = 5;// Количество уже использованных символов в текущей строке
@@ -233,7 +235,41 @@ void showMenu(const TaskStructure m) {
 	drawVerticalLine(setCoordinate(m.cS.x - 1, 9), bord.V2, m.cS.y - 10);
 	std::cout << '\n';
 }
+void showWrappedText(TaskStructure& m, char* text) {
+	int maxLineLength = m.cS.x - 30; // Максимальная длина строки
+	int lineBreaks = 0; //Количество переносов строки
+	int currentLineLength = 5;// Количество уже использованных символов в текущей строке
+	Coordinate& s = m.startPos; //Стартовые координаты печати текста
+	setCursorPosition(s.x, s.y);
+	while (*text)
+	{
+		int len = getLengthNextWord(text);
+		currentLineLength += len;
 
+		if (currentLineLength < maxLineLength) {
+			for (int i = 0; i < len; i++)
+				if (*text == '\n') {
+					lineBreaks++;
+					currentLineLength = 0;
+					setCursorPosition(s.x, s.y + lineBreaks);
+					text++;
+				}
+				else
+					std::cout << *text++;
+			while (*text == ' ') {
+				currentLineLength++;
+				std::cout << *text++;
+			}
+		}
+		else {
+			lineBreaks++;
+			currentLineLength = 0;
+			setCursorPosition(s.x, s.y + lineBreaks);
+		}
+	}
+	lineBreaks++;
+	m.startPos = { s.x, s.y + lineBreaks };
+}
 void changeItemMenu(TaskStructure &m, char direction) {
 	if (direction == 'w') 
 		(m.n - 1 == -1) ? m.n = m.countMenu - 1 : m.n -= 1;
@@ -245,7 +281,9 @@ void changeItemMenu(TaskStructure &m, char direction) {
 
 void endTask(TaskStructure& m) {
 	setCursorPosition(m.startPos.x, ++m.startPos.y);
+	//std::cout << "Для продолжения нажмите любую клавишу . . .";
 	system("pause");
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//Сбрасываем буфер потока, иначе в цикле не даст повторно ввести symbol
 	showItemMenu(m);
 }
 void nextLine(Coordinate &xy, int howeMach) {

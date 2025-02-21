@@ -2,9 +2,7 @@
 
 #include <iostream>
 #include "Mylib/Header.h"
-#ifdef max
-#undef max
-#endif
+
 
 /// <summary>
 /// Написать функцию, которая удаляет из строки символ с заданным номером.
@@ -55,46 +53,11 @@ void task2(TaskStructure m) {
 	nextLine(m.startPos);
 	std::cout << f;
 	delete[] f;
-
+	
 	endTask(m);
 
 }
-void showWrappedText(TaskStructure& m, char* text) {
-	int maxLineLength = m.cS.x - 30; // Максимальная длина строки
-	int lineBreaks = 0; //Количество переносов строки
-	int currentLineLength = 5;// Количество уже использованных символов в текущей строке
-	Coordinate& s = m.startPos; //Стартовые координаты печати текста
-	setCursorPosition(s.x, s.y);
-	while (*text)
-	{
-		int len = getLengthNextWord(text);
-		currentLineLength += len;
 
-		if (currentLineLength < maxLineLength) {
-			for (int i = 0; i < len; i++)
-				if (*text == '\n') {
-					lineBreaks++;
-					currentLineLength = 0;
-					setCursorPosition(s.x, s.y + lineBreaks);
-					text++;
-				}
-				else
-					std::cout << *text++;
-			while (*text == ' ') {
-				currentLineLength++;
-				std::cout << *text++;
-			}
-		}
-		else {
-			lineBreaks++;
-			currentLineLength = 0;
-			setCursorPosition(s.x, s.y + lineBreaks);
-		}
-	}
-	m.startPos = { s.x, s.y + lineBreaks };
-
-
-}
 /// <summary>
 /// Написать функцию, которая вставляет в строку в указанную позицию заданный символ.
 /// </summary>
@@ -103,7 +66,7 @@ void task3(TaskStructure m) {
 	std::cout << "Дана строка :";
 	nextLine(m.startPos);
 	int sizeF; //Размер будущего массива
-	char* f = newChars("Я помню чудное ***:\nПередо мной явилась ты,\nКак мимолётное виденье,\nКак гений чистой красоты.", sizeF);
+	char* f = newChars("Я помню чудное ***,\nПередо мной явилась ты,\nКак мимолётное виденье,\nКак гений чистой красоты.", sizeF);
 	nextLine(m.startPos);
 	showWrappedText(m, f);
 	nextLine(m.startPos, 2);
@@ -118,7 +81,6 @@ void task3(TaskStructure m) {
 	nextLine(m.startPos, 2);
 	showWrappedText(m, f);
 	delete[] f;
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//Сбрасываем буфер потока, иначе в цикле не даст повторно ввести symbol
 	endTask(m);
 
 }
@@ -127,31 +89,13 @@ void task3(TaskStructure m) {
 /// </summary>
 void task4(TaskStructure m) {
 	setCursorPosition(m.startPos);
-	int M = getValidInt(m, "Введите длину первого массива :");
+	char a[] = "\tНочь, улица, фонарь, аптека,\n\tБессмысленный и тусклый свет.\n\tЖиви еще хоть четверть века —\n\tВсё будет так.Исхода нет.\n\n\tУмрешь — начнешь опять сначала,\n\tИ повторится всё, как встарь :\n\tНочь, ледяная рябь канала,\n\tАптека, улица, фонарь...";
+	std::cout << "Было:";
+	showWrappedText(m, a);
+	replase(a, '.', '!');
 	nextLine(m.startPos);
-	int N = getValidInt(m, "Введите длину второго массива :");
-	nextLine(m.startPos, 2);
-	int* A = new int[M];
-	int* B = new int[N];
-	int randA = 1;
-	int randB = 10;
-	std::cout << "Было сгенерировано 2 массива случайными числами от "
-		<< randA << " до " << randB;
-	randIntArr(A, M, randA, randB);
-	randIntArr(B, N, randA, randB);
-	nextLine(m.startPos);
-	std::cout << "A = ";
-	show(A, M);
-	nextLine(m.startPos);
-	std::cout << "B = ";
-	show(B, N);
-	nextLine(m.startPos);
-	int L = getRepeatedCount(A, M, B, N);
-	int* C = getRepeatedElements(A, M, B, N, L);
-	show(C, L);
-	delete[] A;
-	delete[] B;
-	delete[] C;
+	std::cout << "Стало:";
+	showWrappedText(m, a);
 	endTask(m);
 }
 /// <summary>
@@ -223,17 +167,15 @@ void task8(TaskStructure m) {
 }
 
 
+
 int main()
 {
 	
 	system("chcp 1251>nul");
-	//int sizeF; //Размер будущего массива
-	//char* f = newChars("Привет мир", sizeF);
-	//deleteCharsInText(f, sizeF, 'и');
-	//std::cout << f;
-	gitPush("Задание 3 работа 21: Готово");
 	
-	//startMenu();
+	gitPush("Задание 4 работа 21: Готово");
+	
+	startMenu();
 
 	
 }
