@@ -211,12 +211,38 @@ void task8(TaskStructure m) {
 	endTask(m);
 }
 
+int getCharInTextCount(char* text, char symbol) {
+	int result = 0;
+	while (*text) {
+		if (*text == symbol) result++;
+		text++;
+	}
+	return result;		
+}
+
+void deleteCharsInText(char* &text, int &size, char symbol) {
+	int newSize = size - getCharInTextCount(text, size);
+	char* newArr = new char[newSize];
+	char* start = newArr;
+	for (int i = 0; i < size; i++)
+	{
+		if (*start == symbol) continue;
+		*start = text[i];
+		start++;
+	}
+	delete[] text;
+	size = newSize;
+	text = newArr;
+}
 
 int main()
 {
 	
 	system("chcp 1251>nul");
-	
+	int sizeF; //Размер будущего массива
+	char* f = newChars("Привет мир", sizeF);
+	deleteCharsInText(f, sizeF, 'и');
+	std::cout << f;
 	gitPush("Задание 1 работа 20: Готово");
 	
 	//startMenu();
