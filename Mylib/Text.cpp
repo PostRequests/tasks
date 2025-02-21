@@ -53,6 +53,31 @@ void addStr(char* a, const char* b) {
     while (*a) a++;
     copyStr(a, b);
 }
+
+int getCharInTextCount(char* text, char symbol) {
+    int result = 0;
+    while (*text) {
+        if (*text == symbol) result++;
+        text++;
+    }
+    return result;
+}
+
+void deleteCharsInText(char*& text, int& size, char symbol) {
+    int newSize = size - getCharInTextCount(text, size);
+    char* newArr = new char[newSize];
+    char* start = newArr;
+    for (int i = 0; i < size; i++)
+    {
+        if (text[i] == symbol) continue;
+        *start = text[i];
+        start++;
+    }
+    delete[] text;
+    size = newSize;
+    text = newArr;
+}
+
 void deleteSymbol(char*& text, int& size, int pos) {
     int newSize = size - 1;
     char* newArr = new char[newSize];

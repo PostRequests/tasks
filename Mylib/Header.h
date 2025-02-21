@@ -320,6 +320,20 @@ template <typename T, size_t N, size_t M>void sortInsert(T(&a)[N][M]);
 /*Text*/
 
 /// <summary>
+/// Удаляет из динамического массива все символы symbol
+/// </summary>
+/// <param name="text">Текст из которого будут удалены символы</param>
+/// <param name="size">Размер текста который будет изменяться</param>
+/// <param name="symbol">Символ который мы удаляем из текста.</param>
+void deleteCharsInText(char*& text, int& size, char symbol);
+/// <summary>
+/// Подсчитывает количество символов в тексте
+/// </summary>
+/// <param name="text">Текст в котором будут считаться символы</param>
+/// <param name="symbol">Символ который ищем в тексте</param>
+/// <returns>Количество повторений указанного символа</returns>
+int getCharInTextCount(char* text, char symbol);
+/// <summary>
 /// Создает новый динамический массив с указанного текста
 /// </summary>
 /// <param name="text">Текст из которого сделать массив символов</param>

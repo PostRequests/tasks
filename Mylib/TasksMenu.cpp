@@ -87,8 +87,8 @@ Menu constructMenu(Coordinate startPos, int countMenu, const char* elemMenu[], i
 void constructMenu(TaskStructure &m) {
 	/*Изменяемые поля*/
 	m.countMenu = 9;//8й элемент выход
-	char h[] = "Домашняя работа № 20";
-	char t[] = "Тема: Указатели.";
+	char h[] = "Домашняя работа № 21";
+	char t[] = "Тема: Строки.";
 	const char* tasks[] = {
 		"Написать функцию, которая удаляет из строки символ с заданным номером.",
 		"Написать функцию, которая удаляет из строки все вхождения в нее заданного символа.",

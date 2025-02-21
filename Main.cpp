@@ -35,79 +35,53 @@ void task1(TaskStructure m) {
 /// </summary>
 void task2(TaskStructure m) {
 	setCursorPosition(m.startPos);
-	int M = getValidInt(m, "Введите длину первого массива :");
+	std::cout << "Дана строка :";
 	nextLine(m.startPos);
-	int N = getValidInt(m, "Введите длину второго массива :");
+	int sizeF; //Размер будущего массива
+	char* f = newChars("Еду я по выбоинам, из выбоин не выеду я.", sizeF);
+	nextLine(m.startPos);
+	std::cout << f;
 	nextLine(m.startPos, 2);
-	int* A = new int[M];
-	int* B = new int[N];
-	int randA = 0;
-	int randB = 10;
-	std::cout << "Было сгенерировано 2 массива случайными числами от "
-		<< randA << " до " << randB;
-	randIntArr(A, M, randA, randB);
-	randIntArr(B, N, randA, randB);
-	nextLine(m.startPos);
-	std::cout << "A = ";
-	show(A, M);
-	nextLine(m.startPos);
-	std::cout << "B = ";
-	show(B, N);
-	nextLine(m.startPos);
-	std::cout << "Уникальные элементы массива которые не повторяются:";
-	int L = getUniqueCount(A, M, B, N);
-	int* C = getUniqueElements(A, M, B, N, L);
-	
-	int L2 = getUniqueCount(B, N, A, M);
-	int* C2 = getUniqueElements(B, N, A, M, L2);
+	std::cout << "Укажите символ который нужно удалить :";
+	char symbol;
+	std::cin >> symbol;
 
-	int L3 = L + L2;
-	int* D = joinArrays(C,L,C2,L2);
+	nextLine(m.startPos, 2);
+	std::cout << "Теперь строка выглядит вот так :";
+	deleteCharsInText(f, sizeF, symbol);
 	nextLine(m.startPos);
-	show(D, L3);
-
-
-	delete[] A;
-	delete[] B;
-	delete[] C;
-	delete[] C2;
-	delete[] D;
+	std::cout << f;
+	delete[] f;
 
 	endTask(m);
 
+}
+void addSymbol() {
+	return;
 }
 /// <summary>
 /// Написать функцию, которая вставляет в строку в указанную позицию заданный символ.
 /// </summary>
 void task3(TaskStructure m) {
 	setCursorPosition(m.startPos);
-	int M = getValidInt(m, "Введите длину первого массива :");
+	std::cout << "Дана строка :";
 	nextLine(m.startPos);
-	int N = getValidInt(m, "Введите длину второго массива :");
+	int sizeF; //Размер будущего массива
+	char* f = newChars("Еду я по выбоинам, из выбоин не выеду я.", sizeF);
+	nextLine(m.startPos);
+	std::cout << f;
 	nextLine(m.startPos, 2);
-	int* A = new int[M];
-	int* B = new int[N];
-	int randA = 0;
-	int randB = 10;
-	std::cout << "Было сгенерировано 2 массива случайными числами от "
-		<< randA << " до " << randB;
-	randIntArr(A, M, randA, randB);
-	randIntArr(B, N, randA, randB);
+	std::cout << "Укажите символ который нужно удалить :";
+	char symbol;
+	std::cin >> symbol;
+
+	nextLine(m.startPos, 2);
+	std::cout << "Теперь строка выглядит вот так :";
+	deleteCharsInText(f, sizeF, symbol);
 	nextLine(m.startPos);
-	std::cout << "A = ";
-	show(A, M);
-	nextLine(m.startPos);
-	std::cout << "B = ";
-	show(B, N);
-	nextLine(m.startPos);
-	std::cout << "Получаем склеенный массив:";
-	int L = M + N;
-	int* C = joinArrays(A, M, B, N);
-	nextLine(m.startPos);
-	show(C, L);
-	delete[] A;
-	delete[] B;
-	delete[] C;
+	std::cout << f;
+	delete[] f;
+
 	endTask(m);
 
 }
@@ -211,39 +185,16 @@ void task8(TaskStructure m) {
 	endTask(m);
 }
 
-int getCharInTextCount(char* text, char symbol) {
-	int result = 0;
-	while (*text) {
-		if (*text == symbol) result++;
-		text++;
-	}
-	return result;		
-}
-
-void deleteCharsInText(char* &text, int &size, char symbol) {
-	int newSize = size - getCharInTextCount(text, size);
-	char* newArr = new char[newSize];
-	char* start = newArr;
-	for (int i = 0; i < size; i++)
-	{
-		if (*start == symbol) continue;
-		*start = text[i];
-		start++;
-	}
-	delete[] text;
-	size = newSize;
-	text = newArr;
-}
 
 int main()
 {
 	
 	system("chcp 1251>nul");
-	int sizeF; //Размер будущего массива
-	char* f = newChars("Привет мир", sizeF);
-	deleteCharsInText(f, sizeF, 'и');
-	std::cout << f;
-	gitPush("Задание 1 работа 20: Готово");
+	//int sizeF; //Размер будущего массива
+	//char* f = newChars("Привет мир", sizeF);
+	//deleteCharsInText(f, sizeF, 'и');
+	//std::cout << f;
+	gitPush("Задание 2 работа 21: Готово");
 	
 	//startMenu();
 
