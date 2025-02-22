@@ -133,6 +133,18 @@ bool includeContainsOnly(char* text, const char* content) {
     return true;
 }
 
+bool isPalindrome(char* str) {
+    int len = getCharLen(str);
+    int left = 0;  // Указатель на начало строки
+    int right = len - 1;  // Указатель на конец строки
+    while (left < right) {
+        if (str[left] != str[right])
+            return false;
+        left++;
+        right--;
+    }
+    return true;
+}
 bool isLetter(char symbol) {
     return (symbol >= 'А' and symbol <= 'я') or (symbol >= 'A' and symbol <= 'z') ? 1 : 0;
 }

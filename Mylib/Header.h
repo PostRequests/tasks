@@ -320,6 +320,12 @@ template <typename T, size_t N, size_t M>void sortInsert(T(&a)[N][M]);
 /*Text*/
 
 /// <summary>
+/// Проверяет является ли строка палиндромом
+/// </summary>
+/// <param name="str">Строка</param>
+/// <returns>true если строка палиндром</returns>
+bool isPalindrome(char* str);
+/// <summary>
 /// Проверяет является ли символ буквой
 /// </summary>
 /// <param name="symbol">Символ</param>

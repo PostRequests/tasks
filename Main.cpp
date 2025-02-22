@@ -157,11 +157,21 @@ void task7(TaskStructure m) {
 	std::cout << "В вашем предложении " << getCountWords(str) << " слов(а)";;
 	endTask(m);
 }
+
+
+
 /// <summary>
 /// Дана строка символов. Необходимо проверить является ли эта строка палиндромом.
 /// </summary>
 void task8(TaskStructure m) {
 	setCursorPosition(m.startPos);
+	std::cout << "Введите предложение :";
+	nextLine(m.startPos);
+	const int limitSymbol = 50;
+	char str[limitSymbol];
+	std::cin >> str;
+	nextLine(m.startPos);
+	std::cout << "Ваша строка" << ((isPalindrome(str)) ? " " : " не ") << "является палиндромом";
 
 	endTask(m);
 }
@@ -173,7 +183,7 @@ int main()
 	system("chcp 1251 > nul");
 	
 	
-	gitPush("Задание 7 работа 21: Готово");//Задание 4 работа 21: Готово
+	gitPush("Задание 8 работа 21: Готово");//Задание 4 работа 21: Готово
 	
 	startMenu();
 
