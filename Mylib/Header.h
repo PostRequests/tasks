@@ -320,6 +320,13 @@ template <typename T, size_t N, size_t M>void sortInsert(T(&a)[N][M]);
 /*Text*/
 
 /// <summary>
+/// Позволяет посчитать количество символов в строке
+/// </summary>
+/// <param name="arr">Ссылка на текстовой массив</param>
+/// <param name="symbol">Символ который нужно посчитать</param>
+/// <returns>Возвращает количество символов в текстовом массиве</returns>
+int getCountChar(char arr[], char symbol);
+/// <summary>
 /// Заменяет 1 символ в строке на другой
 /// </summary>
 /// <param name="text">Текст в котором нужно заменить символы</param>

@@ -64,8 +64,8 @@ int getCharInTextCount(char* text, char symbol) {
 }
 void addStr(char*& text, int& size, char* text2, int pos) {
     int size2 = getCharLen(text2);  // Размер вставляемого текста
-    if (pos < 0 || pos > size) pos = size; // Коррекция позиции вставки
-    int newSize = size + size2;
+    if (pos < 0 || pos > size) pos = size; // Если за пределами устанавливаем в конец
+    int newSize = size + size2; //Новый размер массива
     char* newArr = new char[newSize + 1]; 
     char* start = newArr;
     for (int i = 0; i < pos; i++) {
@@ -86,6 +86,7 @@ void addStr(char*& text, int& size, char* text2, int pos) {
 void replase(char* text, char replaceable, char inserted) {
     for (; *text; ++text) if (*text == replaceable) *text = inserted;
 }
+
 void deleteCharsInText(char*& text, char symbol) {
     int j = 0;
     for (int i = 0; text[i]; i++) 
@@ -93,7 +94,12 @@ void deleteCharsInText(char*& text, char symbol) {
             text[j++] = text[i];
     text[j] = '\0';
 }
-
+int getCountChar(char arr[], char symbol) {
+    int count = 0;
+    for (int i = 0; arr[i]; i++)
+        if (arr[i] == symbol) count++;
+    return count;
+}
 void deleteSymbol(char* text, int pos) {
     int i;
     for (i = pos; text[i + 1]; i++) 

@@ -35,12 +35,12 @@ void task1(TaskStructure m) {
 /// </summary>
 void task2(TaskStructure m) {
 	setCursorPosition(m.startPos);
-	std::cout << "Дана строка :";
+	std::cout << "Дан текст :";
 	nextLine(m.startPos);
 	int sizeF; //Размер будущего массива
-	char* f = newChars("Еду я по выбоинам, из выбоин не выеду я.");
+	char* f = newChars("\tШепот, робкое дыханье,\n\tТрели соловья,\n\tСеребро и колыханье\n\tСонного ручья...");
 	nextLine(m.startPos);
-	std::cout << f;
+	showWrappedText(m, f);
 	nextLine(m.startPos, 2);
 	std::cout << "Укажите символ который нужно удалить :";
 	char symbol;
@@ -50,7 +50,7 @@ void task2(TaskStructure m) {
 	std::cout << "Теперь строка выглядит вот так :";
 	deleteCharsInText(f, symbol);
 	nextLine(m.startPos);
-	std::cout << f;
+	showWrappedText(m, f);
 	delete[] f;
 	
 	endTask(m);
@@ -62,19 +62,21 @@ void task2(TaskStructure m) {
 /// </summary>
 void task3(TaskStructure m) {
 	setCursorPosition(m.startPos);
-	std::cout << "Дана строка :";
+	std::cout << "Дан текст :";
 	nextLine(m.startPos);
-	int sizeF; //Размер будущего массива
+	
 	char* f = newChars("Я помню чудное ***,\nПередо мной явилась ты,\nКак мимолётное виденье,\nКак гений чистой красоты.");
+	int sizeF = getCharLen(f); 
 	nextLine(m.startPos);
 	showWrappedText(m, f);
 	nextLine(m.startPos, 2);
-	std::cout << "Угадайте что зашифровано под *** :";
+	std::cout << "Угадайте что зашифровано под *** слово:";
 	const int limitSymbol = 100;
 	char str[limitSymbol];
 	std::cin.getline(str, limitSymbol);
 	deleteCharsInText(f, '*');
 	nextLine(m.startPos);
+
 	std::cout << "Подставляем значение и получаем :";
 	addStr(f, sizeF, str, 15);//Функция для решения задачи
 	nextLine(m.startPos, 2);
@@ -102,7 +104,16 @@ void task4(TaskStructure m) {
 /// </summary>
 void task5(TaskStructure m) {
 	setCursorPosition(m.startPos);
-	
+	std::cout << "Дан текст :";
+	nextLine(m.startPos);
+	char a[] = {"\tВыхожу один я на дорогу;\n\tСквозь туман кремнистый путь блестит.\n\tНочь тиха. Пустыня внемлет Богу,\n\tИ звезда с звездою говорит."};
+	showWrappedText(m, a);
+	nextLine(m.startPos);
+	std::cout << "Какой символ ищем?:";
+	char symbol;
+	std::cin >> symbol;
+	nextLine(m.startPos);
+	std::cout << "В данном тексте символ \"" << symbol<< "\" встречается " << getCountChar(a, symbol) << " раз";
 	endTask(m);
 }
 /// <summary>
@@ -134,10 +145,12 @@ void task8(TaskStructure m) {
 
 int main()
 {
+	system("chcp 1251 > nul");
 	
-	system("chcp 1251>nul");
-	
-	gitPush("Работа над ошибками");//Задание 4 работа 21: Готово
+	/*char a[] = "\tНочь, улица, фонарь, аптека,\n\tБессмысленный и тусклый свет.\n\tЖиви еще хоть четверть века —\n\tВсё будет так.Исхода нет.\n\n\tУмрешь — начнешь опять сначала,\n\tИ повторится всё, как встарь :\n\tНочь, ледяная рябь канала,\n\tАптека, улица, фонарь...";
+	std::cout << a;
+	std::cout << getCountChar(a, ',')*/;
+	gitPush("Задание 5 работа 21: Готово");//Задание 4 работа 21: Готово
 	
 	startMenu();
 
