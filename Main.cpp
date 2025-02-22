@@ -113,7 +113,7 @@ void task5(TaskStructure m) {
 	char symbol;
 	std::cin >> symbol;
 	nextLine(m.startPos);
-	std::cout << "В данном тексте символ \"" << symbol<< "\" встречается " << getCountChar(a, symbol) << " раз";
+	std::cout << "В данном тексте символ \"" << symbol<< "\" встречается " << getCountChar(a, symbol) << " раз(a)";
 	endTask(m);
 }
 /// <summary>
@@ -121,7 +121,26 @@ void task5(TaskStructure m) {
 /// </summary>
 void task6(TaskStructure m) {
 	setCursorPosition(m.startPos);
-	
+	std::cout << "Введите строку :";
+	nextLine(m.startPos);
+	const int limitSymbol = 200;
+	char str[limitSymbol];
+	std::cin.getline(str, limitSymbol);
+	nextLine(m.startPos);
+	int cpm = 0; //количество пунктуационных знаков
+	int cl = 0; //количество букв
+	int cn = 0; //количество цифр
+	int co = 0; //количество пробелов, переносов строк, табуляций
+	for (int i = 0 ; str[i]; i++) {
+		if (str[i] >= 'А' and str[i] <= 'я') cl++;
+		else if (str[i] >= 'A' and str[i] <= 'z')cl++;
+		else if (str[i] >= '0' and str[i] <= '9')cn++;
+		else if (str[i] == ' ' or str[i] == '\t' or str[i] == '\n')co++;
+		else cpm++;
+	}
+	nextLine(m.startPos);
+	std::cout << "В строке пунктуационных знаков = " << cpm << "  букв = " << cl << " цифр = " << cn 
+		<< " пробелов = " << co;
 	endTask(m);
 }
 /// <summary>
@@ -147,10 +166,8 @@ int main()
 {
 	system("chcp 1251 > nul");
 	
-	/*char a[] = "\tНочь, улица, фонарь, аптека,\n\tБессмысленный и тусклый свет.\n\tЖиви еще хоть четверть века —\n\tВсё будет так.Исхода нет.\n\n\tУмрешь — начнешь опять сначала,\n\tИ повторится всё, как встарь :\n\tНочь, ледяная рябь канала,\n\tАптека, улица, фонарь...";
-	std::cout << a;
-	std::cout << getCountChar(a, ',')*/;
-	gitPush("Задание 5 работа 21: Готово");//Задание 4 работа 21: Готово
+	
+	gitPush("Задание 6 работа 21: Готово");//Задание 4 работа 21: Готово
 	
 	startMenu();
 
