@@ -86,37 +86,22 @@ void addStr(char*& text, int& size, char* text2, int pos) {
 void replase(char* text, char replaceable, char inserted) {
     for (; *text; ++text) if (*text == replaceable) *text = inserted;
 }
-void deleteCharsInText(char*& text, int& size, char symbol) {
-    int newSize = size - getCharInTextCount(text, size);
-    char* newArr = new char[newSize];
-    char* start = newArr;
-    for (int i = 0; i < size; i++)
-    {
-        if (text[i] == symbol) continue;
-        *start = text[i];
-        start++;
-    }
-    delete[] text;
-    size = newSize;
-    text = newArr;
+void deleteCharsInText(char*& text, char symbol) {
+    int j = 0;
+    for (int i = 0; text[i]; i++) 
+        if (text[i] != symbol) 
+            text[j++] = text[i];
+    text[j] = '\0';
 }
 
-void deleteSymbol(char*& text, int& size, int pos) {
-    int newSize = size - 1;
-    char* newArr = new char[newSize];
-    char* start = newArr;
-    for (int i = 0; i < size; i++)
-    {
-        if (i == pos) continue;
-        *start = text[i];
-        start++;
-    }
-    delete[] text;
-    size = newSize;
-    text = newArr;
+void deleteSymbol(char* text, int pos) {
+    int i;
+    for (i = pos; text[i + 1]; i++) 
+        text[i] = text[i + 1];
+    text[i] = '\0';
 }
-char* newChars(const char* text, int& size) {
-    size = getCharLen(text) + 1;
+char* newChars(const char* text) {
+    int size = getCharLen(text) + 1;
     char* result = new char[size];
     copyStr(result, text);
     return result;

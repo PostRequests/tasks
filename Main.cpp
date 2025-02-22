@@ -12,20 +12,19 @@ void task1(TaskStructure m) {
 	setCursorPosition(m.startPos);
 	std::cout << "Дана строка :";
 	nextLine(m.startPos, 2);
-	int sizeF; //Размер будущего массива
-	char* f = newChars("Привет мир", sizeF);
+	char* f = newChars("Привет мир");
+	int sizeF = getCharLen(f); //Размер будущего массива
 	for (int i = 0; i < sizeF - 1; i++)
 		std::cout << i;
 	nextLine(m.startPos);
 	std::cout << f;
 	nextLine(m.startPos, 2);
 	int N = getValidInt(m, "Укажите символ с каким номером нужно удалить :");
-
 	nextLine(m.startPos, 2);
 	for (int i = 0; i < sizeF-1; i++)
 		if(N != i) std::cout << i;
 	nextLine(m.startPos);
-	deleteSymbol(f, sizeF, N);
+	deleteSymbol(f, N);
 	std::cout << f;
 	delete[] f;
 
@@ -39,7 +38,7 @@ void task2(TaskStructure m) {
 	std::cout << "Дана строка :";
 	nextLine(m.startPos);
 	int sizeF; //Размер будущего массива
-	char* f = newChars("Еду я по выбоинам, из выбоин не выеду я.", sizeF);
+	char* f = newChars("Еду я по выбоинам, из выбоин не выеду я.");
 	nextLine(m.startPos);
 	std::cout << f;
 	nextLine(m.startPos, 2);
@@ -49,7 +48,7 @@ void task2(TaskStructure m) {
 
 	nextLine(m.startPos, 2);
 	std::cout << "Теперь строка выглядит вот так :";
-	deleteCharsInText(f, sizeF, symbol);
+	deleteCharsInText(f, symbol);
 	nextLine(m.startPos);
 	std::cout << f;
 	delete[] f;
@@ -66,7 +65,7 @@ void task3(TaskStructure m) {
 	std::cout << "Дана строка :";
 	nextLine(m.startPos);
 	int sizeF; //Размер будущего массива
-	char* f = newChars("Я помню чудное ***,\nПередо мной явилась ты,\nКак мимолётное виденье,\nКак гений чистой красоты.", sizeF);
+	char* f = newChars("Я помню чудное ***,\nПередо мной явилась ты,\nКак мимолётное виденье,\nКак гений чистой красоты.");
 	nextLine(m.startPos);
 	showWrappedText(m, f);
 	nextLine(m.startPos, 2);
@@ -74,7 +73,7 @@ void task3(TaskStructure m) {
 	const int limitSymbol = 100;
 	char str[limitSymbol];
 	std::cin.getline(str, limitSymbol);
-	deleteCharsInText(f, sizeF, '*');
+	deleteCharsInText(f, '*');
 	nextLine(m.startPos);
 	std::cout << "Подставляем значение и получаем :";
 	addStr(f, sizeF, str, 15);//Функция для решения задачи
@@ -103,32 +102,7 @@ void task4(TaskStructure m) {
 /// </summary>
 void task5(TaskStructure m) {
 	setCursorPosition(m.startPos);
-	int M = getValidInt(m, "Введите длину массива :");
-	nextLine(m.startPos);
-	int* A = new int[M];
-	int randA = -10;
-	int randB = 10;
-	std::cout << "Было сгенерировано массив случайными числами от "
-		<< randA << " до " << randB;
-	randIntArr(A, M, randA, randB);
-	nextLine(m.startPos);
-	std::cout << "A = ";
-	show(A, M);
-	nextLine(m.startPos);
-
-	/*Создаем меню*/
-	int countMenu = 2;
-	const char* elemMenu[] = { "Удалить положительные", "Удалить отрицательные" };
-	Menu menu = constructMenu( m.startPos, countMenu, elemMenu, 0);
 	
-	int nMenu = scrollMenu(menu);
-	clearMenu(menu);
-	nextLine(m.startPos, countMenu+1);
-	if (nMenu == 0) deletePositiveElement(A, M);
-	if (nMenu == 1) deleteNegativeElement(A, M);
-	std::cout << "Теперь массив выглядит так:";
-	nextLine(m.startPos);
-	show(A, M);
 	endTask(m);
 }
 /// <summary>
@@ -136,32 +110,22 @@ void task5(TaskStructure m) {
 /// </summary>
 void task6(TaskStructure m) {
 	setCursorPosition(m.startPos);
-	std::cout << "Я придумал за вас динамический массив с простыми числами:";
-	int sizeA = 10;
-	int* a = new int[sizeA];//Динамический массив
-	for (int i = 0; i < sizeA; i++)
-		a[i] = i + 1;
-	nextLine(m.startPos);
-	show(a, sizeA);
-	nextLine(m.startPos);
-	std::cout << "Теперь я удалил из него простые числа:";
-	nextLine(m.startPos);
-	deletePrimeElement(a, sizeA);
-	show(a, sizeA);
-	delete[] a;
+	
 	endTask(m);
 }
 /// <summary>
 /// Подсчитать количество слов во введенном предложении.
 /// </summary>
 void task7(TaskStructure m) {
-	
+	setCursorPosition(m.startPos);
+
 	endTask(m);
 }
 /// <summary>
 /// Дана строка символов. Необходимо проверить является ли эта строка палиндромом.
 /// </summary>
 void task8(TaskStructure m) {
+	setCursorPosition(m.startPos);
 
 	endTask(m);
 }
@@ -173,7 +137,7 @@ int main()
 	
 	system("chcp 1251>nul");
 	
-	gitPush("Задание 4 работа 21: Готово");
+	gitPush("Работа над ошибками");//Задание 4 работа 21: Готово
 	
 	startMenu();
 

@@ -340,7 +340,7 @@ void addStr(char*& text, int& size, char* text2, int pos);
 /// <param name="text">Текст из которого будут удалены символы</param>
 /// <param name="size">Размер текста который будет изменяться</param>
 /// <param name="symbol">Символ который мы удаляем из текста.</param>
-void deleteCharsInText(char*& text, int& size, char symbol);
+void deleteCharsInText(char*& text, char symbol);
 /// <summary>
 /// Подсчитывает количество символов в тексте
 /// </summary>
@@ -354,14 +354,14 @@ int getCharInTextCount(char* text, char symbol);
 /// <param name="text">Текст из которого сделать массив символов</param>
 /// <param name="size">Изменяемое значение, в него устанавливается размер массива</param>
 /// <returns>Указатель на созданный массив символов</returns>
-char* newChars(const char* text, int& size);
+char* newChars(const char* text);
 /// <summary>
 /// Удаляет символ из указанной строки
 /// </summary>
 /// <param name="text">Строка</param>
 /// <param name="size">Размер строки</param>
 /// <param name="pos">Позиция в строке</param>
-void deleteSymbol(char*& text, int& size, int pos);
+void deleteSymbol(char* text, int pos);
 /// <summary>
 /// Определяет длину текста
 /// </summary>
