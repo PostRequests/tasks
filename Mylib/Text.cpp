@@ -133,6 +133,19 @@ bool includeContainsOnly(char* text, const char* content) {
     return true;
 }
 
+bool isLetter(char symbol) {
+    return (symbol >= 'À' and symbol <= 'ÿ') or (symbol >= 'A' and symbol <= 'z') ? 1 : 0;
+}
+
+int getCountWords(char* str) {
+    int wordCount = isLetter(str[0]);
+    for (int i = 1; str[i]; i++) {
+        bool isLetters = isLetter(str[i]);
+        if (isLetters) continue;
+        else if (isLetter(str[++i])) wordCount++;
+    }
+    return wordCount;
+}
 bool isNumber(char* text) {
     return includeContainsOnly(text, "1234567890-");
 }

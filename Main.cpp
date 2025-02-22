@@ -73,6 +73,7 @@ void task3(TaskStructure m) {
 	std::cout << "Угадайте что зашифровано под *** слово:";
 	const int limitSymbol = 100;
 	char str[limitSymbol];
+	
 	std::cin.getline(str, limitSymbol);
 	deleteCharsInText(f, '*');
 	nextLine(m.startPos);
@@ -121,7 +122,7 @@ void task5(TaskStructure m) {
 /// </summary>
 void task6(TaskStructure m) {
 	setCursorPosition(m.startPos);
-	std::cout << "Введите строку :";
+	std::cout << "Введите предложение :";
 	nextLine(m.startPos);
 	const int limitSymbol = 200;
 	char str[limitSymbol];
@@ -132,8 +133,7 @@ void task6(TaskStructure m) {
 	int cn = 0; //количество цифр
 	int co = 0; //количество пробелов, переносов строк, табуляций
 	for (int i = 0 ; str[i]; i++) {
-		if (str[i] >= 'А' and str[i] <= 'я') cl++;
-		else if (str[i] >= 'A' and str[i] <= 'z')cl++;
+		if ((str[i] >= 'А' and str[i] <= 'я') or (str[i] >= 'A' and str[i] <= 'z')) cl++;
 		else if (str[i] >= '0' and str[i] <= '9')cn++;
 		else if (str[i] == ' ' or str[i] == '\t' or str[i] == '\n')co++;
 		else cpm++;
@@ -148,7 +148,13 @@ void task6(TaskStructure m) {
 /// </summary>
 void task7(TaskStructure m) {
 	setCursorPosition(m.startPos);
-
+	std::cout << "Введите предложение :";
+	nextLine(m.startPos);
+	const int limitSymbol = 200;
+	char str[limitSymbol];
+	std::cin.getline(str, limitSymbol);
+	nextLine(m.startPos);
+	std::cout << "В вашем предложении " << getCountWords(str) << " слов(а)";;
 	endTask(m);
 }
 /// <summary>
@@ -167,7 +173,7 @@ int main()
 	system("chcp 1251 > nul");
 	
 	
-	gitPush("Задание 6 работа 21: Готово");//Задание 4 работа 21: Готово
+	gitPush("Задание 7 работа 21: Готово");//Задание 4 работа 21: Готово
 	
 	startMenu();
 

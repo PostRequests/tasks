@@ -320,6 +320,18 @@ template <typename T, size_t N, size_t M>void sortInsert(T(&a)[N][M]);
 /*Text*/
 
 /// <summary>
+/// Проверяет является ли символ буквой
+/// </summary>
+/// <param name="symbol">Символ</param>
+/// <returns>True если символ == буква</returns>
+bool isLetter(char symbol);
+/// <summary>
+/// Считает количество слов в массиве символов
+/// </summary>
+/// <param name="str">Массив символов</param>
+/// <returns>Количество слов</returns>
+int getCountWords(char* str);
+/// <summary>
 /// Позволяет посчитать количество символов в строке
 /// </summary>
 /// <param name="arr">Ссылка на текстовой массив</param>
