@@ -1,5 +1,7 @@
 ﻿
-
+#ifdef min
+#undef min
+#endif
 #include <iostream>
 #include "Mylib/Header.h"
 
@@ -176,16 +178,173 @@ void task8(TaskStructure m) {
 	endTask(m);
 }
 
+/*Stack*/
+struct mstack {
+	int data;
+	mstack* prev = nullptr;
+};
 
+
+void push(mstack &s, int data)
+{
+	mstack* n = new mstack;
+	n->data = data;
+	n->prev = s.prev;
+	s.prev = n;
+}
+int heap(mstack& s) {
+	if (s.prev == 0)
+		return -1;
+	return s.prev->data;
+}
+
+int pop(mstack& s) {
+	int r = -1;
+	if (s.prev != 0) {
+		mstack* t = s.prev;
+		s.prev = s.prev->prev;
+		r = t->data;
+		delete t;
+	}
+	return r;
+}
+
+
+
+void show(mstack& s) {
+	mstack* t = s.prev;
+	while (t!= 0) {
+		std::cout << "\n" << t->data;
+		t = t -> prev;
+	}
+}
+/*S*/
+
+/*mlist*/
+struct mitem{
+	int data;
+	mitem* next = nullptr;
+	mitem* prev = nullptr;
+};
+
+struct mlist {
+	mitem* start = nullptr;
+	mitem* end = nullptr;
+	mitem* cur = nullptr;
+};
+
+void to_start(mlist& lst) {
+	lst.cur = lst.start;
+
+}
+void to_end(mlist& lst) {
+	lst.cur = lst.end;
+}
+
+void to_next(mlist& lst) {
+	if (lst.cur)
+		if (lst.cur->next != nullptr)
+			lst.cur = lst.cur->next;
+}
+void to_prev(mlist& lst) {
+	if (lst.cur)
+		if (lst.cur->prev != nullptr)
+			lst.cur = lst.cur->prev;
+}
+int get_cur(mlist& lst) {
+	if (lst.cur)
+		return lst.cur->data;
+	return -1;
+}
+bool is_end(mlist& lst) {
+	if (lst.cur->next)
+		return false;
+	return true;
+	return !lst.cur->next;
+}
+bool is_start(mlist& lst) {
+	return !lst.cur->prev;
+}
+void show(mlist& lst) {
+	std::cout << "\nLIST: |n";
+	mitem* c = lst.start;
+	while (c)
+	{
+		if (c == lst.cur)
+			std::cout << " [" << c->data << "] ";
+		else
+			std::cout << "'" << c->data << "'";
+		c = c->next;
+	}
+}
+void add_to_starrt(mlist& lst, int data) {
+	mitem* n = new mitem;
+	n->data = data;
+	if (!lst.start) {
+		lst.cur = n;
+		lst.end = n;
+		lst.start = n;
+	}
+	else {
+		lst.start->prev = n;
+		n->next = lst.start;
+		lst.start = n;
+	}
+}
+/*L*/
 
 int main()
 {
-	system("chcp 1251 > nul");
+	gitPush("Работа на уроке");//Задание 4 работа 21: Готово
+	mlist lst;
+	int s;
+	do
+	{
+		std::cout << "\n STACK";
+		show(lst);
+		std::cout << "\n ------------------";
+		std::cout << "\n1 start";
+		std::cout << "\n2 end";
+		std::cout << "\n3 next";
+		std::cout << "\n4 prev";
+		std::cout << "\n5 curr";
+		std::cout << "\n6 add to start";
+		std::cout << "\n your turn \n";
+		std::cin >> s;
+		int t;
+		switch (s)
+		{
+		case 1:  ;
+			to_start(lst);
+			break;
+		case 2:
+			to_end(lst);
+
+			break;
+		case 3:
+			to_next(lst);
+		case 4:
+			to_prev(lst);
+		case 5:
+			std::cout << "\nCURR=" << get_cur(lst);
+			break;
+		case 6:
+			std::cout << "\Input digit";
+			{
+				int data;
+				std::cin >> data;
+				add_to_starrt(lst, data);
+			}
+			break;
+		default:
+			break;
+		}
+	} while (s != 0);
 	
 	
-	gitPush("Задание 8 работа 21: Готово");//Задание 4 работа 21: Готово
 	
-	startMenu();
+	
+	//startMenu();
 
 	
 }
