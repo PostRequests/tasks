@@ -33,6 +33,15 @@ int getValidInt(TaskStructure &m, const char text[]);
 /*Calc*/
 
 /// <summary>
+/// Добавляет столбец в двумерный динамический массив на указанную позицию.
+/// </summary>
+/// <param name="array">Ссылка на указатель на двумерный массив.</param>
+/// <param name="rows">Количество строк в массиве. Должно быть больше 0.</param>
+/// <param name="cols">Количество столбцов в массиве.</param>
+/// <param name="insertPos">Позиция, на которую нужно вставить новый столбец.</param>
+/// <param name="defaultValue">Значение, которым будет заполнен новый столбец. </param>
+void addColumn(int**& array, int rows, int& cols, int insertPos, int defaultValue = 0);
+/// <summary>
 /// Считает количество не простых элементов в массиве
 /// </summary>
 /// <param name="arr">Массив который анализируем</param>
@@ -580,6 +589,7 @@ char catchKey();
 
 /*Task Menu*/
 
+void show(TaskStructure& m, int** array, int rows, int columns);
 /// <summary>
 /// Конструктор структуры меню
 /// </summary>

@@ -18,3 +18,5 @@ void show(T(&a)[N][M]) {
 		show(a[i]);
 }
 
+
+

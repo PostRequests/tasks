@@ -291,3 +291,29 @@ int* joinArrays(int* arr1, int size1, int* arr2, int size2) {
         *start = arr2[i];
     return result;
 }
+
+void addColumn(int**& array, int rows, int& cols, int insertPos, int defaultValue) {
+    int** newArray = new int* [rows];
+    if (!newArray) return;
+    for (int i = 0; i < rows; i++)
+        newArray[i] = new int[cols + 1];
+
+    for (int i = 0; i < rows; i++)
+        for (int j = 0, newCol = 0; j < cols; j++, newCol++) {
+            if (newCol == insertPos) {
+                newArray[i][newCol] = defaultValue;
+                newCol++;
+            }
+            newArray[i][newCol] = array[i][j];
+        }
+    if (insertPos == cols)
+        for (int i = 0; i < rows; i++)
+            newArray[i][cols] = defaultValue;
+
+    for (int i = 0; i < rows; i++)
+        delete[] array[i];
+
+    cols++;
+    delete[] array;
+    array = newArray;
+}

@@ -6,34 +6,47 @@
 #include "Mylib/Header.h"
 
 
+
 /// <summary>
-/// Написать функцию, которая удаляет из строки символ с заданным номером.
+/// Написать функцию, добавляющую столбец двухмерному массиву в указанную позицию.
 /// </summary>
 void task1(TaskStructure m) {
-	
 	setCursorPosition(m.startPos);
-	std::cout << "Дана строка :";
-	nextLine(m.startPos, 2);
-	char* f = newChars("Привет мир");
-	int sizeF = getCharLen(f); //Размер будущего массива
-	for (int i = 0; i < sizeF - 1; i++)
-		std::cout << i;
-	nextLine(m.startPos);
-	std::cout << f;
-	nextLine(m.startPos, 2);
-	int N = getValidInt(m, "Укажите символ с каким номером нужно удалить :");
-	nextLine(m.startPos, 2);
-	for (int i = 0; i < sizeF-1; i++)
-		if(N != i) std::cout << i;
-	nextLine(m.startPos);
-	deleteSymbol(f, N);
-	std::cout << f;
-	delete[] f;
+	int rowsArray = 5; //Количество строк массива
+	int colsArray = 5;//Количество колонок массива
+	int** array = new int* [rowsArray]; //Массив
 
+	for (int i = 0; i < rowsArray; i++)
+	{
+		array[i] = new int[colsArray];
+		for (int j = 0; j < colsArray; j++)
+			array[i][j] = 5;  
+	}
+	std::cout << "Дана матрица";
+	nextLine(m.startPos);
+	show(m, array, rowsArray, colsArray);
+	int input; //Вводимое пользователем число
+	while (true) {
+		input = getValidInt(m, "Укажите в какой столбец добавить новый. От 0 до 4 : ");
+		if (input < 0 or input > colsArray -1 ) {
+			m.startPos.y - 2;
+			nextLine(m.startPos);
+			std::cout << "Вне диапазона";
+			nextLine(m.startPos);
+		}
+		else break;
+	}
+	addColumn(array, rowsArray, colsArray, input); //Функция по заданию
+	show(m, array, rowsArray, colsArray); 
+	for (int i = 0; i < rowsArray; i++)
+	{
+		delete[] array[i];
+	}
+	delete[] array;
 	endTask(m);
 }
 /// <summary>
-/// Написать функцию, которая удаляет из строки все вхождения в нее заданного символа.
+/// Написать функцию, удаляющую столбец двухмерного массива по указанному номеру.
 /// </summary>
 void task2(TaskStructure m) {
 	setCursorPosition(m.startPos);
@@ -60,7 +73,9 @@ void task2(TaskStructure m) {
 }
 
 /// <summary>
-/// Написать функцию, которая вставляет в строку в указанную позицию заданный символ.
+/// Дана матрица порядка MxN (M строк, N столбцов). 
+/// Необходимо заполнить ее значениями и написать функцию, 
+/// осуществляющую циклический сдвиг строк и/или столбцов массива указанное количество раз и в указанную сторону.
 /// </summary>
 void task3(TaskStructure m) {
 	setCursorPosition(m.startPos);
@@ -89,7 +104,9 @@ void task3(TaskStructure m) {
 
 }
 /// <summary>
-/// Написать программу, которая заменяет все символы точки "." в строке, введенной пользователем, на символы восклицательного знака "!".
+///Транспонирование матрицы – это операция,
+/// после которой столбцы прежней матрицы становятся строками, а строки столбцами.
+/// Напишите функцию транспонирования матрицы.
 /// </summary>
 void task4(TaskStructure m) {
 	setCursorPosition(m.startPos);
@@ -103,7 +120,8 @@ void task4(TaskStructure m) {
 	endTask(m);
 }
 /// <summary>
-/// Пользователь вводит строку символов и искомый символ, посчитать сколько раз он встречается в строке.
+/// Создайте динамический массив, хранящий в первой строке имя, а во второй- телефон. 
+/// Организуйте поиск по имени и по номеру телефона и возможность ввода и изменения данных.
 /// </summary>
 void task5(TaskStructure m) {
 	setCursorPosition(m.startPos);
@@ -119,61 +137,30 @@ void task5(TaskStructure m) {
 	std::cout << "В данном тексте символ \"" << symbol<< "\" встречается " << getCountChar(a, symbol) << " раз(a)";
 	endTask(m);
 }
+
 /// <summary>
-/// Пользователь вводит строку. Определить количество букв, количество цифр и количество остальных символов, присутствующих в строке.
+/// 
 /// </summary>
 void task6(TaskStructure m) {
 	setCursorPosition(m.startPos);
-	std::cout << "Введите предложение :";
-	nextLine(m.startPos);
-	const int limitSymbol = 200;
-	char str[limitSymbol];
-	std::cin.getline(str, limitSymbol);
-	nextLine(m.startPos);
-	int cpm = 0; //количество пунктуационных знаков
-	int cl = 0; //количество букв
-	int cn = 0; //количество цифр
-	int co = 0; //количество пробелов, переносов строк, табуляций
-	for (int i = 0 ; str[i]; i++) {
-		if ((str[i] >= 'А' and str[i] <= 'я') or (str[i] >= 'A' and str[i] <= 'z')) cl++;
-		else if (str[i] >= '0' and str[i] <= '9')cn++;
-		else if (str[i] == ' ' or str[i] == '\t' or str[i] == '\n')co++;
-		else cpm++;
-	}
-	nextLine(m.startPos);
-	std::cout << "В строке пунктуационных знаков = " << cpm << "  букв = " << cl << " цифр = " << cn 
-		<< " пробелов = " << co;
+	
 	endTask(m);
 }
 /// <summary>
-/// Подсчитать количество слов во введенном предложении.
+/// 
 /// </summary>
 void task7(TaskStructure m) {
 	setCursorPosition(m.startPos);
-	std::cout << "Введите предложение :";
-	nextLine(m.startPos);
-	const int limitSymbol = 200;
-	char str[limitSymbol];
-	std::cin.getline(str, limitSymbol);
-	nextLine(m.startPos);
-	std::cout << "В вашем предложении " << getCountWords(str) << " слов(а)";;
 	endTask(m);
 }
 
 
 
 /// <summary>
-/// Дана строка символов. Необходимо проверить является ли эта строка палиндромом.
+///
 /// </summary>
 void task8(TaskStructure m) {
 	setCursorPosition(m.startPos);
-	std::cout << "Введите предложение :";
-	nextLine(m.startPos);
-	const int limitSymbol = 50;
-	char str[limitSymbol];
-	std::cin >> str;
-	nextLine(m.startPos);
-	std::cout << "Ваша строка" << ((isPalindrome(str)) ? " " : " не ") << "является палиндромом";
 
 	endTask(m);
 }
@@ -184,56 +171,12 @@ void task8(TaskStructure m) {
 
 int main()
 {
-	gitPush("Работа на уроке");//Задание 4 работа 21: Готово
-	Mlist lst;
-	int s;
-	do
-	{
-		std::cout << "\n STACK";
-		show(lst);
-		std::cout << "\n ------------------";
-		std::cout << "\n1 start";
-		std::cout << "\n2 end";
-		std::cout << "\n3 next";
-		std::cout << "\n4 prev";
-		std::cout << "\n5 curr";
-		std::cout << "\n6 add to start";
-		std::cout << "\n your turn \n";
-		std::cin >> s;
-		int t;
-		switch (s)
-		{
-		case 1:  ;
-			to_start(lst);
-			break;
-		case 2:
-			to_end(lst);
-
-			break;
-		case 3:
-			to_next(lst);
-		case 4:
-			to_prev(lst);
-		case 5:
-			std::cout << "\nCURR=" << get_cur(lst);
-			break;
-		case 6:
-			std::cout << "\Input digit";
-			{
-				int data;
-				std::cin >> data;
-				add_to_starrt(lst, data);
-			}
-			break;
-		default:
-			break;
-		}
-	} while (s != 0);
+	system("chcp 1251>null");
+	gitPush("Задание 1: Работа 22 - готово");//Задание 4 работа 21: Готово
 	
 	
 	
-	
-	//startMenu();
+	startMenu();
 
 	
 }
