@@ -33,6 +33,14 @@ int getValidInt(TaskStructure &m, const char text[]);
 /*Calc*/
 
 /// <summary>
+/// Удаляет столбец из двумерного динамического массива на указанной позиции.
+/// </summary>
+/// <param name="array">Ссылка на указатель на двумерный массив.</param>
+/// <param name="rows">Количество строк в массиве.</param>
+/// <param name="cols">Количество столбцов в массиве.</param>
+/// <param name="delPos">Позиция столбца, который нужно удалить. </param>
+void delColumn(int**& array, int rows, int& cols, int delPos);
+/// <summary>
 /// Добавляет столбец в двумерный динамический массив на указанную позицию.
 /// </summary>
 /// <param name="array">Ссылка на указатель на двумерный массив.</param>
@@ -275,6 +283,23 @@ template<typename T, size_t N, size_t M>void randArr(T(&a)[N][M], T s, T e);
 
 /*Matrix*/
 
+/// <summary>
+/// Совершает горизонтальный сдвиг массива
+/// </summary>
+/// <typeparam name="T">Тип массива</typeparam>
+/// <typeparam name="N">Размер массива</typeparam>
+/// <param name="a">Ссылка на массив</param>
+/// <param name="d">Направление сдвига 'a'-влево 'd'-вправо</param>
+template<typename T>void MassShift(T* a, int N, char d);
+/// <summary>
+/// Совершает сдвиг 2х мерного массива
+/// </summary>
+/// <typeparam name="T">Тип массива</typeparam>
+/// <typeparam name="N">Размер массива строк</typeparam>
+/// <typeparam name="M">Размер массива колонок</typeparam>
+/// <param name="a">Ссылка на массив</param>
+/// <param name="d">Направление w-Вверх a-Влево s-Вниз d-Вправо</param>
+template<typename T>void MassShift(T**a, int N, int M, char d);
 /// <summary>
 /// Определяет минимальный элемент в массиве
 /// </summary>

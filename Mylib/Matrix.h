@@ -72,3 +72,50 @@ void sortInsert(T(&a)[N][M]) {
 		sortInsert(a[i]);
 }
 
+template <typename T>
+void MassShift(T*a, int N, char d) {
+
+	if (d == 'a') {
+		T temp = a[0];
+		for (int i = 0; i < N - 1; i++)
+			a[i] = a[i + 1];
+		a[N - 1] = temp;
+	}
+	else if (d == 'd') {
+		T temp = a[N - 1];
+		for (int i = N - 1; i > 0; i--)
+			a[i] = a[i - 1];
+		a[0] = temp;
+	}
+}
+
+template<typename T>
+void MassShift(T **a, int N, int M, char d) {
+	if (d == 'a' || d == 'd')
+		for (int i = 0; i < N; i++)
+			MassShift(a[i],N ,d);
+	else if (d == 'w') {
+		T* aTemp = new T[M];
+		for (int i = 0; i < M; i++)
+			aTemp[i] = a[0][i];
+		for (int r = 0; r < N - 1; r++)
+			for (int c = 0; c < M; c++)
+				a[r][c] = a[r + 1][c];
+		for (int i = 0; i < M; i++)
+			a[N - 1][i] = aTemp[i];
+		delete[]aTemp;
+	}
+	else if (d == 's') {
+		T* aTemp = new T[M];
+		for (int i = 0; i < M; i++)
+			aTemp[i] = a[N - 1][i];
+		for (int r = N - 1; r > 0; r--)
+			for (int c = 0; c < M; c++)
+				a[r][c] = a[r - 1][c];
+		for (int i = 0; i < M; i++)
+			a[0][i] = aTemp[i];
+		delete[]aTemp;
+	}
+	
+		
+}

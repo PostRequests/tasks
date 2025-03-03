@@ -45,29 +45,44 @@ void task1(TaskStructure m) {
 	delete[] array;
 	endTask(m);
 }
+
+
 /// <summary>
 /// Написать функцию, удаляющую столбец двухмерного массива по указанному номеру.
 /// </summary>
 void task2(TaskStructure m) {
 	setCursorPosition(m.startPos);
-	std::cout << "Дан текст :";
-	nextLine(m.startPos);
-	int sizeF; //Размер будущего массива
-	char* f = newChars("\tШепот, робкое дыханье,\n\tТрели соловья,\n\tСеребро и колыханье\n\tСонного ручья...");
-	nextLine(m.startPos);
-	showWrappedText(m, f);
-	nextLine(m.startPos, 2);
-	std::cout << "Укажите символ который нужно удалить :";
-	char symbol;
-	std::cin >> symbol;
+	int rowsArray = 5; //Количество строк массива
+	int colsArray = 5;//Количество колонок массива
+	int** array = new int* [rowsArray]; //Массив
 
-	nextLine(m.startPos, 2);
-	std::cout << "Теперь строка выглядит вот так :";
-	deleteCharsInText(f, symbol);
+	for (int i = 0; i < rowsArray; i++)
+	{
+		array[i] = new int[colsArray];
+		for (int j = 0; j < colsArray; j++)
+			array[i][j] = j;
+	}
+	std::cout << "Дана матрица";
 	nextLine(m.startPos);
-	showWrappedText(m, f);
-	delete[] f;
-	
+	show(m, array, rowsArray, colsArray);
+	int input; //Вводимое пользователем число
+	while (true) {
+		input = getValidInt(m, "Укажите в какой столбец добавить новый. От 0 до 4 : ");
+		if (input < 0 or input > colsArray - 1) {
+			m.startPos.y - 2;
+			nextLine(m.startPos);
+			std::cout << "Вне диапазона";
+			nextLine(m.startPos);
+		}
+		else break;
+	}
+	delColumn(array, rowsArray, colsArray, input); //Функция по заданию
+	show(m, array, rowsArray, colsArray);
+	for (int i = 0; i < rowsArray; i++)
+	{
+		delete[] array[i];
+	}
+	delete[] array;
 	endTask(m);
 
 }
@@ -79,27 +94,38 @@ void task2(TaskStructure m) {
 /// </summary>
 void task3(TaskStructure m) {
 	setCursorPosition(m.startPos);
-	std::cout << "Дан текст :";
-	nextLine(m.startPos);
-	
-	char* f = newChars("Я помню чудное ***,\nПередо мной явилась ты,\nКак мимолётное виденье,\nКак гений чистой красоты.");
-	int sizeF = getCharLen(f); 
-	nextLine(m.startPos);
-	showWrappedText(m, f);
-	nextLine(m.startPos, 2);
-	std::cout << "Угадайте что зашифровано под *** слово:";
-	const int limitSymbol = 100;
-	char str[limitSymbol];
-	
-	std::cin.getline(str, limitSymbol);
-	deleteCharsInText(f, '*');
-	nextLine(m.startPos);
+	int M = 10; //Количество строк массива
+	int N = 10;//Количество колонок массива
+	int** array = new int* [M]; //Массив
 
-	std::cout << "Подставляем значение и получаем :";
-	addStr(f, sizeF, str, 15);//Функция для решения задачи
-	nextLine(m.startPos, 2);
-	showWrappedText(m, f);
-	delete[] f;
+	for (int i = 0; i < M; i++)
+	{
+		array[i] = new int[N];
+		for (int j = 0; j < N; j++)
+			array[i][j] = min(j, i);
+	}
+	std::cout << "Для выхода нажмите 'q'";
+	nextLine(m.startPos);
+	show(m, array, M, N);
+	char input;
+	while (true)
+	{
+		input = catchKey();
+		if (input == 'q') break;
+		else if (input == 'w' or input == 'a' or input == 's' or input == 'd') {
+			MassShift(array, M, N, input);
+			m.startPos.y -= M + 1;
+			drawEmptyRectangle(m.startPos.x, m.startPos.y, M, N * 2);
+			show(m, array, M, N);
+		}
+			
+	}
+	
+	for (int i = 0; i < M; i++)
+	{
+		delete[] array[i];
+	}
+	delete[] array;
 	endTask(m);
 
 }
@@ -172,7 +198,7 @@ void task8(TaskStructure m) {
 int main()
 {
 	system("chcp 1251>null");
-	gitPush("Задание 1: Работа 22 - готово");//Задание 4 работа 21: Готово
+	gitPush("Задание 2 || 3: Работа 22 - готово");//Задание 4 работа 21: Готово
 	
 	
 	

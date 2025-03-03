@@ -317,3 +317,24 @@ void addColumn(int**& array, int rows, int& cols, int insertPos, int defaultValu
     delete[] array;
     array = newArray;
 }
+
+void delColumn(int**& array, int rows, int& cols, int delPos) {
+    if (!array) return;
+    int** newArray = new int* [rows];
+    if (!newArray) return;
+    for (int i = 0; i < rows; i++)
+        newArray[i] = new int[cols - 1];
+    for (int i = 0; i < rows; i++)
+        for (int j = 0; j < delPos; j++)
+            newArray[i][j] = array[i][j];
+    if (delPos != cols)
+        for (int i = 0; i < rows; i++)
+            for (int j = delPos + 1; j < cols; j++)
+                newArray[i][j - 1] = array[i][j];
+
+    for (int i = 0; i < rows; i++)
+        delete[] array[i];
+    delete[] array;
+    cols--;
+    array = newArray;
+}
