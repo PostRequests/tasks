@@ -119,3 +119,20 @@ void MassShift(T **a, int N, int M, char d) {
 	
 		
 }
+
+template<typename T>
+void transposeMatrix(T** &arr, int rows, int cols) {
+	T** transposed = new T * [cols];
+	for (int i = 0; i < cols; i++) {
+		transposed[i] = new T[rows];
+	}
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < cols; j++) {
+			transposed[j][i] = arr[i][j];
+		}
+	}
+	for (int i = 0; i < rows; i++)
+		delete[] arr[i];
+	delete[]arr;
+	arr = transposed;
+}

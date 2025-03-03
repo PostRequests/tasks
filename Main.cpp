@@ -104,16 +104,16 @@ void task3(TaskStructure m) {
 		for (int j = 0; j < N; j++)
 			array[i][j] = min(j, i);
 	}
-	std::cout << "Для выхода нажмите 'q'";
+	std::cout << "Управление WASD, Для выхода нажмите Enter";
 	nextLine(m.startPos);
 	show(m, array, M, N);
 	char input;
 	while (true)
 	{
 		input = catchKey();
-		if (input == 'q') break;
+		if (input == 13) break;
 		else if (input == 'w' or input == 'a' or input == 's' or input == 'd') {
-			MassShift(array, M, N, input);
+			MassShift(array, M, N, input); //Функция решения задачи
 			m.startPos.y -= M + 1;
 			drawEmptyRectangle(m.startPos.x, m.startPos.y, M, N * 2);
 			show(m, array, M, N);
@@ -129,6 +129,7 @@ void task3(TaskStructure m) {
 	endTask(m);
 
 }
+
 /// <summary>
 ///Транспонирование матрицы – это операция,
 /// после которой столбцы прежней матрицы становятся строками, а строки столбцами.
@@ -136,13 +137,38 @@ void task3(TaskStructure m) {
 /// </summary>
 void task4(TaskStructure m) {
 	setCursorPosition(m.startPos);
-	char a[] = "\tНочь, улица, фонарь, аптека,\n\tБессмысленный и тусклый свет.\n\tЖиви еще хоть четверть века —\n\tВсё будет так.Исхода нет.\n\n\tУмрешь — начнешь опять сначала,\n\tИ повторится всё, как встарь :\n\tНочь, ледяная рябь канала,\n\tАптека, улица, фонарь...";
-	std::cout << "Было:";
-	showWrappedText(m, a);
-	replase(a, '.', '!');
+	int M = 9; //Количество строк массива
+	int N = 9;//Количество колонок массива
+	int** array = new int* [M]; //Массив
+
+	for (int i = 0; i < M; i++)
+	{
+		array[i] = new int[N];
+		for (int j = 0; j < N; j++)
+			array[i][j] = j;
+	}
+	std::cout << "Управление WASD, Для выхода нажмите Enter";
 	nextLine(m.startPos);
-	std::cout << "Стало:";
-	showWrappedText(m, a);
+	show(m, array, M, N);
+	char input;
+	while (true)
+	{
+		input = catchKey();
+		if (input == 13) break;
+		else if (input == 'w' or input == 'a' or input == 's' or input == 'd') {
+			transposeMatrix(array, M, N);//Функция решения задачи
+			m.startPos.y -= M + 1;
+			drawEmptyRectangle(m.startPos.x, m.startPos.y + 1, M, N * 2);
+			show(m, array, M, N);
+		}
+
+	}
+
+	for (int i = 0; i < M; i++)
+	{
+		delete[] array[i];
+	}
+	delete[] array;
 	endTask(m);
 }
 /// <summary>
@@ -198,7 +224,7 @@ void task8(TaskStructure m) {
 int main()
 {
 	system("chcp 1251>null");
-	gitPush("Задание 2 || 3: Работа 22 - готово");//Задание 4 работа 21: Готово
+	gitPush("Задание 4: Работа 22 - готово");//Задание 4 работа 21: Готово
 	
 	
 	

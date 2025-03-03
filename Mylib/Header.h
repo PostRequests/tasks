@@ -284,6 +284,16 @@ template<typename T, size_t N, size_t M>void randArr(T(&a)[N][M], T s, T e);
 /*Matrix*/
 
 /// <summary>
+/// Транспонирует матрицу.
+/// </summary>
+/// <typeparam name="T">Тип элементов матрицы.</typeparam>
+/// <param name="matrix">Исходная матрица.</param>
+/// <param name="rows">Количество строк в исходной матрице.</param>
+/// <param name="cols">Количество столбцов в исходной матрице.</param>
+/// <returns>Указатель на транспонированную матрицу.</returns>
+template<typename T>
+void transposeMatrix(T** &matrix, int rows, int cols);
+/// <summary>
 /// Совершает горизонтальный сдвиг массива
 /// </summary>
 /// <typeparam name="T">Тип массива</typeparam>
