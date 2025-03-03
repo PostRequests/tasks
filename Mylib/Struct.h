@@ -3,6 +3,22 @@ struct Coordinate {
     int x; //Ряд
     int y; //Строка
 };
+struct Mitem {
+    int data;
+    Mitem* next = nullptr;
+    Mitem* prev = nullptr;
+};
+
+struct Mlist {
+    Mitem* start = nullptr;
+    Mitem* end = nullptr;
+    Mitem* cur = nullptr;
+};
+
+struct Mstack {
+    int data;
+    Mstack* prev = nullptr;
+};
 
 struct Menu {
     Coordinate startPos;//Координаты начала места печати меню

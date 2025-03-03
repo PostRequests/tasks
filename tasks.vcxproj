@@ -130,6 +130,8 @@
     <ClCompile Include="Mylib\Calc.cpp" />
     <ClCompile Include="Mylib\Draw.cpp" />
     <ClCompile Include="Mylib\Helper.cpp" />
+    <ClCompile Include="Mylib\LIst.cpp" />
+    <ClCompile Include="Mylib\Stack.cpp" />
     <ClCompile Include="Mylib\TasksMenu.cpp" />
     <ClCompile Include="Mylib\Text.cpp" />
     <ClCompile Include="Main.cpp" />

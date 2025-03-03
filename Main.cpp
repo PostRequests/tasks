@@ -178,125 +178,14 @@ void task8(TaskStructure m) {
 	endTask(m);
 }
 
-/*Stack*/
-struct mstack {
-	int data;
-	mstack* prev = nullptr;
-};
-
-
-void push(mstack &s, int data)
-{
-	mstack* n = new mstack;
-	n->data = data;
-	n->prev = s.prev;
-	s.prev = n;
-}
-int heap(mstack& s) {
-	if (s.prev == 0)
-		return -1;
-	return s.prev->data;
-}
-
-int pop(mstack& s) {
-	int r = -1;
-	if (s.prev != 0) {
-		mstack* t = s.prev;
-		s.prev = s.prev->prev;
-		r = t->data;
-		delete t;
-	}
-	return r;
-}
 
 
 
-void show(mstack& s) {
-	mstack* t = s.prev;
-	while (t!= 0) {
-		std::cout << "\n" << t->data;
-		t = t -> prev;
-	}
-}
-/*S*/
-
-/*mlist*/
-struct mitem{
-	int data;
-	mitem* next = nullptr;
-	mitem* prev = nullptr;
-};
-
-struct mlist {
-	mitem* start = nullptr;
-	mitem* end = nullptr;
-	mitem* cur = nullptr;
-};
-
-void to_start(mlist& lst) {
-	lst.cur = lst.start;
-
-}
-void to_end(mlist& lst) {
-	lst.cur = lst.end;
-}
-
-void to_next(mlist& lst) {
-	if (lst.cur)
-		if (lst.cur->next != nullptr)
-			lst.cur = lst.cur->next;
-}
-void to_prev(mlist& lst) {
-	if (lst.cur)
-		if (lst.cur->prev != nullptr)
-			lst.cur = lst.cur->prev;
-}
-int get_cur(mlist& lst) {
-	if (lst.cur)
-		return lst.cur->data;
-	return -1;
-}
-bool is_end(mlist& lst) {
-	if (lst.cur->next)
-		return false;
-	return true;
-	return !lst.cur->next;
-}
-bool is_start(mlist& lst) {
-	return !lst.cur->prev;
-}
-void show(mlist& lst) {
-	std::cout << "\nLIST: |n";
-	mitem* c = lst.start;
-	while (c)
-	{
-		if (c == lst.cur)
-			std::cout << " [" << c->data << "] ";
-		else
-			std::cout << "'" << c->data << "'";
-		c = c->next;
-	}
-}
-void add_to_starrt(mlist& lst, int data) {
-	mitem* n = new mitem;
-	n->data = data;
-	if (!lst.start) {
-		lst.cur = n;
-		lst.end = n;
-		lst.start = n;
-	}
-	else {
-		lst.start->prev = n;
-		n->next = lst.start;
-		lst.start = n;
-	}
-}
-/*L*/
 
 int main()
 {
 	gitPush("Работа на уроке");//Задание 4 работа 21: Готово
-	mlist lst;
+	Mlist lst;
 	int s;
 	do
 	{

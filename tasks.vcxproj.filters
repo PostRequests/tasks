@@ -16,6 +16,9 @@
     <Filter Include="Исходные файлы\MyLib">
       <UniqueIdentifier>{f78d8df1-bb6a-4e28-b51b-9fdbfa144dec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\templates">
+      <UniqueIdentifier>{f26632cd-3212-4390-b242-d0403b5f8a7c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -39,22 +42,28 @@
     <ClCompile Include="Mylib\TasksMenu.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Mylib\Stack.cpp">
+      <Filter>Исходные файлы\MyLib</Filter>
+    </ClCompile>
+    <ClCompile Include="Mylib\LIst.cpp">
+      <Filter>Исходные файлы\MyLib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mylib\Header.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Mylib\Matrix.h">
-      <Filter>Исходные файлы\MyLib</Filter>
-    </ClInclude>
-    <ClInclude Include="Mylib\Print.h">
-      <Filter>Исходные файлы\MyLib</Filter>
-    </ClInclude>
-    <ClInclude Include="Mylib\Random.h">
-      <Filter>Исходные файлы\MyLib</Filter>
-    </ClInclude>
     <ClInclude Include="Mylib\Struct.h">
       <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Mylib\Matrix.h">
+      <Filter>Исходные файлы\templates</Filter>
+    </ClInclude>
+    <ClInclude Include="Mylib\Print.h">
+      <Filter>Исходные файлы\templates</Filter>
+    </ClInclude>
+    <ClInclude Include="Mylib\Random.h">
+      <Filter>Исходные файлы\templates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

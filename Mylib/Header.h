@@ -675,3 +675,22 @@ int scrollMenu(Menu m);
 /// <param name="m">Структура меню</param>
 void clearMenu(Menu& m);
 void showWrappedText(TaskStructure& m, char* text);
+
+/*List*/
+
+void to_start(Mlist& lst);
+void to_end(Mlist& lst);
+void to_next(Mlist& lst);
+void to_prev(Mlist& lst);
+int get_cur(Mlist& lst);
+bool is_end(Mlist& lst);
+void show(Mlist& lst);
+void add_to_starrt(Mlist& lst, int data);
+
+/*Stack*/
+void push(Mstack& s, int data);
+void show(Mlist& lst);
+int pop(Mstack& s);
+int heap(Mstack& s);
+
+
