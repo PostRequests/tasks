@@ -67,7 +67,7 @@ void task2(TaskStructure m) {
 	show(m, array, rowsArray, colsArray);
 	int input; //Вводимое пользователем число
 	while (true) {
-		input = getValidInt(m, "Укажите в какой столбец добавить новый. От 0 до 4 : ");
+		input = getValidInt(m, "Укажите какой столбец удалить. От 0 до 4 : ");
 		if (input < 0 or input > colsArray - 1) {
 			m.startPos.y - 2;
 			nextLine(m.startPos);
@@ -102,7 +102,7 @@ void task3(TaskStructure m) {
 	{
 		array[i] = new int[N];
 		for (int j = 0; j < N; j++)
-			array[i][j] = min(j, i);
+			array[i][j] = *findMin(&j, &i);
 	}
 	std::cout << "Управление WASD, Для выхода нажмите Enter";
 	nextLine(m.startPos);
@@ -171,23 +171,121 @@ void task4(TaskStructure m) {
 	delete[] array;
 	endTask(m);
 }
+
+
+
 /// <summary>
 /// Создайте динамический массив, хранящий в первой строке имя, а во второй- телефон. 
 /// Организуйте поиск по имени и по номеру телефона и возможность ввода и изменения данных.
 /// </summary>
 void task5(TaskStructure m) {
+	Coordinate start = m.startPos;
 	setCursorPosition(m.startPos);
-	std::cout << "Дан текст :";
-	nextLine(m.startPos);
-	char a[] = {"\tВыхожу один я на дорогу;\n\tСквозь туман кремнистый путь блестит.\n\tНочь тиха. Пустыня внемлет Богу,\n\tИ звезда с звездою говорит."};
-	showWrappedText(m, a);
-	nextLine(m.startPos);
-	std::cout << "Какой символ ищем?:";
-	char symbol;
-	std::cin >> symbol;
-	nextLine(m.startPos);
-	std::cout << "В данном тексте символ \"" << symbol<< "\" встречается " << getCountChar(a, symbol) << " раз(a)";
-	endTask(m);
+	const int limitSymbol = 256;//Лимит символов для ввода пользователем
+	int cur = 1; // Текущий элемент массива
+	int countData  = 0; //Количество телефонных номеров сейчас в массиве
+	char*** data = nullptr;
+	addUser(data, countData, "Иванов", "123-456-789");
+	addUser(data, countData, "Петров", "789-456-789");
+	addUser(data, countData, "Сидоров", "123-321-879");
+	Menu mainMenu;
+	mainMenu.countMenu = 5;
+	const char* elemMainMenu[] = {
+		"Добавить",
+		"Заменить текущий",
+		"Удалить текущий",
+		"Поиск",
+		"Выход"
+	};
+	mainMenu.n = 0;
+	
+	
+	mainMenu.elemMenu = new char*[mainMenu.countMenu];
+	for (int i = 0; i < mainMenu.countMenu; i++) {
+		mainMenu.elemMenu[i] = new char[strlen(elemMainMenu[i]) + 1];
+		strcpy_s(mainMenu.elemMenu[i], strlen(elemMainMenu[i]) + 1, elemMainMenu[i]);
+	}
+
+	int enterMenu;
+	
+	while (true)
+	
+	{
+		showData(data, countData, cur, m);
+		mainMenu.startPos = m.startPos;
+		enterMenu = scrollMenu(mainMenu);
+		switch (enterMenu)
+		{
+		case 0: //Добавить
+		{
+			drawEmptyRectangle(m.startPos.x, m.startPos.y, mainMenu.countMenu + 1, 20);//Стираем меню
+			setCursorPosition(m.startPos);
+			std::cout << "Введите имя :";
+
+			char name[limitSymbol];
+			std::cin.getline(name, limitSymbol);
+			nextLine(m.startPos);
+			std::cout << "Введите телефон :";
+			char phone[limitSymbol];
+			std::cin.getline(phone, limitSymbol);
+			addUser(data, countData, name, phone);
+			m.startPos = start;
+			drawEmptyRectangle(m.startPos.x, m.startPos.y, 100, 100);
+			setCursorPosition(m.startPos);
+		}
+		break;
+		case 1://Заменить текущий
+
+		{
+			drawEmptyRectangle(m.startPos.x, m.startPos.y, mainMenu.countMenu + 1, 20);//Стираем меню
+			setCursorPosition(m.startPos);
+			std::cout << "Введите имя :";
+
+			char name[limitSymbol];
+			std::cin.getline(name, limitSymbol);
+			nextLine(m.startPos);
+			std::cout << "Введите телефон :";
+			char phone[limitSymbol];
+			std::cin.getline(phone, limitSymbol);
+			changeData(data, countData, cur, name, phone);
+			m.startPos = start;
+			drawEmptyRectangle(m.startPos.x, m.startPos.y, 100, 100);
+			setCursorPosition(m.startPos);
+		}
+		break;
+		case 2://Удалить текущий
+			drawEmptyRectangle(m.startPos.x, m.startPos.y, mainMenu.countMenu + 1, 20);//Стираем меню
+			delCurData(data, countData, cur);
+			m.startPos = start;
+			drawEmptyRectangle(m.startPos.x, m.startPos.y, 100, 100);
+			setCursorPosition(m.startPos);
+			break;
+		case 3://Поиск
+			drawEmptyRectangle(m.startPos.x, m.startPos.y, mainMenu.countMenu + 1, 20);//Стираем меню
+			setCursorPosition(m.startPos);
+			std::cout << "Введите строку поиска :";
+			char any[limitSymbol];
+			std::cin.getline(any, limitSymbol);
+			{
+				int res = searchData(data, countData, any);
+				if (res != -1)
+					cur = res;
+			}
+			m.startPos = start;
+			drawEmptyRectangle(m.startPos.x, m.startPos.y, 100, 100);
+			setCursorPosition(m.startPos);
+			break;
+		case 4://Выход
+			drawEmptyRectangle(m.startPos.x, m.startPos.y, 100, 100);
+			clearMenu(mainMenu);
+			endTask(m);
+			return;
+			break;
+		default:
+			break;
+		}
+	}
+
 }
 
 /// <summary>
@@ -224,10 +322,10 @@ void task8(TaskStructure m) {
 int main()
 {
 	system("chcp 1251>null");
-	gitPush("Задание 4: Работа 22 - готово");//Задание 4 работа 21: Готово
+	gitPush("Задание 5: Работа 22 - готово");
 	
-	
-	
+	std::cout << textMatch("Ива", "иВан");
+
 	startMenu();
 
 	

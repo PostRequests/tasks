@@ -44,7 +44,7 @@ void show(Mlist& lst) {
 		c = c->next;
 	}
 }
-void add_to_starrt(Mlist& lst, int data) {
+void add_to_start(Mlist& lst, int data) {
 	Mitem* n = new Mitem;
 	n->data = data;
 	if (!lst.start) {

@@ -723,19 +723,95 @@ void showWrappedText(TaskStructure& m, char* text);
 
 /*List*/
 
+//Переходит в начало списка
 void to_start(Mlist& lst);
+//Переходим в конец списка
 void to_end(Mlist& lst);
+//Переходим к следующиму элементу списка
 void to_next(Mlist& lst);
+//Переходим к предыдущему элемениу списка
 void to_prev(Mlist& lst);
+//Получаем текущий элемент списка
 int get_cur(Mlist& lst);
+//Проверяем, выбран последний элемент списка?
 bool is_end(Mlist& lst);
+//Показывает весь список
 void show(Mlist& lst);
-void add_to_starrt(Mlist& lst, int data);
+//Добавляет в начало новый элемент
+void add_to_start(Mlist& lst, int data);
 
 /*Stack*/
+//Добавляет новый элемент на вершину стека.
 void push(Mstack& s, int data);
+//Показывает все элементы списка
 void show(Mlist& lst);
+//Удаляет элемент с вершины стека и возвращает его значение
 int pop(Mstack& s);
+//Возвращает значение элемента на вершине стека
 int heap(Mstack& s);
 
+
+/*Phone number*/
+
+/// <summary>
+/// Изменяет текущий элемент
+/// </summary>
+/// <param name="data">Указатель на телефонную книгу</param>
+/// <param name="countNow">Количество элементов в телефонной книге</param>
+/// <param name="cur">Текущий, выбранный элемент</param>
+/// <param name="name">Имя которое нужно задать</param>
+/// <param name="phone">Телефон который нужно задать</param>
+void changeData(char***& data, int& countNow, int cur, char* name, char* phone);
+/// <summary>
+/// Удаляет текущий элемент
+/// </summary>
+/// <param name="data">Указатель на телефонную книгу</param>
+/// <param name="countNow">Количество элементов в телефонной книге</param>
+/// <param name="cur">Текущий, выбранный элемент</param>
+void delCurData(char***& data, int& countNow, int& cur);
+/// <summary>
+/// Добаляет новый элемент в телефонную книгу
+/// </summary>
+/// <param name="data">Указатель на телефонную книгу</param>
+/// <param name="countNow">Количество элементов в телефонной книге</param>
+/// <param name="name">Имя</param>
+/// <param name="phone">Номер телефона</param>
+void addUser(char***& data, int& countNow, char* name, char* phone);
+/// <summary>
+/// Добаляет новый элемент в телефонную книгу
+/// </summary>
+/// <param name="data">Указатель на телефонную книгу</param>
+/// <param name="countNow">Количество элементов в телефонной книге</param>
+/// <param name="name">Имя</param>
+/// <param name="phone">Номер телефона</param>
+void addUser(char***& data, int& countNow, const char* cName, const char* cPhone);
+/// <summary>
+/// Выводит на экран список телефонной книги
+/// </summary>
+/// <param name="data">Указатель на телефонную книгу</param>
+/// <param name="countNow">Количество элементов в телефонной книге</param>
+/// <param name="cur">Текущий, выбранный элемент</param>
+/// <param name="m"></param>
+void showData(char*** data, int countNow, int cur, TaskStructure& m);
+/// <summary>
+/// Превращает заглавную букву в строчную
+/// </summary>
+/// <param name="ABC">Символ который нужно конвертировать</param>
+/// <returns>Строчный символ</returns>
+char toLowerRus(char ABC);
+/// <summary>
+/// Проверяет на совпадение начальные символы
+/// </summary>
+/// <param name="text1">Что ищем</param>
+/// <param name="text2">Где ищем</param>
+/// <returns>true если совпадает text1 с началом text2</returns>
+bool textMatch(const char* text1, const char* text2);
+/// <summary>
+/// Ищет совпадения в телефонной книге
+/// </summary>
+/// <param name="data">Указатель на телефонную книгу</param>
+/// <param name="countNow">Количество элементов в телефонной книге</param>
+/// <param name="what">Какой элемент ищем</param>
+/// <returns>Возвращает -1 в случае не нахождении элемента, либо номер первого элемента который подходит по поиску</returns>
+int searchData(char*** data, int countNow, char* what);
 

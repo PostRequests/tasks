@@ -48,6 +48,9 @@
     <ClCompile Include="Mylib\LIst.cpp">
       <Filter>Исходные файлы\MyLib</Filter>
     </ClCompile>
+    <ClCompile Include="Phone number.cpp">
+      <Filter>Исходные файлы\MyLib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mylib\Header.h">

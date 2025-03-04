@@ -136,6 +136,7 @@
     <ClCompile Include="Mylib\Text.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mylib\Win.cpp" />
+    <ClCompile Include="Phone number.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mylib\Header.h" />

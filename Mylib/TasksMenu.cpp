@@ -135,17 +135,28 @@ Coordinate setCoordinate(int x, int y) {
 	result.y = y;
 	return result;
 }
-
+void showItemMenu(Menu m) {
+	ColorANSI3b color;
+	setCursorPosition(m.startPos);
+	for (int i = 0; i < m.countMenu; i++) {
+		if (m.n == i) setColor(color.WhiteBG, color.BlackFG);
+		m.startPos.y++;
+		setCursorPosition(m.startPos);
+		std::cout << m.elemMenu[i] << "  ";
+		if (m.n == i) resetColor();
+	}
+	return;
+}
 int scrollMenu(Menu m) {
 	showItemMenu(m);
 	while (true)
 	{
 		char key = catchKey();
-		if (key == 's') {
+		if (key == 'w') {
 			(m.n - 1 == -1) ? m.n = m.countMenu - 1 : m.n -= 1;
 			showItemMenu(m);
 		}
-		else if (key == 'w') {
+		else if (key == 's') {
 			(m.n + 1 == m.countMenu) ? m.n = 0 : m.n += 1;
 			showItemMenu(m);
 		}
@@ -167,16 +178,29 @@ void showItemMenu(TaskStructure m) {
 	showTextMenu(m);
 	return;
 }
-void showItemMenu(Menu m) {
+
+void showMenu(const TaskStructure m) {
+	system("CLS");
+
+	Coordinate cHead = setCoordinate(m.cS.x / 2 - (getCharLen(m.head) / 2), 2);
+	Coordinate cTheme = setCoordinate(3, 5);
 	ColorANSI3b color;
-	setCursorPosition(m.startPos);
-	for (int i = 0; i < m.countMenu; i++) {
-		if (m.n == i) setColor(color.WhiteBG, color.BlackFG);
-		setCursorPosition({ m.startPos.x,  ++m.startPos.y });
-		std::cout  << m.elemMenu[i] << "  ";
-		if (m.n == i) resetColor();
-	}
-	return;
+
+	drawEmptyRectangle(0, 0, 4, m.cS.x - 1, color.RedBG);
+
+	setCursorPosition(cHead);
+	std::cout << m.head;
+	resetColor();
+
+	setCursorPosition(cTheme);
+	setColor(color.BlueBG);
+	std::cout << m.theme;
+	resetColor();
+	showItemMenu(m);
+	BorderCP866 bord;
+	drawVerticalLine(setCoordinate(getCharLen(m.tNames[0]) + 6, 9), bord.V2, m.cS.y - 10);
+	drawVerticalLine(setCoordinate(m.cS.x - 1, 9), bord.V2, m.cS.y - 10);
+	std::cout << '\n';
 }
 
 void showTextMenu(TaskStructure &m) {
@@ -209,29 +233,7 @@ void showTextMenu(TaskStructure &m) {
 	}
 }
 
-void showMenu(const TaskStructure m) {
-	system("CLS");
 
-	Coordinate cHead = setCoordinate(m.cS.x / 2 - (getCharLen(m.head) / 2), 2);
-	Coordinate cTheme = setCoordinate(3, 5);
-	ColorANSI3b color;
-
-	drawEmptyRectangle(0, 0, 4, m.cS.x-1, color.RedBG);
-	
-	setCursorPosition(cHead);
-	std::cout << m.head;
-	resetColor();
-
-	setCursorPosition(cTheme);
-	setColor(color.BlueBG);
-	std::cout << m.theme;
-	resetColor();
-	showItemMenu(m);
-	BorderCP866 bord;
-	drawVerticalLine(setCoordinate(getCharLen(m.tNames[0]) + 6, 9), bord.V2, m.cS.y - 10);
-	drawVerticalLine(setCoordinate(m.cS.x - 1, 9), bord.V2, m.cS.y - 10);
-	std::cout << '\n';
-}
 void showWrappedText(TaskStructure& m, char* text) {
 	int maxLineLength = m.cS.x - 30; // Максимальная длина строки
 	int lineBreaks = 0; //Количество переносов строки

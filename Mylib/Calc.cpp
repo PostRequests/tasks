@@ -123,6 +123,7 @@ int* findMin(int* a, int* b) {
     return (*a < *b) ? a : b;
 }
 
+
 void deletePositiveElement(int*& arr, int& size) {
     int newSize = getNegativeCount(arr, size);
     int* newArr = new int[newSize];
