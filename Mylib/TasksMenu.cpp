@@ -92,7 +92,7 @@ void constructMenu(TaskStructure &m) {
 	char h[] = "ƒомашн€€ работа є 23";
 	char t[] = "“ема: —труктуры.";
 	const char* tasks[] = {
-		"Ќаписать программу демонстрирующую работу двунаправленного списка. –еализовать следующий функционал двунаправленного списка:\nХ ѕерейти в начало списка\nХ ѕерейти в конец списка\nХ ѕерейти к следующему элементу\nХ ѕерейти к предыдущему элементу\nХ ƒобавить перед текущим элементом\nХ ƒобавить после текущего элемента\nХ ”далить текущий элемент\nХ ќтчистить список(удалить все элементы)\nƒомашн€€ работа є 23",
+		"Ќаписать программу демонстрирующую работу двунаправленного списка. –еализовать следующий функционал двунаправленного списка:\nХ ѕерейти в начало списка\nХ ѕерейти в конец списка\nХ ѕерейти к следующему элементу\nХ ѕерейти к предыдущему элементу\nХ ƒобавить перед текущим элементом\nХ ƒобавить после текущего элемента\nХ ”далить текущий элемент\nХ ќтчистить список(удалить все элементы)",
 		"¬ыход из программы"
 	};
 	/**/
@@ -201,7 +201,7 @@ void showMenu(const TaskStructure m) {
 
 void showTextMenu(TaskStructure &m) {
 	ColorANSI3b color;
-	drawEmptyRectangle(16, 9, m.startPos.y, m.cS.x - 17);
+	drawEmptyRectangle(16, 9, m.startPos.y + 2, m.cS.x - 17);
 	int maxLineLength = m.cS.x - 17; // ћаксимальна€ длина строки
 	int lineBreaks = 0; // оличество переносов строки
 	int currentLineLength = 5;//  оличество уже использованных символов в текущей строке
@@ -215,7 +215,14 @@ void showTextMenu(TaskStructure &m) {
 		currentLineLength += len;
 		if (currentLineLength < maxLineLength) {
 			for (int i = 0; i < len; i++)
-				std::cout << *pt++;
+				if (*pt == '\n') {
+					lineBreaks++;
+					currentLineLength = 0;
+					setCursorPosition(s.x, s.y + lineBreaks);
+					pt++;
+				}
+				else
+					std::cout << *pt++;
 			while (*pt == ' ') {
 				currentLineLength++;
 				std::cout << *pt++;

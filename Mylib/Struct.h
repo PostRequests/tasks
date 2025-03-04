@@ -3,8 +3,9 @@ struct Coordinate {
     int x; //Ряд
     int y; //Строка
 };
+
 struct Mitem {
-    int data;
+    char* data = nullptr;
     Mitem* next = nullptr;
     Mitem* prev = nullptr;
 };

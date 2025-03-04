@@ -727,18 +727,30 @@ void showWrappedText(TaskStructure& m, char* text);
 void to_start(Mlist& lst);
 //Переходим в конец списка
 void to_end(Mlist& lst);
-//Переходим к следующиму элементу списка
+//Переходим к следующему элементу списка
 void to_next(Mlist& lst);
-//Переходим к предыдущему элемениу списка
+//Переходим к предыдущему элементу списка
 void to_prev(Mlist& lst);
 //Получаем текущий элемент списка
-int get_cur(Mlist& lst);
+void* get_cur(Mlist& lst);
 //Проверяем, выбран последний элемент списка?
 bool is_end(Mlist& lst);
 //Показывает весь список
 void show(Mlist& lst);
+//Показывает весь список
+void show(Mlist& lst, Coordinate& xy);
 //Добавляет в начало новый элемент
-void add_to_start(Mlist& lst, int data);
+void add_to_start(Mlist& lst, char* data);
+//Добавляет в начало новый элемент
+void add_to_start(Mlist& lst, const char* data);
+//Добавить перед текущим элементом
+void add_to_prev(Mlist& lst, char* data);
+//Добавить после текущего элемента
+void add_to_next(Mlist& lst, char* data);
+//Удаляет текущий элемент
+void del_cur(Mlist& lst);
+//Удаляет все элементы
+void cls_list(Mlist& lst);
 
 /*Stack*/
 //Добавляет новый элемент на вершину стека.
