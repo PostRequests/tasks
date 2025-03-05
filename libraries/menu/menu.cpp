@@ -71,7 +71,7 @@ Menu constructMenu(Coordinate start, const char** item, int count, menuColor col
 		pItem[i] = new char[maxWidthItem + 1]; //Выделяем память под элементы меню + Для \0
 
 	//Заполняем элементы меню
-	//Согласно указанному центрованию
+	//Согласно указанному центрированию
 	if (place == 'l')
 		for (int i = 0; i < count; i++)
 		{
@@ -104,12 +104,12 @@ Menu constructMenu(Coordinate start, const char** item, int count, menuColor col
 		{
 			int j = 0;
 			int len = strlen(item[i]); //Длинна элемента
-			int space = maxWidthItem - len - 1;
+			int spacePre = (maxWidthItem - len) / 2;
 
-			for (; j < space; j++)
+			for (; j < spacePre; j++)
 				pItem[i][j] = ' ';
 			for (; j < maxWidthItem - 1; j++)
-				pItem[i][j] = item[i][j - space];
+				pItem[i][j] = item[i][j - spacePre];
 			pItem[i][j++] = ' ';
 			pItem[i][j] = '\0';
 			std::cout << pItem[i] << std::endl;

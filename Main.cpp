@@ -17,6 +17,6 @@ int main()
 	};
 	int countMenu = 3;
 	menuColor colorMenu = { 0,0,0,0,0 };
-	Menu m =constructMenu(startMenu, item, countMenu, colorMenu, 0, 'r');
+	Menu m =constructMenu(startMenu, item, countMenu, colorMenu, 0, 'c');
 	getShowMenu(m);
 }
