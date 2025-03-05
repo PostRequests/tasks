@@ -13,60 +13,45 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Исходные файлы\MyLib">
-      <UniqueIdentifier>{f78d8df1-bb6a-4e28-b51b-9fdbfa144dec}</UniqueIdentifier>
+    <Filter Include="Исходные файлы\lib">
+      <UniqueIdentifier>{6803e47d-c4af-4398-bc23-8e17babd328a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\templates">
-      <UniqueIdentifier>{f26632cd-3212-4390-b242-d0403b5f8a7c}</UniqueIdentifier>
+    <Filter Include="Исходные файлы\lib\menu">
+      <UniqueIdentifier>{6272a9b1-8eed-434e-add2-ffbd8505d525}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\lib\console">
+      <UniqueIdentifier>{0c27fba1-68cb-4167-b8a4-2c76572edb5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\lib\git">
+      <UniqueIdentifier>{c513bf4e-cae1-4bf5-aeea-0f29bcc0979f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\lib\git hub">
+      <UniqueIdentifier>{5d3083a8-7138-4203-8a6f-dc575be40da3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="libraries\menu\menu.cpp">
+      <Filter>Исходные файлы\lib\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\console\console.cpp">
+      <Filter>Исходные файлы\lib\console</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Mylib\Calc.cpp">
-      <Filter>Исходные файлы\MyLib</Filter>
-    </ClCompile>
-    <ClCompile Include="Mylib\Helper.cpp">
-      <Filter>Исходные файлы\MyLib</Filter>
-    </ClCompile>
-    <ClCompile Include="Mylib\Text.cpp">
-      <Filter>Исходные файлы\MyLib</Filter>
-    </ClCompile>
-    <ClCompile Include="Mylib\Win.cpp">
-      <Filter>Исходные файлы\MyLib</Filter>
-    </ClCompile>
-    <ClCompile Include="Mylib\Draw.cpp">
-      <Filter>Исходные файлы\MyLib</Filter>
-    </ClCompile>
-    <ClCompile Include="Mylib\TasksMenu.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Mylib\Stack.cpp">
-      <Filter>Исходные файлы\MyLib</Filter>
-    </ClCompile>
-    <ClCompile Include="Mylib\LIst.cpp">
-      <Filter>Исходные файлы\MyLib</Filter>
-    </ClCompile>
-    <ClCompile Include="Phone number.cpp">
-      <Filter>Исходные файлы\MyLib</Filter>
+    <ClCompile Include="libraries\git hub\git.cpp">
+      <Filter>Исходные файлы\lib\git hub</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Mylib\Header.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="libraries\menu\menu.h">
+      <Filter>Исходные файлы\lib\menu</Filter>
     </ClInclude>
-    <ClInclude Include="Mylib\Struct.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="libraries\console\console.h">
+      <Filter>Исходные файлы\lib\console</Filter>
     </ClInclude>
-    <ClInclude Include="Mylib\Matrix.h">
-      <Filter>Исходные файлы\templates</Filter>
-    </ClInclude>
-    <ClInclude Include="Mylib\Print.h">
-      <Filter>Исходные файлы\templates</Filter>
-    </ClInclude>
-    <ClInclude Include="Mylib\Random.h">
-      <Filter>Исходные файлы\templates</Filter>
+    <ClInclude Include="libraries\git hub\git.h">
+      <Filter>Исходные файлы\lib\git hub</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

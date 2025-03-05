@@ -1,4 +1,4 @@
-#include "./Mylib/Header.h"
+#include "Header.h"
 
 void delCurData(char***& data, int& countNow, int& cur) {
 	if (!countNow) return;

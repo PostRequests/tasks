@@ -127,23 +127,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Mylib\Calc.cpp" />
-    <ClCompile Include="Mylib\Draw.cpp" />
-    <ClCompile Include="Mylib\Helper.cpp" />
-    <ClCompile Include="Mylib\LIst.cpp" />
-    <ClCompile Include="Mylib\Stack.cpp" />
-    <ClCompile Include="Mylib\TasksMenu.cpp" />
-    <ClCompile Include="Mylib\Text.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Mylib\Win.cpp" />
-    <ClCompile Include="Phone number.cpp" />
+    <ClCompile Include="libraries\console\console.cpp" />
+    <ClCompile Include="libraries\git hub\git.cpp" />
+    <ClCompile Include="libraries\menu\menu.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Mylib\Header.h" />
-    <ClInclude Include="Mylib\Matrix.h" />
-    <ClInclude Include="Mylib\Print.h" />
-    <ClInclude Include="Mylib\Random.h" />
-    <ClInclude Include="Mylib\Struct.h" />
+    <ClInclude Include="libraries\console\console.h" />
+    <ClInclude Include="libraries\git hub\git.h" />
+    <ClInclude Include="libraries\menu\menu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
