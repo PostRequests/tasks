@@ -12,19 +12,21 @@ struct menuColor {
     int FG; //Цвет текста элемента меню
     int hiBG; //Цвет выделенного фона элемента меню
     int hiFG; //Цвет выделенного текста элемента меню
+    int borderFG; //Цвет окантовки меню
 };
 
 //Меню
 struct Menu {
-    Coordinate startPos;//Координаты начала места печати меню
-    int countMenu; //Количество элементов в меню
-    char** elemMenu = nullptr;//Элементы меню
+    Coordinate start;//Координаты начала места печати меню
+    char** item = nullptr;//Элементы меню
+    int count; //Количество элементов в меню
     int n; //Номер выбранного элемента меню
     menuColor color;//Цветовая палитра меню
     int lineSkip; //Количество пропущенных строк между элементами меню
     int width; //Ширина меню
-    bool visible = false;//Видимость меню
-    void* border = nullptr;//Окантовка меню
+    int height;//Ширина меню
+    bool visible;//Видимость меню
+    bool border;//Окантовка меню
 };
 
 
