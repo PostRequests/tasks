@@ -22,9 +22,6 @@
     <Filter Include="Исходные файлы\lib\console">
       <UniqueIdentifier>{0c27fba1-68cb-4167-b8a4-2c76572edb5e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\lib\git">
-      <UniqueIdentifier>{c513bf4e-cae1-4bf5-aeea-0f29bcc0979f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Исходные файлы\lib\git hub">
       <UniqueIdentifier>{5d3083a8-7138-4203-8a6f-dc575be40da3}</UniqueIdentifier>
     </Filter>

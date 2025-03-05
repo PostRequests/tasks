@@ -9,7 +9,10 @@ void clearMenu(Menu& m) {
 	delete[] m.item;
 	m.item = nullptr;
 }
-
+/// <summary>
+/// Печатает элементы меню на экране
+/// </summary>
+/// <param name="m">Структура меню</param>
 void showItemMenu(Menu m) {
 	ColorANSI3b color;
 	setCursorPosition(m.start);
@@ -17,13 +20,13 @@ void showItemMenu(Menu m) {
 		if (m.n == i) setColor(color.WhiteBG, color.BlackFG);
 		m.start.y++;
 		setCursorPosition(m.start);
-		std::cout << m.item[i] << "  ";
+		std::cout << m.item[i];
 		if (m.n == i) resetColor();
 	}
 	return;
 }
 
-int scrollMenu(Menu m) {
+int getShowMenu(Menu m, bool closeEnd) {
 	showItemMenu(m);
 	while (true)
 	{
@@ -43,15 +46,15 @@ int scrollMenu(Menu m) {
 	}
 }
 
-Menu constructMenu(Coordinate start, char** item, int count, menuColor color, char place, bool border, int lineSkip) {
+Menu constructMenu(Coordinate start, const char** item, int count, menuColor color, int lineSkip, char place, bool border) {
 	Menu menu;
-	menu.border = border;
-	menu.color = color;
-	menu.count = count;
 	menu.start = start;
-	menu.visible = false;
-	menu.lineSkip = lineSkip;
+	menu.count = count;
 	menu.n = 0;
+	menu.color = color;
+	menu.lineSkip = lineSkip;
+	menu.visible = false;
+	menu.border = border;
 	int maxWidthItem = strlen(item[0]); //Ширина самого длинного элемента меню в символах
 	//Вычисляем длину самого длинного элемента
 	for (int i = 1; i < count; i++){
@@ -59,11 +62,59 @@ Menu constructMenu(Coordinate start, char** item, int count, menuColor color, ch
 		if (maxWidthItem < width)
 			maxWidthItem = width;
 	}
-	maxWidthItem += 2; //Добавляем отступ по краям
+	maxWidthItem += 2; //Добавляем отступ по краям и место для \0
+	menu.width = maxWidthItem + ((border)? 4:0); //Расчитываем ширину меню
 
-	//Проверяем позиционирование меню, по какому краю выравнивать, либо по центру
-	if (!place || place == 'l')
-		maxWidthItem = 0; //Если по левому краю, то нам не нужна длинна
+	
+	char** pItem = new char *[count];
+	for (int i = 0; i < count; i++)
+		pItem[i] = new char[maxWidthItem + 1]; //Выделяем память под элементы меню + Для \0
+
+	//Заполняем элементы меню
+	//Согласно указанному центрованию
+	if (place == 'l')
+		for (int i = 0; i < count; i++)
+		{
+			int j = 1;
+			int len = strlen(item[i]); //Длинна элемента
+			pItem[i][0] = ' ';
+			for (;j < len +1; j++)
+				pItem[i][j] = item[i][j - 1];
+			for (; j < maxWidthItem; j++)
+				pItem[i][j] = ' ';
+			pItem[i][j] = '\0';
+		}
+	else if (place == 'r')
+		for (int i = 0; i < count; i++)
+		{
+			int j = 0;
+			int len = strlen(item[i]); //Длинна элемента
+			int space = maxWidthItem - len - 1;
+
+			for (; j < space; j++)
+				pItem[i][j] = ' ';
+			for (; j < maxWidthItem -1; j++)
+				pItem[i][j] = item[i][j - space];
+			pItem[i][j++] = ' ';
+			pItem[i][j] = '\0';
+			std::cout << pItem[i] << std::endl;
+		}
+	else if (place == 'c')
+		for (int i = 0; i < count; i++)
+		{
+			int j = 0;
+			int len = strlen(item[i]); //Длинна элемента
+			int space = maxWidthItem - len - 1;
+
+			for (; j < space; j++)
+				pItem[i][j] = ' ';
+			for (; j < maxWidthItem - 1; j++)
+				pItem[i][j] = item[i][j - space];
+			pItem[i][j++] = ' ';
+			pItem[i][j] = '\0';
+			std::cout << pItem[i] << std::endl;
+		}
+	menu.item = pItem;
 	
 	return menu;
 }

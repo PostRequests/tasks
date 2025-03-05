@@ -29,20 +29,16 @@ struct Menu {
     bool border;//Окантовка меню
 };
 
-
-/// <summary>
-/// Печатает элементы меню на экране
-/// </summary>
-/// <param name="m">Структура меню</param>
-void showItemMenu(Menu m);
 /// <summary>
 /// Анимирует перемещение по меню
 /// </summary>
 /// <param name="m">Структура меню</param>
-/// <returns>Возвращает номер элемента выбранного в меню</returns>
-int scrollMenu(Menu m);
+/// <param name="closeEnd">Закрывать после выбора элемента меню? True по умолчанию закрывать</param>
+/// <returns>Возвращает номер элемента выбранного пункта меню</returns>
+int getShowMenu(Menu m, bool closeEnd = true);
 /// <summary>
 /// Очищает указатели в меню. Не требует очищения без выделения памяти.
 /// </summary>
 /// <param name="m">Структура меню</param>
 void clearMenu(Menu& m);
+Menu constructMenu(Coordinate start, const char** item, int count, menuColor color, int lineSkip = 1, char place = 'l', bool border = false);
