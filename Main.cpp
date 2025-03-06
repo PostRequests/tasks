@@ -11,7 +11,7 @@ Menu getMainMenu();
 int main()
 {
 	system("chcp 1251>null");
-	gitPush("Реализация меню");
+	gitPush("Добавлена шапка меню");
 	Menu m = getMainMenu();
 	getShowMenu(m, true);
 }
@@ -19,7 +19,7 @@ int main()
 Menu getMainMenu() {
 	ColorANSI3b c;
 
-	Coordinate startMenu = { 5,5 };
+	Coordinate startMenu = { 5,6 };
 	const char* item[] = {
 		"Первый элемент",
 		"Второй",
@@ -27,13 +27,14 @@ Menu getMainMenu() {
 		"Четвертый"
 	};
 	int countMenu = sizeof(item) / sizeof(item[0]);
-	menuColor colorMenu = { c.BlueBG,c.WhiteFG,c.RedBG,c.BlackFG,c.MagentaFG };
+	menuColor colorMenu = { c.BlueBG,c.WhiteFG,c.MagentaFG,c.BlackFG, c.RedBG };
 	Menu m = constructMenu(startMenu, item, countMenu, colorMenu, 1, 'c', true);
-
-	Coordinate startHead = { 1,1 };
-	char headMenu[] = "Menu #1";
-	int marginHead[] = { 1,1,1,1 };
-	addHeadMenu(m, startHead, headMenu, marginHead, true);
+	menuColor colorHead = {c.YellowBG,c.BlackFG, c.GreenFG};
+	Coordinate startHead = { 5,3 };
+	char headMenu[] = "Menu %1";
+	int marginHead[] = { 0,4,0,5 };
+	addHeadMenu(m, startHead, headMenu, marginHead, true, colorHead);
 
 	return m;
 }
+

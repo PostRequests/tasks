@@ -137,3 +137,6 @@ void drawEmptyRectangle(int posX, int posY, int rows, int cols, int color) {
     resetColor();
 }
 
+void drawEmptyRectangle(Coordinate s, Coordinate f, int color) {
+    drawEmptyRectangle(s.x, s.y, f.y - s.y + 1, f.x - s.x + 1, color);
+}

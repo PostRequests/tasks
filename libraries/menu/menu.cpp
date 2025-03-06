@@ -69,14 +69,19 @@ void showItemMenu(Menu m) {
 
 
 
-void addHeadMenu(Menu &m, Coordinate start, char* head, int margin[4], bool border) {
+void addHeadMenu(Menu &m, Coordinate start, char* head, int margin[4], bool border, menuColor color) {
+	if (color.BG)
+		m.head.color = color;
+	else
+		m.head.color = m.color;
 	m.head.visible = true;
 	m.head.start = start;
-	m.head.head = head;
+	m.head.text = new char(strlen(head) + 1);
+	strcpy_s(m.head.text, strlen(head) + 1, head);
 	m.head.inTop = margin[0];
 	m.head.inLeft = margin[1];
 	m.head.inDown = margin[2];
-	m.head.inRight = margin[4];
+	m.head.inRight = margin[3];
 	m.head.border = border;
 	m.head.width = strlen(head) + m.head.inLeft + m.head.inRight + ((border) ? 2 : 0);
 	m.head.height = 1 + m.head.inTop + m.head.inDown + ((border) ? 2 : 0);
@@ -85,16 +90,36 @@ void addHeadMenu(Menu &m, Coordinate start, char* head, int margin[4], bool bord
 }
 
 
-
 void clsMenu(Menu m) {
 	drawEmptyRectangle(m.start.x, m.start.y, m.height, m.width);
 	setCursorPosition(1, 1);
 }
-	
+
+
+void showHeadMenu(Menu m) {
+	Head h = m.head; //Для упращения, что бы меньше было писать
+	setCursorPosition(h.start); 
+	if (m.head.border) {//Рисуем рамку, если она есть
+		setItemColor(h.color.BG, h.color.borderFG);
+		drawFillRectangle(m.head.start, m.head.finish);
+		h.start.x++;
+		h.start.y++;
+		h.finish.x--;
+		h.finish.y--;
+	}
+	if (h.color.BG)//Заливаем оставшуюся область цветом фона
+		drawEmptyRectangle(h.start, h.finish, h.color.BG);
+	setCursorPosition(h.start.x + h.inLeft,
+		h.start.y + h.inTop);
+	setItemColor(h.color.BG, h.color.FG);
+	std::cout << h.text;
+}
+
+
 
 int getShowMenu(Menu m, bool closeEnd) {
 	if (m.head.visible)
-		std::cout << "Есть голова";
+		showHeadMenu(m);//Тут m.head.Text заходит нормально (внутри - Menu %1)
 	showItemMenu(m);
 	if (m.border) {
 		m.start.x++;

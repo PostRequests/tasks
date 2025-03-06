@@ -129,3 +129,4 @@ void drawFillRectangle(Coordinate startPos, Coordinate endPos, int color = 0, bo
 /// <param name="cols">Количество закрашиваемых колонок</param>
 /// <param name="color">Параметр цвета (указываем только задний фон)</param>
 void drawEmptyRectangle(int posX, int posY, int rows, int cols, int color = 0);
+void drawEmptyRectangle(Coordinate s, Coordinate f, int color);
