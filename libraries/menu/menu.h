@@ -16,22 +16,22 @@ struct menuColor {
 };
 
 //Информационный текси элементов меню
-struct Info { 
+struct Info {
     Coordinate start;//Координаты начала места печати
     Coordinate finish;//Координаты конца места печати
     int width; //Полезная ширина вывода текста
     int height;//Полезная высота вывода текста+
-    int* filledLines; //Количество заполненных линий
+    int* filledLines = nullptr; //Количество заполненных линий
     char** text; //Текст текст информации по элементу меню
     bool border;//Окантовка
-    bool visible;//Видимость
+    bool visible = false;//Видимость
     menuColor color;//Цветовая палитра 
 };
 
 struct Head {
     Coordinate start;//Координаты начала места печати
     Coordinate finish;//Координаты конца места печати
-    char* text;
+    char* text = nullptr;
     int inTop;//Отступ сверху
     int inLeft;//Отступ слева
     int inDown;//Отступ снизу
@@ -39,9 +39,9 @@ struct Head {
     int width; //Ширина окна
     int height;//Высота окна
     bool border;//Окантовка меню
-    bool visible;//Видимость
+    bool visible = false;//Видимость
     menuColor color;//Цветовая палитра 
-    
+
 };
 
 //Меню
@@ -55,7 +55,7 @@ struct Menu {
     int lineSkip; //Количество пропущенных строк между элементами меню
     int width; //Ширина меню
     int height;//Высота меню
-    bool visible;//Видимость меню
+    bool visible = false;//Видимость меню
     bool border;//Окантовка меню
 
     /*Не обязательные параметры, задаются отдельно*/
@@ -77,9 +77,9 @@ int getShowMenu(Menu m, bool closeEnd = true);
 /// </summary>
 /// <param name="m">Структура меню</param>
 void clearMenu(Menu& m);
-Menu constructMenu(Coordinate start, const char** item, int count, menuColor color, int lineSkip = 1, char place = 'l', bool border = false);
-void addHeadMenu(Menu& m, Coordinate start, char* head, int margin[4], bool border, menuColor color = {0});
-void daaInfoMenu(Menu& m, Coordinate start, Coordinate finish, const char** textInfo, bool border, menuColor color = {0});
+void constructMenu(Menu &m, Coordinate start, const char** item, int count, menuColor color, int lineSkip = 1, char place = 'l', bool border = false);
+void addHeadMenu(Menu& m, Coordinate start, char* head, int margin[4], bool border, menuColor color = { 0 });
+void addInfoMenu(Menu& m, Coordinate start, Coordinate finish, const char** textInfo, bool border, menuColor color = { 0 });
 //Очищает с экрана содержание меню
 void clsMenu(Menu m);
 void showHeadMenu(Menu m);

@@ -11,9 +11,12 @@ Menu getMainMenu();
 int main()
 {
 	system("chcp 1251>null");
-	gitPush("Мучение продолжается");
+	gitPush("меню готово но криво");
 	Menu m = getMainMenu();
+	
 	getShowMenu(m, true);
+
+	clearMenu(m);
 }
 
 
@@ -21,7 +24,7 @@ int main()
 Menu getMainMenu() {
 	ColorANSI3b c;
 	Coordinate cSize = getConsoleSize(); //Максимальный размер консоли
-	//Формируею элементы меню
+	//Формируем элементы меню
 	char headMenu[] = "Домашняя работа № 24";
 	const char* item[] = {
 		"Задача 1",
@@ -33,31 +36,31 @@ Menu getMainMenu() {
 		"Разработайте программу «Библиотека». Создайте структуру «Книга» (название, автор, издательство, жанр). Создайте двунаправленный список для хранения книг. Реализуйте для него следующие возможности:\n• Добавить книгу\n• Удалить книгу\n• Редактировать книгу\n• Печать всех книг\n• Поиск книг по автору\n• Поиск книги по названию\n• Сортировка массива по названию книг\n• Сортировка массива по автору\n• Сортировка массива по издательству",
 		"Выход",
 	};
-	Coordinate startMenu = { 1, 1 };
+	Coordinate startMenu = { 1,  4 };///cSize.y/3
 	int countMenu = sizeof(item) / sizeof(item[0]);
 	menuColor colorMenu = { c.BlueBG,c.WhiteFG,c.MagentaFG,c.BlackFG, c.RedBG };
-	Menu m = constructMenu(startMenu, item, countMenu, colorMenu, 1, 'c', true);
-
+	Menu m;
+	constructMenu(m, startMenu, item, countMenu, colorMenu, 1, 'c', true);
 	//Формируем шапку меню
-	menuColor colorHead = {c.RedBG,c.BlackFG, c.YellowFG};
+	menuColor colorHead = { c.RedBG,c.BlackFG, c.YellowFG };
 	Coordinate startHead = { 1,1 };
-	
+
 	int s = strlen(headMenu) / 2;
 	int indent = (cSize.x / 2) - s - 2;
 	int marginHead[] = { 0,indent,0,indent };
 	addHeadMenu(m, startHead, headMenu, marginHead, true, colorHead);
 
 	//Формируем информацию об элементах меню
-	Coordinate start{ 1, cSize.y - 10 };
-	Coordinate finish{ cSize.x - 2, cSize.y};
-	menuColor colorInfo{c.BlackBG, c.WhiteFG, c.YellowFG};
+	Coordinate start{ 1, cSize.y - 12 };
+	Coordinate finish{ cSize.x - 2, cSize.y };
+	menuColor colorInfo{ c.BlackBG, c.WhiteFG, c.YellowFG };
 	int sInfo = sizeof(textInfo) / sizeof(textInfo[0]);
 	if (countMenu != sInfo) {
-		std::cout<< "Возникла ошибка, не совпадение количества элементов" << std::endl;
+		std::cout << "Возникла ошибка, не совпадение количества элементов" << std::endl;
 		abort();
-	} //Остановка программы в случае, если элементы меню не равны количеству элементов описания
-	
-	daaInfoMenu(m, start, finish, textInfo,true, colorInfo);
+		//Остановка программы в случае, если элементы меню не равны количеству элементов описания
+	}
+	addInfoMenu(m, start, finish, textInfo, true, colorInfo);
 	return m;
 }
 

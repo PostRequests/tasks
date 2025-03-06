@@ -19,7 +19,7 @@ void gitPush(const char* text) {
     char gitText[] = "git commit -m \"";
     int size = strlen(gitText) + strlen(text) + 2;
     char* temp = new char[size];
-    strcpy_s(temp, size,gitText);
+    strcpy_s(temp, size, gitText);
     addStr(temp, text);
     addStr(temp, "\"");
     std::cout << temp;
