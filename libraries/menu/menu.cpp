@@ -16,7 +16,6 @@ void clearMenu(Menu& m) {
 		m.info.text = nullptr;
 	}
 	if (m.head.visible) {
-		std::cout << "Содержимое m.head.text: " << m.head.text << " ,Адрес : " << &m.head.text << std::endl;
 		delete[] m.head.text;
 		m.head.text = nullptr;
 	}
@@ -90,7 +89,6 @@ void addHeadMenu(Menu& m, Coordinate start, char* head, int margin[4], bool bord
 	m.head.start = start;
 	m.head.text = new char[(strlen(head) + 1)];//Выделяю память
 	strcpy_s(m.head.text, strlen(head) + 1, head);//Копирую содержимое
-	std::cout << "Содержимое m.head.text: " << m.head.text << " ,Адрес : " << &m.head.text << std::endl;
 	m.head.inTop = margin[0];
 	m.head.inLeft = margin[1];
 	m.head.inDown = margin[2];
@@ -198,6 +196,13 @@ void showIfoMenu(Menu m) {
 	resetColor();
 }
 
+void clsHead(Menu m) {
+	drawEmptyRectangle(m.head.start, m.head.finish, 0);
+}
+void clsInfo(Menu m) {
+	drawEmptyRectangle(m.info.start, m.info.finish, 0);
+}
+
 int getShowMenu(Menu m, bool closeEnd) {
 
 	if (m.head.visible)
@@ -238,7 +243,10 @@ int getShowMenu(Menu m, bool closeEnd) {
 					m.start.y--;
 				}
 				clsMenu(m);
+				clsHead(m);
+				clsInfo(m);
 			}
+			setCursorPosition(0, 0);
 			return m.n;
 		}
 	}
