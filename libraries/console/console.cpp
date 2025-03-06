@@ -81,3 +81,59 @@ void setColor(int color1, int color2) {
 }
 
 void resetColor() { setColor(0); }
+
+void printRowChars(int s, char symbol, int color1, int color2) {
+    if (color1)
+        ((color2) ? setColor(color1, color2) : setColor(color1));
+    for (int i = 0; i < s; i++)
+        std::cout << symbol;
+}
+
+void printRowChars(int s, char l, char c, char r, int color1, int color2) {
+    if (color1)
+        ((color2) ? setColor(color1, color2) : setColor(color1));
+    std::cout << l;
+    for (int i = 1; i < s - 1; i++)
+        std::cout << c;
+    std::cout << r;
+}
+
+
+
+void drawFillRectangle(Coordinate startPos, Coordinate endPos, int color, bool doubleBoard) {
+    if (color) setColor(color);
+    system("chcp 866>nul");
+    BorderCP866 bord;
+    char boardTopLeft = ((doubleBoard) ? bord.LT2 : bord.LT1);
+    char boardTopRight = ((doubleBoard) ? bord.RT2 : bord.RT1);
+    char boardDownLeft = ((doubleBoard) ? bord.LD2 : bord.LD1);
+    char boardDownRight = ((doubleBoard) ? bord.RD2 : bord.RD1);
+    char boardHorizontal = ((doubleBoard) ? bord.H2 : bord.H1);
+    char boardVertical = ((doubleBoard) ? bord.V2 : bord.V1);
+    int lengthX = endPos.x - startPos.x + 1;
+    int lengthY = endPos.y - startPos.y;
+
+    setCursorPosition(startPos);
+    printRowChars(lengthX, boardTopLeft, boardHorizontal, boardTopRight);
+
+    for (int i = 1; i < lengthY; i++) {
+        setCursorPosition(endPos.x, startPos.y + i);
+        std::cout << boardVertical;
+        setCursorPosition(startPos.x, startPos.y + i);
+        std::cout << boardVertical;
+    }
+    setCursorPosition(startPos.x, endPos.y);
+    printRowChars(lengthX, boardDownLeft, boardHorizontal, boardDownRight);
+    resetColor();
+    system("chcp 1251>nul");
+}
+
+void drawEmptyRectangle(int posX, int posY, int rows, int cols, int color) {
+    setCursorPosition(posX, posY);
+    for (int r = 0; r < rows; r++) {
+        printRowChars(cols, ' ', color);
+        setCursorPosition(posX, posY + r + 1);
+    }
+    resetColor();
+}
+

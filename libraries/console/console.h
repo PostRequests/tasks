@@ -95,3 +95,37 @@ void setColor(int color);
 void setColor(int color1, int color2);
 /// <summary>/// Сбрасываем все цвета консоли на стандартный/// </summary>
 void resetColor();
+/// <summary>
+/// Печатает линию
+/// </summary>
+/// <param name="s">Длинна линии</param>
+/// <param name="symbol">Элемент заполнения</param>
+/// <param name="color1">Цвет консоли ANSI</param>
+/// <param name="color2">Цвет консоли ANSI</param>
+void printRowChars(int s, char symbol, int color1 = 0, int color2 = 0);
+/// <summary>
+/// Печатает линию
+/// </summary>
+/// <param name="s">Длинна линии</param>
+/// <param name="l">Первый символ в линии</param>
+/// <param name="c">Символ который будет заполнять центр линии</param>
+/// <param name="r">Последний символ линии</param>
+/// <param name="color1">Цвет консоли ANSI (не обязательный параметр)</param>
+/// <param name="color2">Цвет консоли ANSI (не обязательный параметр)</param>
+void printRowChars(int s, char l, char c, char r, int color1 = 0, int color2 = 0);
+/// <summary>
+/// Рисует квадрат с одинарной или двойной рамкой
+/// </summary>
+/// <param name="startPos">Верхняя левая координата</param>
+/// <param name="endPos">Нижняя правая координата</param>
+/// <param name="doubleBoard">True - двойная, false - одинарная</param>
+void drawFillRectangle(Coordinate startPos, Coordinate endPos, int color = 0, bool doubleBoard = true);
+/// <summary>
+/// Закрашивает/Удаляет область прямоугольную 
+/// </summary>
+/// <param name="posX">Позиция строки</param>
+/// <param name="posY">Позиция колонки</param>
+/// <param name="rows">Количество закрашиваемых строк</param>
+/// <param name="cols">Количество закрашиваемых колонок</param>
+/// <param name="color">Параметр цвета (указываем только задний фон)</param>
+void drawEmptyRectangle(int posX, int posY, int rows, int cols, int color = 0);
