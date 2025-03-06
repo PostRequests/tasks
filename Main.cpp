@@ -21,10 +21,9 @@ Menu getMainMenu() {
 
 	Coordinate startMenu = { 5,6 };
 	const char* item[] = {
-		"Первый элемент",
-		"Второй",
-		"Третий",
-		"Четвертый"
+		"Задача № 1",
+		"Задача № 1",
+		"Выход",
 	};
 	int countMenu = sizeof(item) / sizeof(item[0]);
 	menuColor colorMenu = { c.BlueBG,c.WhiteFG,c.MagentaFG,c.BlackFG, c.RedBG };
