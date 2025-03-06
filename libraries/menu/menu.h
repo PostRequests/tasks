@@ -19,8 +19,9 @@ struct menuColor {
 struct Info { 
     Coordinate start;//Координаты начала места печати
     Coordinate finish;//Координаты конца места печати
-    int width; //Ширина окна
-    int height;//Высота окна
+    int width; //Полезная ширина вывода текста
+    int height;//Полезная высота вывода текста+
+    int* filledLines; //Количество заполненных линий
     char** text; //Текст текст информации по элементу меню
     bool border;//Окантовка
     bool visible;//Видимость
@@ -78,6 +79,7 @@ int getShowMenu(Menu m, bool closeEnd = true);
 void clearMenu(Menu& m);
 Menu constructMenu(Coordinate start, const char** item, int count, menuColor color, int lineSkip = 1, char place = 'l', bool border = false);
 void addHeadMenu(Menu& m, Coordinate start, char* head, int margin[4], bool border, menuColor color = {0});
+void daaInfoMenu(Menu& m, Coordinate start, Coordinate finish, const char** textInfo, bool border, menuColor color = {0});
 //Очищает с экрана содержание меню
 void clsMenu(Menu m);
 void showHeadMenu(Menu m);
