@@ -8,14 +8,14 @@ void clearMenu(Menu& m) {
 	}
 	delete[] m.item;
 	m.item = nullptr;
-	if (m.info.visible) {
+	if (m.info.enable) {
 		for (int i = 0; i < m.count; i++) {
 			delete[] m.info.text[i];
 		}
 		delete m.info.text;
 		m.info.text = nullptr;
 	}
-	if (m.head.visible) {
+	if (m.head.enable) {
 		delete[] m.head.text;
 		m.head.text = nullptr;
 	}
@@ -30,6 +30,7 @@ void setItemColor(int color1, int color2) {
 }
 //Перерисовываем выделенный элемент меню
 void redrawItem(Menu m) {
+	if (m.border) (m.start.x++, m.start.y++);
 	m.start.y += (m.n) * (m.lineSkip + 1);
 	setCursorPosition(m.start);
 	std::cout << m.item[m.n];
@@ -40,8 +41,10 @@ void redrawItem(Menu m) {
 /// </summary>
 /// <param name="m">Структура меню</param>
 void showItemMenu(Menu m) {
-
+	m.visible = true;
 	if (m.border) {
+		m.finish = { m.start.x + m.width - 1,
+							m.start.y + m.height - 1 };
 		setItemColor(m.color.BG, m.color.borderFG);
 		drawFillRectangle(m.start, m.finish);
 		m.start.x++;
@@ -64,16 +67,16 @@ void showItemMenu(Menu m) {
 			setCursorPosition(temp);
 			for (int j = 0; j < m.lineSkip; j++)
 			{
-				for (int k = 0; k < m.width - 2; k++)
+				for (int k = 0; k < m.width - ((m.border)?2:0); k++)
 					std::cout << '-';
 				temp.y++;
-				setCursorPosition(temp);
-
 			}
 		}
 	}
 	setItemColor(m.color.hiBG, m.color.hiFG);
-	redrawItem(m);
+	m.start.y += (m.n) * (m.lineSkip + 1);
+	setCursorPosition(m.start);
+	std::cout << m.item[m.n];
 	setCursorPosition(0, 0);
 	resetColor();
 }
@@ -81,57 +84,60 @@ void showItemMenu(Menu m) {
 
 
 void addHeadMenu(Menu& m, Coordinate start, char* head, int margin[4], bool border, menuColor color) {
-	if (color.BG)
-		m.head.color = color;
-	else
-		m.head.color = m.color;
-	m.head.visible = true;
-	m.head.start = start;
-	m.head.text = new char[(strlen(head) + 1)];//Выделяю память
-	strcpy_s(m.head.text, strlen(head) + 1, head);//Копирую содержимое
-	m.head.inTop = margin[0];
-	m.head.inLeft = margin[1];
-	m.head.inDown = margin[2];
-	m.head.inRight = margin[3];
-	m.head.border = border;
-	m.head.width = strlen(head) + m.head.inLeft + m.head.inRight + ((border) ? 2 : 0);
-	m.head.height = 1 + m.head.inTop + m.head.inDown + ((border) ? 2 : 0);
-	m.head.finish = { m.head.start.x + m.head.width - 1,
-							m.head.start.y + m.head.height - 1 };
+	Head &H = m.head; //Для сокращения текста
+
+	//Если не задана цветовая палитра, берет палитру из основного меню
+	if (color.BG) H.color = color; 
+	else H.color = m.color;
+
+	H.text = new char[(strlen(head) + 1)];//Выделяю память
+	strcpy_s(H.text, strlen(head) + 1, head);//Копирую содержимое
+	H.enable = true;
+	H.start = start;
+	H.inTop = margin[0];
+	H.inLeft = margin[1];
+	H.inDown = margin[2];
+	H.inRight = margin[3];
+	H.border = border;
+	H.width = strlen(head) + H.inLeft + H.inRight + ((border) ? 2 : 0);
+	H.height = 1 + H.inTop + H.inDown + ((border) ? 2 : 0);
+	H.finish = { H.start.x + H.width - 1,
+							H.start.y + H.height - 1 };
 }
 
 void addInfoMenu(Menu& m, Coordinate start, Coordinate finish, const char** textInfo, bool border, menuColor color) {
-	if (color.BG)
-		m.info.color = color;
-	else
-		m.info.color = m.color;
-	m.info.visible = true;
-	m.info.start = start;
-	m.info.finish = finish;
-	m.info.height = finish.y - start.y - ((border) ? 2 : 0);
-	m.info.width = finish.x - start.x - ((border) ? 2 : 0);
-	char** pInfo = new char* [m.count];
-	for (int i = 0; i < m.count; i++) {
-		pInfo[i] = new char[strlen(textInfo[i]) + 1]; //Выделяем память под элементы меню + Для \0
-		strcpy_s(pInfo[i], strlen(textInfo[i]) + 1, textInfo[i]);
-	}
-	m.info.text = pInfo;
+	Info& I = m.info;//Для сокращения текста
 
-	//m.info = i;
+	//Если не задана цветовая палитра, берет палитру из основного меню
+	if (color.BG) m.info.color = color;
+	else m.info.color = m.color;
+
+	I.enable = true;
+	I.start = start;
+	I.finish = finish;
+	I.height = finish.y - start.y - ((border) ? 2 : 0);
+	I.width = finish.x - start.x - ((border) ? 2 : 0);
+	I.text = new char* [m.count];
+	for (int i = 0; i < m.count; i++) {
+		//Выделяем память под элементы меню и копируем содержимое
+		I.text[i] = new char[strlen(textInfo[i]) + 1]; 
+		strcpy_s(I.text[i], strlen(textInfo[i]) + 1, textInfo[i]);
+	}
 }
 
-void clsMenu(Menu m) {
+void clsMenu(Menu &m) {
 	drawEmptyRectangle(m.start.x, m.start.y, m.height, m.width);
 	setCursorPosition(1, 1);
+	m.visible = false;
+	m.n = 0;
 }
 
 
-void showHeadMenu(Menu m) {
-	Head h = m.head; //Для удобства, чтобы было меньше текста
+void showHeadMenu(Head h) {
 	setCursorPosition(h.start);
-	if (m.head.border) {//Рисуем рамку, если она есть
+	if (h.border) {//Рисуем рамку, если она есть
 		setItemColor(h.color.BG, h.color.borderFG);
-		drawFillRectangle(m.head.start, m.head.finish);
+		drawFillRectangle(h.start, h.finish);
 		h.start.x++;
 		h.start.y++;
 		h.finish.x--;
@@ -196,55 +202,53 @@ void showIfoMenu(Menu m) {
 	resetColor();
 }
 
-void clsHead(Menu m) {
+void clsHead(Menu &m) {
 	drawEmptyRectangle(m.head.start, m.head.finish, 0);
+	m.head.visible = false;
 }
-void clsInfo(Menu m) {
+void clsInfo(Menu &m) {
 	drawEmptyRectangle(m.info.start, m.info.finish, 0);
+	m.info.visible = false;
 }
 
-int getShowMenu(Menu m, bool closeEnd) {
-
-	if (m.head.visible)
-		showHeadMenu(m);
-	showItemMenu(m);
-	if (m.info.visible)
-		showIfoMenu(m);
-	if (m.border) {
-		m.start.x++;
-		m.start.y++;
+int getShowMenu(Menu &m, bool closeEnd) {
+	if (!m.visible) {
+		showItemMenu(m);
+		m.visible = true;
 	}
-	while (true)
-	{
+		
+	if (m.head.enable and !m.head.visible) {
+		showHeadMenu(m.head); //Отображаем заголовок, если есть
+		m.head.visible = true;
+	}
+		
+	if (m.info.enable and !m.info.visible) {
+		showIfoMenu(m);//Отображаем информацию, если есть
+		m.info.visible = true;
+	}
+		
+	//if (m.border) {	m.start.x++;m.start.y++; }
+	while (true){
 		char key = catchKey();
-		if (key == 'w') {
+		if (key == 'w' or key == 's') {
+			//Закрашиваем текущий элемент в стандартный цвет
 			setItemColor(m.color.BG, m.color.FG);
 			redrawItem(m);
-			(m.n - 1 == -1) ? m.n = m.count - 1 : m.n -= 1;
+			//Определяем, как изменятся номер выделенного элемента
+			if (key == 'w') (m.n - 1 == -1) ? m.n = m.count - 1 : m.n -= 1;
+			else if (key == 's') (m.n + 1 == m.count) ? m.n = 0 : m.n += 1;
+			//Перекрашиваем выделенный элемент
 			setItemColor(m.color.hiBG, m.color.hiFG);
 			redrawItem(m);
-			if (m.info.visible)
-				showIfoMenu(m);
-		}
-		else if (key == 's') {
-			setItemColor(m.color.BG, m.color.FG);
-			redrawItem(m);
-			(m.n + 1 == m.count) ? m.n = 0 : m.n += 1;
-			setItemColor(m.color.hiBG, m.color.hiFG);
-			redrawItem(m);
-			if (m.info.visible)
-				showIfoMenu(m);
+			//Если у меню есть информация, то перерисовываем и ее
+			if (m.info.enable) showIfoMenu(m);
 		}
 		else if (key == 13) {
 			resetColor();
 			if (closeEnd) {
-				if (m.border) {
-					m.start.x--;
-					m.start.y--;
-				}
 				clsMenu(m);
-				clsHead(m);
-				clsInfo(m);
+				if (m.head.enable) clsHead(m);
+				if (m.info.enable) clsInfo(m);
 			}
 			setCursorPosition(0, 0);
 			return m.n;
@@ -258,7 +262,6 @@ void constructMenu(Menu &m,Coordinate start, const char** item, int count, menuC
 	m.n = 0;
 	m.color = color;
 	m.lineSkip = lineSkip;
-	m.visible = false;
 	m.border = border;
 	int maxWidthItem = strlen(item[0]); //Ширина самого длинного элемента меню в символах
 	//Вычисляем длину самого длинного элемента
@@ -270,8 +273,7 @@ void constructMenu(Menu &m,Coordinate start, const char** item, int count, menuC
 	maxWidthItem += 2; //Добавляем отступ по краям и место для \0
 	m.width = maxWidthItem + ((border) ? 2 : 0); //Рассчитываем ширину меню
 	m.height = count * (lineSkip + 1) + ((border) ? 2 : 0) - lineSkip; //рассчитываем высоту
-	m.finish = { m.start.x + m.width - 1,
-							m.start.y + m.height - 1 };
+	
 	char** pItem = new char* [count];
 	for (int i = 0; i < count; i++)
 		pItem[i] = new char[maxWidthItem + 1]; //Выделяем память под элементы меню + Для \0

@@ -25,30 +25,45 @@
     <Filter Include="Исходные файлы\lib\git hub">
       <UniqueIdentifier>{5d3083a8-7138-4203-8a6f-dc575be40da3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\lib\string">
+      <UniqueIdentifier>{827fa199-2e2b-4db9-ba57-ac1065f6a9b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="libraries\menu\menu.cpp">
-      <Filter>Исходные файлы\lib\menu</Filter>
-    </ClCompile>
-    <ClCompile Include="libraries\console\console.cpp">
-      <Filter>Исходные файлы\lib\console</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="libraries\git hub\git.cpp">
+    <ClCompile Include="MyLib\console\console.cpp">
+      <Filter>Исходные файлы\lib\console</Filter>
+    </ClCompile>
+    <ClCompile Include="MyLib\git hub\git.cpp">
       <Filter>Исходные файлы\lib\git hub</Filter>
+    </ClCompile>
+    <ClCompile Include="MyLib\menu\menu.cpp">
+      <Filter>Исходные файлы\lib\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="MyLib\text\text.cpp">
+      <Filter>Исходные файлы\lib\string</Filter>
+    </ClCompile>
+    <ClCompile Include="Pointer.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="libraries\menu\menu.h">
-      <Filter>Исходные файлы\lib\menu</Filter>
-    </ClInclude>
-    <ClInclude Include="libraries\console\console.h">
+    <ClInclude Include="MyLib\console\console.h">
       <Filter>Исходные файлы\lib\console</Filter>
     </ClInclude>
-    <ClInclude Include="libraries\git hub\git.h">
+    <ClInclude Include="MyLib\git hub\git.h">
       <Filter>Исходные файлы\lib\git hub</Filter>
+    </ClInclude>
+    <ClInclude Include="MyLib\menu\menu.h">
+      <Filter>Исходные файлы\lib\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="MyLib\text\text.h">
+      <Filter>Исходные файлы\lib\string</Filter>
+    </ClInclude>
+    <ClInclude Include="Pointer.h">
+      <Filter>Исходные файлы</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

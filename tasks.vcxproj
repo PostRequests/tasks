@@ -127,15 +127,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="libraries\console\console.cpp" />
-    <ClCompile Include="libraries\git hub\git.cpp" />
-    <ClCompile Include="libraries\menu\menu.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MyLib\console\console.cpp" />
+    <ClCompile Include="MyLib\git hub\git.cpp" />
+    <ClCompile Include="MyLib\menu\menu.cpp" />
+    <ClCompile Include="MyLib\text\text.cpp" />
+    <ClCompile Include="Pointer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="libraries\console\console.h" />
-    <ClInclude Include="libraries\git hub\git.h" />
-    <ClInclude Include="libraries\menu\menu.h" />
+    <ClInclude Include="Pointer.h" />
+    <ClInclude Include="MyLib\console\console.h" />
+    <ClInclude Include="MyLib\git hub\git.h" />
+    <ClInclude Include="MyLib\menu\menu.h" />
+    <ClInclude Include="MyLib\text\text.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

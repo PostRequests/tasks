@@ -15,7 +15,7 @@ struct menuColor {
     int hiFG; //Цвет выделенного текста элемента меню
 };
 
-//Информационный текси элементов меню
+//Информационный текст элементов меню
 struct Info {
     Coordinate start;//Координаты начала места печати
     Coordinate finish;//Координаты конца места печати
@@ -23,7 +23,8 @@ struct Info {
     int height;//Полезная высота вывода текста+
     char** text; //Текст текст информации по элементу меню
     bool border;//Окантовка
-    bool visible = false;//Видимость
+    bool enable = false;//Существует ли объект
+    bool visible = false; //Видим на экране
     menuColor color;//Цветовая палитра 
 };
 
@@ -38,7 +39,8 @@ struct Head {
     int width; //Ширина окна
     int height;//Высота окна
     bool border;//Окантовка меню
-    bool visible = false;//Видимость
+    bool enable = false;//Видимость
+    bool visible = false; //Видим на экране
     menuColor color;//Цветовая палитра 
 
 };
@@ -54,11 +56,10 @@ struct Menu {
     int lineSkip; //Количество пропущенных строк между элементами меню
     int width; //Ширина меню
     int height;//Высота меню
-    bool visible = false;//Видимость меню
     bool border;//Окантовка меню
+    bool visible = false; //Видим на экране
 
     /*Не обязательные параметры, задаются отдельно*/
-
     Head head; //Шапка меню
 
     Info info; //Элементы информации меню
@@ -70,14 +71,14 @@ struct Menu {
 /// <param name="m">Структура меню</param>
 /// <param name="closeEnd">Закрывать после выбора элемента меню? True по умолчанию закрывать</param>
 /// <returns>Возвращает номер элемента выбранного пункта меню</returns>
-int getShowMenu(Menu m, bool closeEnd = true);
+int getShowMenu(Menu &m, bool closeEnd = true);
 /// <summary>
 /// Очищает указатели в меню. Не требует очищения без выделения памяти.
 /// </summary>
 /// <param name="m">Структура меню</param>
 void clearMenu(Menu& m);
 /// <summary>
-/// В первую очерезь заполняем элементы меню
+/// В первую очередь заполняем элементы меню
 /// </summary>
 /// <param name="m">Структура меню</param>
 /// <param name="start">Стартовые координаты, где будет начинать рисоваться меню</param>
@@ -109,10 +110,10 @@ void addHeadMenu(Menu& m, Coordinate start, char* head, int margin[4], bool bord
 /// <param name="color">Цветовая палитра (BG,FG,borderFG,hiBG,hiFG)</param>
 void addInfoMenu(Menu& m, Coordinate start, Coordinate finish, const char** textInfo, bool border, menuColor color = { 0 });
 //Очищает с экрана содержание меню
-void clsMenu(Menu m);
+void clsMenu(Menu &m);
 //Очищает с экрана содержание заголовка
-void clsHead(Menu m);
+void clsHead(Menu &m);
 //Очищает с экрана содержание информации элементов меню
-void clsInfo(Menu m);
-//Отрисовывает только заголовок меню
-void showHeadMenu(Menu m);
+void clsInfo(Menu &m);
+//Рисует заголовок меню
+void showHeadMenu(Head h);
