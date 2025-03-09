@@ -118,14 +118,21 @@ void sortBooks(char*** books, int count, int sortIndex) {
 
 			for (int j = 0; j < min; j++)
 			{
-				if (books[i][sortIndex][j] == books[i + 1][sortIndex][j]) 
+				if (toLowerRus(books[i][sortIndex][j]) == toLowerRus(books[i + 1][sortIndex][j]))
 					continue;//если символы равны, переходим к следующему
-				else if (books[i][sortIndex][j] * -1  < books[i + 1][sortIndex][j] * -1) {//Если символ в строке меньше чем в последующей
-					
+				else if (j + 1 == min) {
+					if (temp1 > temp2) {
+						std::swap(books[i], books[i + 1]);//Короткую строку ставим на первое место
+						sort = false;
+						break;
+					}
+				}
+				else if (toLowerRus(books[i][sortIndex][j]) * -1  < toLowerRus(books[i + 1][sortIndex][j]) * -1) {//Если символ в строке меньше чем в последующей
 					std::swap(books[i], books[i + 1]);//Меняем местами книги
 					sort = false;
 					break;
 				}
+				 
 				break;
 			}
 		}

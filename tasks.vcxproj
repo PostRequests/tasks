@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MyLib\2List\LIst 2.cpp" />
     <ClCompile Include="MyLib\console\console.cpp" />
     <ClCompile Include="MyLib\git hub\git.cpp" />
     <ClCompile Include="MyLib\menu\menu.cpp" />
@@ -135,6 +136,7 @@
     <ClCompile Include="Pointer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MyLib\2List\List2.h" />
     <ClInclude Include="Pointer.h" />
     <ClInclude Include="MyLib\console\console.h" />
     <ClInclude Include="MyLib\git hub\git.h" />

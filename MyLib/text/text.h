@@ -13,3 +13,9 @@ int strMaxLen(const char** item, int count);
 /// <param name="ABC">Буква для преобразования</param>
 /// <returns>Строковая буква</returns>
 char toLowerRus(char ABC);
+/// <summary>
+/// Преобразует констант текст в выделенную память
+/// </summary>
+/// <param name="text">Константный текст</param>
+/// <returns>Указатель на выделенную память</returns>
+char* toMemPoint(const char* text);

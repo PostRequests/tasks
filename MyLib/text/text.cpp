@@ -16,3 +16,8 @@ char toLowerRus(char ABC) {
 		return ABC + 32;
 	return ABC;
 }
+char* toMemPoint(const char* text) {
+	char* newT = new char[strlen(text) + 1];
+	strcpy_s(newT, strlen(text) + 1, text);
+	return newT;
+}

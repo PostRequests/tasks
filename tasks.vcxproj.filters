@@ -28,6 +28,9 @@
     <Filter Include="Исходные файлы\lib\string">
       <UniqueIdentifier>{827fa199-2e2b-4db9-ba57-ac1065f6a9b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\lib\2List">
+      <UniqueIdentifier>{9db65413-aaad-42a0-8b84-ff40df31f8d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -48,6 +51,9 @@
     <ClCompile Include="Pointer.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="MyLib\2List\LIst 2.cpp">
+      <Filter>Исходные файлы\lib\2List</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyLib\console\console.h">
@@ -64,6 +70,9 @@
     </ClInclude>
     <ClInclude Include="Pointer.h">
       <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="MyLib\2List\List2.h">
+      <Filter>Исходные файлы\lib\2List</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
