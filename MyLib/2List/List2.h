@@ -18,6 +18,7 @@ struct Mlist {
     Mitem* start = nullptr;
     Mitem* end = nullptr;
     Mitem* cur = nullptr;
+    int count = 0;
 };
 
 //Добавляет в начало новый элемент
@@ -34,12 +35,14 @@ void to_prev(Mlist& lst);
 lBook* get_cur(Mlist& lst);
 //Проверяем, выбран последний элемент списка?
 bool is_end(Mlist& lst);
-
-
+//Проверяем, выбран первый элемент списка?
+bool is_start(Mlist& lst);
 //Показывает весь список
 void show(Mlist& lst);
-//Показывает весь список
-void show(Mlist& lst, Coordinate& xy);
+//Удаляет текущий элемент
+void del_cur(Mlist& lst);
+//Удаляет все элементы
+void cls_list(Mlist& lst);
 
 //void add_to_start(Mlist& lst, void* data);
 //Добавляет в начало новый элемент
@@ -47,7 +50,3 @@ void show(Mlist& lst, Coordinate& xy);
 //void add_to_prev(Mlist& lst, void* data);
 //Добавить после текущего элемента
 //void add_to_next(Mlist& lst, void* data);
-//Удаляет текущий элемент
-void del_cur(Mlist& lst);
-//Удаляет все элементы
-void cls_list(Mlist& lst);

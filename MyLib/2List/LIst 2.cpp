@@ -2,24 +2,8 @@
 #include "List2.h"
 #include <iostream>
 
-void to_start(Mlist& lst) {
-	lst.cur = lst.start;
-}
-void to_end(Mlist& lst) {
-	lst.cur = lst.end;
-}
-
-void to_next(Mlist& lst) {
-	if (lst.cur)
-		if (lst.cur->next != nullptr)
-			lst.cur = lst.cur->next;
-}
-void to_prev(Mlist& lst) {
-	if (lst.cur)
-		if (lst.cur->prev != nullptr)
-			lst.cur = lst.cur->prev;
-}
 void add_to_prev(Mlist& lst, lBook* data) {
+	lst.count++;
 	Mitem* n = new Mitem;
 	n->data = data;
 
@@ -40,6 +24,22 @@ void add_to_prev(Mlist& lst, lBook* data) {
 		lst.cur->prev = n;
 	}
 }
+void to_start(Mlist& lst) {
+	lst.cur = lst.start;
+}
+void to_end(Mlist& lst) {
+	lst.cur = lst.end;
+}
+void to_next(Mlist& lst) {
+	if (lst.cur)
+		if (lst.cur->next != nullptr)
+			lst.cur = lst.cur->next;
+}
+void to_prev(Mlist& lst) {
+	if (lst.cur)
+		if (lst.cur->prev != nullptr)
+			lst.cur = lst.cur->prev;
+}
 lBook* get_cur(Mlist& lst) {
 	if (lst.cur)
 		return lst.cur->data;
@@ -51,27 +51,16 @@ bool is_end(Mlist& lst) {
 bool is_start(Mlist& lst) {
 	return !lst.cur->prev;
 }
-void show(Mlist& lst , Coordinate& xy) {
-	setCursorPosition(xy);
-	Mitem* c = lst.start;
-	while (c)
-	{
-		if (c == lst.cur)
-			std::cout << "[" << (char*)c->data << "]";
-		else
-			std::cout << "'" << (char*)c->data << "'";
-		c = c->next;
-		xy.y++;
-		setCursorPosition(xy);
-	}
-}
 void show(Mlist& lst) {
 	ColorANSI3b col;
 	Mitem* c = lst.start;
+	Coordinate cSize = getConsoleSize();
+	drawEmptyRectangle(0, 8, (lst.count + 1) * 3, cSize.x - 27, 0);
+	setCursorPosition(0, 8);
 	while (c)
 	{
-		//if (c == lst.cur)
-			//std::cout << " -->";
+		if (c == lst.cur)
+			std::cout << " -->|";
 		std::cout << "\t" << c->data->title;
 		setColor(col.RedFG);
 		std::cout << "\n\t Автор: ";
@@ -89,7 +78,43 @@ void show(Mlist& lst) {
 		c = c->next;
 	}
 }
+void del_cur(Mlist& lst) {
+	if (!lst.cur) return;
+	lst.count--;
+	Mitem* Del = lst.cur;
+	if (lst.cur->prev)
+		lst.cur->prev->next = lst.cur->next;
+	else
+		lst.start = lst.cur->next;
+	if (lst.cur->next) {
+		lst.cur->next->prev = lst.cur->prev;
+		lst.cur = lst.cur->next;
+	}
+	else {
+		lst.end = lst.cur->prev;
+		lst.cur = lst.end;
+	}
+	delete[] Del->data->author;
+	delete[] Del->data->genre;
+	delete[] Del->data->publishing;
+	delete[] Del->data->title;
+	delete[] Del->data;
+	delete Del;
+}
+void cls_list(Mlist& lst) {
 
+	while (lst.start) {
+		Mitem* del = lst.start;
+		lst.start = lst.start->next;
+		delete[] del->data->author;
+		delete[] del->data->genre;
+		delete[] del->data->publishing;
+		delete[] del->data->title;
+		delete[] del->data;
+		delete del;
+	}
+	lst.end = nullptr;
+}
 
 //void add_to_next(Mlist& lst, void* data) {
 //	char* newData = new char[strlen(data) + 1];
@@ -130,33 +155,3 @@ void show(Mlist& lst) {
 //	}
 //}
 
-void del_cur(Mlist& lst) {
-	if (!lst.cur) return;
-	Mitem* Del = lst.cur;
-	if (lst.cur->prev)
-		lst.cur ->prev->next = lst.cur->next;
-	else
-		lst.start = lst.cur->next;
-	if (lst.cur->next){
-		lst.cur->next->prev = lst.cur->prev;
-		lst.cur = lst.cur->next;
-	}
-	else{
-		lst.end = lst.cur->prev;
-		lst.cur = lst.end;
-	}	
-	delete[] Del->data;
-	delete Del;
-}
-
-void cls_list(Mlist& lst) {
-	
-	while (lst.start) {
-		Mitem* del = lst.start;
-		char* i = (char*)del->data;
-		lst.start = lst.start->next;
-		delete[] del->data;
-		delete del; 
-	}
-	lst.end = nullptr;
-}

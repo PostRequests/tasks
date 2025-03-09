@@ -53,7 +53,7 @@ int main()
 	system("chcp 1251>null");
 	FullScreenMode();
 	Coordinate cSize = getConsoleSize();
-	gitPush("Начал делать двунаправленный список  ДЗ № 24");
+	gitPush("Все сложно (  ДЗ № 24");
 	//Добавляем первоначальные книги
 	int count = 0;
 	char*** books = createPointer(count);
