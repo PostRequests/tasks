@@ -244,6 +244,7 @@ int getShowMenu(Menu &m, bool closeEnd) {
 			if (m.info.enable) showIfoMenu(m);
 		}
 		else if (key == 13) {
+			int temp = m.n;
 			resetColor();
 			if (closeEnd) {
 				clsMenu(m);
@@ -251,7 +252,7 @@ int getShowMenu(Menu &m, bool closeEnd) {
 				if (m.info.enable) clsInfo(m);
 			}
 			setCursorPosition(0, 0);
-			return m.n;
+			return temp;
 		}
 	}
 }

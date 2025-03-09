@@ -34,4 +34,5 @@ void showBook(char*** books, int count, int number);
 /// <param name="book">Все книги</param>
 /// <param name="count">Количество книг</param>
 /// <param name="number">Номер книги которую нужно удалить</param>
-void delBook(char*** book, int& count, int number);
+void delBook(char*** &book, int& count, int number);
+void editBook(char***& book, int count, int numBook, int numIndex, char* textedit);

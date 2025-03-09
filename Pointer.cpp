@@ -50,10 +50,11 @@ void addBook(char***& books, int& count, char b[][100]) {
 	delete[] temp;
 }
 void showBook(char*** books, int count, int number) {
+	
 	ColorANSI3b c;
-	std::cout << books[number][0];
+	std::cout << "\t" << books[number][0];
 	setColor(c.RedFG);
-	std::cout << " Автор: ";
+	std::cout << "\n\t Автор: ";
 	resetColor();
 	std::cout << books[number][1];
 	setColor(c.BlueFG);
@@ -64,14 +65,17 @@ void showBook(char*** books, int count, int number) {
 	std::cout << " Жанр: ";
 	resetColor();
 	std::cout << books[number][3] << std::endl;
+	std::cout << "\t----------------------------------------------\n";
 }
 void showBook(char*** books, int count) {
-
+	Coordinate cSize = getConsoleSize();
+	drawEmptyRectangle(0, 8, (count + 1) * 3, cSize.x - 27, 0);
+	setCursorPosition(0, 8);
 	for (int i = 0; i < count; i++)
 		showBook(books, count, i);
 }
 
-void delBook(char*** book, int& count, int number) {
+void delBook(char*** &book, int& count, int number) {
 	if (!book) return;
 	for (int j = 0; j < 4; j++) {
 		delete[] book[number][j];
@@ -82,4 +86,9 @@ void delBook(char*** book, int& count, int number) {
 		book[i] = book[i + 1];
 	}
 	count--;
+}
+void editBook(char *** &book, int count, int numBook, int numIndex, char* textedit) {
+	if (!count or numIndex > count) return;
+
+	strcpy_s(book[numBook][numIndex], strlen(textedit) + 1, textedit);
 }

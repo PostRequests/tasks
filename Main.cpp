@@ -29,36 +29,101 @@ Menu getSortMenu(Menu menu, int numPer);
 /// <param name="count">Количество книг, которые получились</param>
 /// <returns></returns>
 char*** createPointer(int& count);
+Menu getEditMenu(Menu menu, int numPer);
 
-
+int getShowArrows(int count);
 
 int main()
 {
 	system("chcp 1251>null");
-	gitPush("Наполовину сделал половину ДЗ № 24");
+	system("pause");
+	FullScreenMode();
+	gitPush("Наполовину 34%  ДЗ № 24");
+	//Добавляем первоначальные книги
 	int count = 0;
 	char*** books = createPointer(count);
-	delBook(books, count, 4);
-	showBook(books, count);
 	/////
 	Menu m = getMainMenu();
 	Menu mLib = getLibMenu();
 	Menu mSearch = getSearchMenu(mLib, 4);
 	Menu mSort = getSortMenu(mLib, 5);
-	getShowMenu(m);
+	Menu edit = getEditMenu(mLib, 3);
 	while (true)
 	{
-		mLib.n = getShowMenu(mLib, false);
-		 
-		if (mLib.n == 4)
-			getShowMenu(mSearch);
-		else if(mLib.n == 5)
-			getShowMenu(mSort);
-	}
+	int input = getShowMenu(m);
+	if (input == 0)
+		while (true)
+		{
 
+			
+			mLib.n = getShowMenu(mLib, false);
+			setCursorPosition(0, 5);
+			if (mLib.n == 4)
+				getShowMenu(mSearch);
+			else if (mLib.n == 5)
+				getShowMenu(mSort);
+			else if (mLib.n == 3)
+				getShowMenu(edit);
+			else if (mLib.n == 2) {
+				showBook(books, count);
+				int iDel = getShowArrows(count);
+				if(iDel > -1)
+					delBook(books, count, iDel);
+				showBook(books, count);
+
+			}
+			else if (mLib.n == 0) {
+				showBook(books, count);
+			}
+			else if (mLib.n == 1) {
+				char** newB = new char* [4];
+				ColorANSI3b c;
+				const int limitSymbol = 4 * 1024;
+				char str[limitSymbol];
+				setCursorPosition(0, 4);
+				std::cout << " Название: ";
+				std::cin.getline(str, limitSymbol);
+				newB[0] = new char[strlen(str) + 1];
+				strcpy_s(newB[0], strlen(str) + 1, str);
+				setColor(c.RedFG);
+				std::cout << " автор: ";
+				std::cin.getline(str, limitSymbol);
+				newB[1] = new char[strlen(str) + 1];
+				strcpy_s(newB[1], strlen(str) + 1, str);
+				setColor(c.BlueFG);
+				std::cout << " издательство: ";
+				std::cin.getline(str, limitSymbol);
+				newB[2] = new char[strlen(str) + 1];
+				strcpy_s(newB[2], strlen(str) + 1, str);
+				setColor(c.GreenFG);
+				std::cout << " жанр: ";
+				std::cin.getline(str, limitSymbol);
+				newB[3] = new char[strlen(str) + 1];
+				strcpy_s(newB[3], strlen(str) + 1, str);
+				
+				drawEmptyRectangle(0, 4, 4, mLib.start.x - 1, c.BlackBG);
+				addBook(books, count, newB);
+				for (int i = 0; i < 4; i++)
+					delete[] newB[i];
+				delete[] newB;
+				showBook(books, count);
+			}
+			else if (mLib.n == 6) {
+				clsHead(mLib);
+				clsMenu(mLib);
+				break;
+			}
+				
+		}
+	else if (input == 1)
+		break;
+	else if (input == 2)
+		break;
+	}
 	clearMenu(mSearch);
 	clearMenu(mLib);
 	clearMenu(m);
+	system("cls");
 }
 
 
@@ -78,7 +143,7 @@ Menu getMainMenu() {
 		"Разработайте программу «Библиотека». Создайте структуру «Книга» (название, автор, издательство, жанр). Создайте двунаправленный список для хранения книг. Реализуйте для него следующие возможности:\n• Добавить книгу\n• Удалить книгу\n• Редактировать книгу\n• Печать всех книг\n• Поиск книг по автору\n• Поиск книги по названию\n• Сортировка массива по названию книг\n• Сортировка массива по автору\n• Сортировка массива по издательству",
 		"Выход",
 	};
-	Coordinate startMenu = { 1,  cSize.y / 3 };///cSize.y/3
+	Coordinate startMenu = { cSize.x / 2 - 19,  cSize.y / 3};///cSize.y/3
 	int countMenu = sizeof(item) / sizeof(item[0]);
 	menuColor colorMenu = { c.BlueBG,c.WhiteFG,c.MagentaFG,c.BlackFG, c.RedBG };
 	Menu m;
@@ -118,9 +183,9 @@ Menu getLibMenu() {
 		"Печать всех книг",
 		"Добавить книгу",
 		"Удалить книгу",
-		"Редактировать книгу",
-		"Поиск книг",
-		"Сортировка",
+		"<- Редактировать книгу",
+		"<- Поиск книг",
+		"<- Сортировка",
 		"Назад"
 	};
 	int countMenu = sizeof(item) / sizeof(item[0]);
@@ -135,7 +200,7 @@ Menu getLibMenu() {
 	Coordinate startHead = { 1,1 };//Координаты начала рисования названия меню
 	int s = strlen(headMenu) / 2;
 	int indent = (cSize.x / 2) - s - 2;
-	int marginHead[] = { 0,indent,0,indent };//{top, left, down, right}
+	int marginHead[] = { 0,indent+1,0,indent };//{top, left, down, right}
 	addHeadMenu(m, startHead, headMenu, marginHead, true, colorHead);
 	return m;
 }
@@ -201,7 +266,7 @@ char*** createPointer(int & count) {
 	   "Маленький принц",       //Название
 	   "Антуан де Сент-Экзюпери", //Автор
 	   "Reynal & Hitchcock",     //Издательство
-	   "Философская сказка"      //Жанр
+	   "Сказка"      //Жанр
 	};
 
 	char ulyss[][100] = {
@@ -222,7 +287,7 @@ char*** createPointer(int & count) {
 		"Тень ветра",             
 		"Карлос Руис Сафон",      
 		"Planeta",               
-		"Мистический роман, исторический детектив" 
+		"Мистический роман" 
 	};
 
 	char hunger_games[][100] = {
@@ -238,4 +303,59 @@ char*** createPointer(int & count) {
 	addBook(books, count, ulyss);
 	addBook(books, count, little_prince);
 	return books;
+}
+
+Menu getEditMenu(Menu menu, int numPer) {
+
+	ColorANSI3b c;
+	Coordinate cSize = getConsoleSize(); //Максимальный размер консоли
+	//Формируем элементы меню
+	char headMenu[] = "Динамический массив хранения книг";
+	const char* item[] = {
+		"Название",
+		"Автора",
+		"Издательство",
+		"Жанр"
+	};
+	int countMenu = sizeof(item) / sizeof(item[0]);
+	int mWidth = strMaxLen(item, countMenu) + 4; //Ширина меню
+	//Пока указываем произвольное значение начала меню
+	//Потом определим куда его ставить
+	Coordinate startMenu;
+	//ставим координаты меню относительно родителя
+	startMenu.y = 4 + (numPer * (menu.lineSkip + 1));
+
+	menuColor colorMenu = { c.CyanBG,c.WhiteFG,c.MagentaFG,c.BlackFG, c.RedBG };
+
+	Menu m;
+	constructMenu(m, startMenu, item, countMenu, colorMenu, 1, 'r', true);
+	m.start.x = menu.start.x - m.width;
+
+	return m;
+}
+
+int getShowArrows(int count) {
+	if (!count) return -1;
+	int result = 0;
+	setCursorPosition(0, 8);
+	std::cout << "-->";
+	while (true)
+	{
+		char key = catchKey();
+		if (key == 'w' or key == 's') {
+			
+			if (key == 'w') (result - 1 == -1) ? result = count - 1 : result -= 1;
+			else if (key == 's') (result + 1 == count) ? result = 0 : result += 1;
+			drawEmptyRectangle(0, 8, count * 3, 4, 0);
+			setCursorPosition(0, 8 + (result * 3));
+			std::cout << "-->";
+		}
+		else if (key == 13) {
+			resetColor();
+			drawEmptyRectangle(0, 8, count * 3, 4, 0);
+			setCursorPosition(0, 0);
+			return result;
+		}
+	}
+
 }
