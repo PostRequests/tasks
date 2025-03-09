@@ -30,91 +30,31 @@ Menu getSortMenu(Menu menu, int numPer);
 /// <returns></returns>
 char*** createPointer(int& count);
 Menu getEditMenu(Menu menu, int numPer);
+void task1(char***& books, int& count, Menu& mLib, Menu& mSearch, Menu& mSort, Menu& mEdit);
 
 int getShowArrows(int count);
 
 int main()
 {
 	system("chcp 1251>null");
-	system("pause");
 	FullScreenMode();
-	gitPush("Наполовину 34%  ДЗ № 24");
+	Coordinate cSize = getConsoleSize();
+	gitPush("Первая задача готова  ДЗ № 24");
 	//Добавляем первоначальные книги
 	int count = 0;
 	char*** books = createPointer(count);
-	/////
+	/////;
 	Menu m = getMainMenu();
 	Menu mLib = getLibMenu();
 	Menu mSearch = getSearchMenu(mLib, 4);
 	Menu mSort = getSortMenu(mLib, 5);
-	Menu edit = getEditMenu(mLib, 3);
+	Menu mEdit = getEditMenu(mLib, 3);
 	while (true)
 	{
 	int input = getShowMenu(m);
-	if (input == 0)
-		while (true)
-		{
-
-			
-			mLib.n = getShowMenu(mLib, false);
-			setCursorPosition(0, 5);
-			if (mLib.n == 4)
-				getShowMenu(mSearch);
-			else if (mLib.n == 5)
-				getShowMenu(mSort);
-			else if (mLib.n == 3)
-				getShowMenu(edit);
-			else if (mLib.n == 2) {
-				showBook(books, count);
-				int iDel = getShowArrows(count);
-				if(iDel > -1)
-					delBook(books, count, iDel);
-				showBook(books, count);
-
-			}
-			else if (mLib.n == 0) {
-				showBook(books, count);
-			}
-			else if (mLib.n == 1) {
-				char** newB = new char* [4];
-				ColorANSI3b c;
-				const int limitSymbol = 4 * 1024;
-				char str[limitSymbol];
-				setCursorPosition(0, 4);
-				std::cout << " Название: ";
-				std::cin.getline(str, limitSymbol);
-				newB[0] = new char[strlen(str) + 1];
-				strcpy_s(newB[0], strlen(str) + 1, str);
-				setColor(c.RedFG);
-				std::cout << " автор: ";
-				std::cin.getline(str, limitSymbol);
-				newB[1] = new char[strlen(str) + 1];
-				strcpy_s(newB[1], strlen(str) + 1, str);
-				setColor(c.BlueFG);
-				std::cout << " издательство: ";
-				std::cin.getline(str, limitSymbol);
-				newB[2] = new char[strlen(str) + 1];
-				strcpy_s(newB[2], strlen(str) + 1, str);
-				setColor(c.GreenFG);
-				std::cout << " жанр: ";
-				std::cin.getline(str, limitSymbol);
-				newB[3] = new char[strlen(str) + 1];
-				strcpy_s(newB[3], strlen(str) + 1, str);
-				
-				drawEmptyRectangle(0, 4, 4, mLib.start.x - 1, c.BlackBG);
-				addBook(books, count, newB);
-				for (int i = 0; i < 4; i++)
-					delete[] newB[i];
-				delete[] newB;
-				showBook(books, count);
-			}
-			else if (mLib.n == 6) {
-				clsHead(mLib);
-				clsMenu(mLib);
-				break;
-			}
-				
-		}
+	if (input == 0) {
+		task1(books, count, mLib, mSearch, mSort, mEdit);
+	}
 	else if (input == 1)
 		break;
 	else if (input == 2)
@@ -123,6 +63,13 @@ int main()
 	clearMenu(mSearch);
 	clearMenu(mLib);
 	clearMenu(m);
+	/*for (int i = 0; i < count; i++)
+	{
+		for (int j = 0; j < 4; j++)
+			delete[] books[i][4];
+		delete[] books[i];
+	}
+	delete books;*/
 	system("cls");
 }
 
@@ -212,8 +159,8 @@ Menu getSearchMenu(Menu menu, int numPer) {
 	//Формируем элементы меню
 	char headMenu[] = "Динамический массив хранения книг";
 	const char* item[] = {
-		"По автору",
 		"По названию",
+		"По автору",
 	};
 	int countMenu = sizeof(item) / sizeof(item[0]);
 	int mWidth = strMaxLen(item, countMenu) + 4; //Ширина меню
@@ -313,7 +260,7 @@ Menu getEditMenu(Menu menu, int numPer) {
 	char headMenu[] = "Динамический массив хранения книг";
 	const char* item[] = {
 		"Название",
-		"Автора",
+		"Автор",
 		"Издательство",
 		"Жанр"
 	};
@@ -358,4 +305,109 @@ int getShowArrows(int count) {
 		}
 	}
 
+}
+
+void task1(char *** &books, int &count, Menu &mLib, Menu &mSearch, Menu &mSort, Menu &mEdit) {
+	Coordinate cSize = getConsoleSize();
+	showBook(books, count);
+	while (true)
+	{
+		mLib.n = getShowMenu(mLib, false);
+		if (mLib.n == 4) {//Поиск книг
+			int iSearch = getShowMenu(mSearch);
+			setCursorPosition(0, 5);
+			std::cout << "Введите поиск: ";
+			const int limitSymbol = 4 * 1024;
+			char str[limitSymbol];
+			std::cin.getline(str, limitSymbol);
+
+			int iFound = searchBook(books, count, iSearch, str);
+			if (iFound > -1)
+			{
+				drawEmptyRectangle(0, 8, (count + 2) * 3, cSize.x - 27, 0);
+				setCursorPosition(0, 8);
+				showBook(books, count, iFound);
+				drawEmptyRectangle(0, 4, 4, mLib.start.x - 1, 0);
+			}
+			else {
+				std::cout << "Не найдено совпадений \n";
+				system("pause");
+				drawEmptyRectangle(0, 4, 4, mLib.start.x - 1, 0);
+			}
+			setCursorPosition(0, 5);
+			system("pause");
+			drawEmptyRectangle(0, 4, 4, mLib.start.x - 1, 0);
+			drawEmptyRectangle(0, 8, (count + 2) * 3, cSize.x - 27, 0);
+			showBook(books, count);
+		}
+		else if (mLib.n == 5)//Сортировка книг
+		{
+			int iSort = getShowMenu(mSort);
+			sortBooks(books, count, iSort);
+			showBook(books, count);
+		}
+			
+		else if (mLib.n == 3) {//Редактировать книгу
+			int iChange = getShowArrows(count);
+			if (iChange < -1) continue;
+			int whatChange = getShowMenu(mEdit);
+			setCursorPosition(0, 5);
+			std::cout << "Введите изменение: ";
+			const int limitSymbol = 4 * 1024;
+			char str[limitSymbol];
+			std::cin.getline(str, limitSymbol);
+			drawEmptyRectangle(0, 4, 4, mLib.start.x - 1, 0);
+			editBook(books, count, iChange, whatChange, str);
+			showBook(books, count);
+		}
+		else if (mLib.n == 2) {//Удалить  книгу
+			showBook(books, count);
+			int iDel = getShowArrows(count);
+			if (iDel > -1)
+				delBook(books, count, iDel);
+			showBook(books, count);
+		}
+		else if (mLib.n == 0) {//Печать всех книг
+			showBook(books, count);
+		}
+		else if (mLib.n == 1) { //Добавить книгу
+			char** newB = new char* [4];
+			ColorANSI3b c;
+			const int limitSymbol = 4 * 1024;
+			char str[limitSymbol];
+			setCursorPosition(0, 4);
+			std::cout << " Название: ";
+			std::cin.getline(str, limitSymbol);
+			newB[0] = new char[strlen(str) + 1];
+			strcpy_s(newB[0], strlen(str) + 1, str);
+			setColor(c.RedFG);
+			std::cout << " автор: ";
+			std::cin.getline(str, limitSymbol);
+			newB[1] = new char[strlen(str) + 1];
+			strcpy_s(newB[1], strlen(str) + 1, str);
+			setColor(c.BlueFG);
+			std::cout << " издательство: ";
+			std::cin.getline(str, limitSymbol);
+			newB[2] = new char[strlen(str) + 1];
+			strcpy_s(newB[2], strlen(str) + 1, str);
+			setColor(c.GreenFG);
+			std::cout << " жанр: ";
+			std::cin.getline(str, limitSymbol);
+			newB[3] = new char[strlen(str) + 1];
+			strcpy_s(newB[3], strlen(str) + 1, str);
+
+			drawEmptyRectangle(0, 4, 4, mLib.start.x - 1, c.BlackBG);
+			addBook(books, count, newB);
+			for (int i = 0; i < 4; i++)
+				delete[] newB[i];
+			delete[] newB;
+			showBook(books, count);
+		}
+		else if (mLib.n == 6) { //Назад
+			clsHead(mLib);
+			clsMenu(mLib);
+			system("cls");
+			break;
+		}
+	}
 }

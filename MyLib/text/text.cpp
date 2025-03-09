@@ -11,3 +11,8 @@ int strMaxLen(const char** item, int count) {
 	}
 	return maxWidthItem;
 }
+char toLowerRus(char ABC) {
+	if ((ABC >= 'A' && ABC <= 'Z') || (ABC >= 'À' && ABC <= 'ß'))
+		return ABC + 32;
+	return ABC;
+}

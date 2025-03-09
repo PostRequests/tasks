@@ -1,5 +1,6 @@
 #include "Pointer.h"
 #include "MyLib/console/console.h"
+#include "MyLib/text/text.h"
 #include <iostream>
 
 
@@ -91,4 +92,46 @@ void editBook(char *** &book, int count, int numBook, int numIndex, char* texted
 	if (!count or numIndex > count) return;
 
 	strcpy_s(book[numBook][numIndex], strlen(textedit) + 1, textedit);
+}
+bool textMatch(const char* text1, const char* text2) {
+	for (int i = 0; i < strlen(text1); i++)
+		if (toLowerRus(text1[i]) != toLowerRus(text2[i])) return false;
+	return true;
+}
+int searchBook(char*** books, int count, int numIndex, char* what) {
+	for (int i = 0; i < count; i++)
+	{
+		char* item = books[i][0];
+		if (textMatch(what, books[i][numIndex])) return i;
+	}
+	return -1;
+}
+void sortBooks(char*** books, int count, int sortIndex) {
+	for (int k = 0; k < count - 1; k++)
+	{
+		bool sort = true;
+		for (int i = 0; i < count - 1; i++)
+		{
+			int temp1 = strlen(books[i][sortIndex]);//Длинна строки
+			int temp2 = strlen(books[i + 1][sortIndex]);//Длинна следующей строки
+			int min = ((temp1 > temp2) ? temp2 : temp1);//Минимальный размер строки
+
+			for (int j = 0; j < min; j++)
+			{
+				if (books[i][sortIndex][j] == books[i + 1][sortIndex][j]) 
+					continue;//если символы равны, переходим к следующему
+				else if (books[i][sortIndex][j] * -1  < books[i + 1][sortIndex][j] * -1) {//Если символ в строке меньше чем в последующей
+					
+					std::swap(books[i], books[i + 1]);//Меняем местами книги
+					sort = false;
+					break;
+				}
+				break;
+			}
+		}
+		if (sort) {
+			break;
+		}
+	
+	}
 }

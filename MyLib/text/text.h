@@ -7,3 +7,9 @@
 /// <param name="count">Количество элементов массива</param>
 /// <returns>Количество символов в самой длинной строке</returns>
 int strMaxLen(const char** item, int count);
+/// <summary>
+/// Позволяет преобразовать заглавные буквы в строковые
+/// </summary>
+/// <param name="ABC">Буква для преобразования</param>
+/// <returns>Строковая буква</returns>
+char toLowerRus(char ABC);
