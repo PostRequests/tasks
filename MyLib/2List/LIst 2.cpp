@@ -1,6 +1,7 @@
 
 #include "List2.h"
 #include "../../Pointer.h"
+#include "../text/text.h"
 #include <iostream>
 
 void add_to_prev(Mlist& lst, LBook* data) {
@@ -78,9 +79,6 @@ void show(Mlist& lst) {
 		std::cout << "\t----------------------------------------------\n";
 		c = c->next;
 	}
-}
-void show(Mitem& c) {
-
 }
 void del_cur(Mlist& lst) {
 	if (!lst.cur) return;
@@ -188,4 +186,39 @@ void edit_cur(Mlist& lst,int numBook, int numIndex, char* text) {
 	char* fields[] = { lst.cur->data->title, lst.cur->data->author, lst.cur->data->publishing, lst.cur->data->genre };
 	strcpy_s(fields[numIndex], strlen(text) + 1, text);
 }
+bool textMatch(Mitem* a, Mitem* b, int index) {
+	if (!a->data || !b->data) return false; 
+	char* fieldsA[] = { a->data->title, a->data->author, a->data->publishing, a->data->genre };
+	char* fieldsB[] = { b->data->title, b->data->author, b->data->publishing, b->data->genre };
+	for (int i = 0; i < strlen(fieldsA[index]); i++) {
+		char lowA = toLowerRus(fieldsA[index][i])* -1;
+		char lowB = toLowerRus(fieldsB[index][i])*-1;
+		if (lowA == lowB)
+			continue;
+		else if (lowA < lowB)
+			return true;
+		else return false;
+	}
+}
+void swap(Mitem* a, Mitem* b) {
+	LBook* tempData = a->data;
+	a->data = b->data;
+	b->data = tempData;
+}
+void sort_list(Mlist& lst, int index) {
+	if (lst.count < 2) return;
+	Mitem* c;
+	bool swapped;
+	do {
+		swapped = false;
+		 c = lst.start;
 
+		while (c->next) {
+			if (textMatch(c, c->next, index)) {
+				swap(c, c->next); 
+				swapped = true;
+			}
+			c = c->next;
+		}
+	} while (swapped);
+}

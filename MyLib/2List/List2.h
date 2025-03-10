@@ -51,3 +51,4 @@ void add_to_next(Mlist& lst, LBook* data);
 void go_to(Mlist& lst, int index);
 bool get_search(Mlist& lst, int numIndex, char* what);
 void edit_cur(Mlist& lst, int num, int numIndex, char* text);
+void sort_list(Mlist& lst, int index);

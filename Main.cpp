@@ -6,6 +6,8 @@
 #include "MyLib/text/text.h"
 #include "MyLib/2List/List2.h"
 #include "Pointer.h"
+//Все функции для укзателей лежат в Pointer.cpp, 
+// двунаправленный массив в LIst 2.cpp
 //Создает основное меню
 Menu getMainMenu();
 //Создает основное меню библиотеки
@@ -55,7 +57,8 @@ int main()
 	system("chcp 1251>null");
 	FullScreenMode();
 	Coordinate cSize = getConsoleSize();
-	gitPush("Осталось сделать сортировку  ДЗ № 24");
+	gitPush("Осталось провести работу над ошибками и комментировать записи  ДЗ № 24");
+	
 	//Добавляем первоначальные книги
 	int count = 0;
 	char*** books = createPointer(count);
@@ -479,14 +482,15 @@ void task2(Mlist& lBook, Menu& mLib, Menu& mSearch, Menu& mSort, Menu& mEdit) {
 			}
 		}
 
-		//else if (mLib.n == 5)//Сортировка книг
-		//{
-		//	int iSort = getShowMenu(mSort);
-		//	sortBooks(books, count, iSort);
-		//	show(lBook);;
-		//}
+		else if (mLib.n == 5)//Сортировка книг
+		{
+			int iSort = getShowMenu(mSort);
+			sort_list(lBook, iSort);
+			show(lBook);
+		}
 
 		else if (mLib.n == 3) {//Редактировать книгу
+			drawEmptyRectangle(0, 8, lBook.count * 3, 5, 0);
 			int iChange = getShowArrows(lBook.count);
 			if (iChange < -1) continue;
 			int whatChange = getShowMenu(mEdit);
