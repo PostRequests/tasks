@@ -56,3 +56,4 @@ void editBook(char***& book, int count, int numBook, int numIndex, char* textedi
 /// <returns>Возвращает индекс найденного элемента</returns>
 int searchBook(char*** books, int count, int numIndex, char* what);
 void sortBooks(char*** books, int count, int sortIndex);
+bool textMatch(const char* text1, const char* text2);

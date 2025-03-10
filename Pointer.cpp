@@ -95,13 +95,13 @@ void editBook(char *** &book, int count, int numBook, int numIndex, char* texted
 }
 bool textMatch(const char* text1, const char* text2) {
 	for (int i = 0; i < strlen(text1); i++)
-		if (toLowerRus(text1[i]) != toLowerRus(text2[i])) return false;
+		if (toLowerRus(text1[i]) != toLowerRus(text2[i]))
+			return false;
 	return true;
 }
 int searchBook(char*** books, int count, int numIndex, char* what) {
 	for (int i = 0; i < count; i++)
 	{
-		char* item = books[i][0];
 		if (textMatch(what, books[i][numIndex])) return i;
 	}
 	return -1;

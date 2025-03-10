@@ -1,8 +1,9 @@
 
 #include "List2.h"
+#include "../../Pointer.h"
 #include <iostream>
 
-void add_to_prev(Mlist& lst, lBook* data) {
+void add_to_prev(Mlist& lst, LBook* data) {
 	lst.count++;
 	Mitem* n = new Mitem;
 	n->data = data;
@@ -40,7 +41,7 @@ void to_prev(Mlist& lst) {
 		if (lst.cur->prev != nullptr)
 			lst.cur = lst.cur->prev;
 }
-lBook* get_cur(Mlist& lst) {
+LBook* get_cur(Mlist& lst) {
 	if (lst.cur)
 		return lst.cur->data;
 	return nullptr;
@@ -78,14 +79,19 @@ void show(Mlist& lst) {
 		c = c->next;
 	}
 }
+void show(Mitem& c) {
+
+}
 void del_cur(Mlist& lst) {
 	if (!lst.cur) return;
 	lst.count--;
 	Mitem* Del = lst.cur;
-	if (lst.cur->prev)
+	if (lst.cur->prev) {
 		lst.cur->prev->next = lst.cur->next;
-	else
+	}
+	else {
 		lst.start = lst.cur->next;
+	}
 	if (lst.cur->next) {
 		lst.cur->next->prev = lst.cur->prev;
 		lst.cur = lst.cur->next;
@@ -94,11 +100,13 @@ void del_cur(Mlist& lst) {
 		lst.end = lst.cur->prev;
 		lst.cur = lst.end;
 	}
-	delete[] Del->data->author;
-	delete[] Del->data->genre;
-	delete[] Del->data->publishing;
-	delete[] Del->data->title;
-	delete[] Del->data;
+	if (Del->data) {
+		delete[] Del->data->author;
+		delete[] Del->data->genre;
+		delete[] Del->data->publishing;
+		delete[] Del->data->title;
+		delete Del->data;
+	}
 	delete Del;
 }
 void cls_list(Mlist& lst) {
@@ -115,43 +123,69 @@ void cls_list(Mlist& lst) {
 	}
 	lst.end = nullptr;
 }
+void add_to_start(Mlist& lst, LBook* data) {
+	Mitem* n = new Mitem;
+	n->data = data;
+	if (!lst.start) {
+		lst.cur = n;
+		lst.end = n;
+		lst.start = n;
+	}
+	else {
+		lst.start->prev = n;
+		n->next = lst.start;
+		lst.start = n;
+	}
+	lst.count++;
+}
+void add_to_next(Mlist& lst, LBook* data) {
+	Mitem* n = new Mitem;
+	n->data = data;
+	if (!lst.start) {
+		lst.cur = n;
+		lst.end = n;
+		lst.start = n;
+	}
+	else {
+		n->prev = lst.cur;
+		n->next = lst.cur->next;
 
-//void add_to_next(Mlist& lst, void* data) {
-//	char* newData = new char[strlen(data) + 1];
-//	strcpy_s(newData, strlen(data) + 1, data);
-//	Mitem* n = new Mitem;
-//	n->data = newData;
-//	if (!lst.start) {
-//		lst.cur = n;
-//		lst.end = n;
-//		lst.start = n;
-//	}
-//	else {
-//		n->prev = lst.cur;
-//		n->next = lst.cur->next;
-//
-//		if (lst.cur->next) {
-//			lst.cur->next->prev = n; 
-//		}
-//		else {
-//			lst.end = n;
-//		}
-//
-//		lst.cur->next = n; 
-//	}
-//}
-//void add_to_start(Mlist& lst, void* data) {
-//	Mitem* n = new Mitem;
-//	n->data = data;
-//	if (!lst.start) {
-//		lst.cur = n;
-//		lst.end = n;
-//		lst.start = n;
-//	}
-//	else {
-//		lst.start->prev = n;
-//		n->next = lst.start;
-//		lst.start = n;
-//	}
-//}
+		if (lst.cur->next) {
+			lst.cur->next->prev = n; 
+		}
+		else {
+			lst.end = n;
+		}
+		lst.cur->next = n; 
+	}
+	lst.count++;
+}
+void go_to(Mlist& lst, int index) {
+	lst.cur = lst.start;
+
+	while (index != 0)
+	{
+		to_next(lst);
+		index--;
+	}
+	
+}
+bool get_search(Mlist& lst, int numIndex, char* what) {
+	to_start(lst);
+	
+	do
+	{
+		char* fields[] = { lst.cur->data->title, lst.cur->data->author, lst.cur->data->publishing, lst.cur->data->genre };
+		char* a = fields[numIndex];
+		if (textMatch(what, fields[numIndex])) return true;
+		to_next(lst);
+	}while (lst.cur->next);
+	to_start(lst);
+	return false;
+}
+void edit_cur(Mlist& lst,int numBook, int numIndex, char* text) {
+	go_to(lst, numBook);
+	char* fields[] = { lst.cur->data->title, lst.cur->data->author, lst.cur->data->publishing, lst.cur->data->genre };
+	strcpy_s(fields[numIndex], strlen(text) + 1, text);
+}
 

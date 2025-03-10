@@ -39,6 +39,8 @@ char*** createPointer(int& count);
 Menu getEditMenu(Menu menu, int numPer);
 //Запускает задачую №1 в домашней работе
 void task1(char***& books, int& count, Menu& mLib, Menu& mSearch, Menu& mSort, Menu& mEdit);
+//Запускает задачую №2 в домашней работе
+void task2(Mlist& lBook, Menu& mLib, Menu& mSearch, Menu& mSort, Menu& mEdit);
 /// <summary>
 /// Показывает меню стрелов)
 /// </summary>
@@ -53,14 +55,13 @@ int main()
 	system("chcp 1251>null");
 	FullScreenMode();
 	Coordinate cSize = getConsoleSize();
-	gitPush("Все сложно (  ДЗ № 24");
+	gitPush("Осталось сделать сортировку  ДЗ № 24");
 	//Добавляем первоначальные книги
 	int count = 0;
 	char*** books = createPointer(count);
 	Mlist lBook;
 	createListBook(lBook);
-	show(lBook);
-	system("pause");
+	
 	/////;
 	Menu m = getMainMenu();
 	Menu mLib = getLibMenu();
@@ -74,7 +75,7 @@ int main()
 		task1(books, count, mLib, mSearch, mSort, mEdit);
 	}
 	else if (input == 1)
-		break;
+		task2( lBook,  mLib,  mSearch, mSort, mEdit);
 	else if (input == 2)
 		break;
 	}
@@ -263,26 +264,26 @@ char*** createPointer(int & count) {
 	return books;
 }
 void createListBook(Mlist& list) {
-	lBook* b1 = new lBook{
+	LBook* b1 = new LBook{
 		toMemPoint("Маленький принц"),
 		toMemPoint("Антуан де Сент-Экзюпери"),
 		toMemPoint("Hitchcock"),
 		toMemPoint("Сказка")
 	};
-	lBook* b2 = new lBook{
+	LBook* b2 = new LBook{
 		toMemPoint("Улисс"),
 		toMemPoint("Джеймс Джойс"),
 		toMemPoint("Shakespeare"),
 		toMemPoint("Модернистский роман")
 	};
 
-	lBook* b3 = new lBook{
+	LBook* b3 = new LBook{
 		toMemPoint("Тень ветра"),
 		toMemPoint("Карлос Руис Сафон"),
 		toMemPoint("Planeta"),
 		toMemPoint("Мистический роман")
 	};
-	lBook* b4 = new lBook{
+	LBook* b4 = new LBook{
 		toMemPoint("Атлант расправил плечи"),
 		toMemPoint("Айн Рэнд"),
 		toMemPoint("Random House"),
@@ -292,7 +293,6 @@ void createListBook(Mlist& list) {
 	add_to_prev(list, b1);
 	add_to_prev(list, b2);
 	add_to_prev(list, b3);
-	add_to_prev(list, b4);
 	add_to_prev(list, b4);
 }
 Menu getEditMenu(Menu menu, int numPer) {
@@ -327,7 +327,7 @@ int getShowArrows(int count) {
 	if (!count) return -1;
 	int result = 0;
 	setCursorPosition(0, 8);
-	std::cout << "-->";
+	std::cout << "-->|";
 	while (true)
 	{
 		char key = catchKey();
@@ -337,7 +337,7 @@ int getShowArrows(int count) {
 			else if (key == 's') (result + 1 == count) ? result = 0 : result += 1;
 			drawEmptyRectangle(0, 8, count * 3, 4, 0);
 			setCursorPosition(0, 8 + (result * 3));
-			std::cout << "-->";
+			std::cout << "-->|";
 		}
 		else if (key == 13) {
 			resetColor();
@@ -452,9 +452,9 @@ void task1(char *** &books, int &count, Menu &mLib, Menu &mSearch, Menu &mSort, 
 		}
 	}
 }
-void task2(char***& books, int& count, Menu& mLib, Menu& mSearch, Menu& mSort, Menu& mEdit) {
+void task2(Mlist& lBook, Menu& mLib, Menu& mSearch, Menu& mSort, Menu& mEdit) {
 	Coordinate cSize = getConsoleSize();
-	showBook(books, count);
+	show(lBook);
 	while (true)
 	{
 		mLib.n = getShowMenu(mLib, false);
@@ -466,34 +466,28 @@ void task2(char***& books, int& count, Menu& mLib, Menu& mSearch, Menu& mSort, M
 			char str[limitSymbol];
 			std::cin.getline(str, limitSymbol);
 
-			int iFound = searchBook(books, count, iSearch, str);
-			if (iFound > -1)
+			bool iFound = get_search(lBook, iSearch, str);
+			if (iFound)
 			{
-				drawEmptyRectangle(0, 8, (count + 2) * 3, cSize.x - 27, 0);
-				setCursorPosition(0, 8);
-				showBook(books, count, iFound);
 				drawEmptyRectangle(0, 4, 4, mLib.start.x - 1, 0);
+				show(lBook);
 			}
 			else {
 				std::cout << "Не найдено совпадений \n";
 				system("pause");
 				drawEmptyRectangle(0, 4, 4, mLib.start.x - 1, 0);
 			}
-			setCursorPosition(0, 5);
-			system("pause");
-			drawEmptyRectangle(0, 4, 4, mLib.start.x - 1, 0);
-			drawEmptyRectangle(0, 8, (count + 2) * 3, cSize.x - 27, 0);
-			showBook(books, count);
-		}
-		else if (mLib.n == 5)//Сортировка книг
-		{
-			int iSort = getShowMenu(mSort);
-			sortBooks(books, count, iSort);
-			showBook(books, count);
 		}
 
+		//else if (mLib.n == 5)//Сортировка книг
+		//{
+		//	int iSort = getShowMenu(mSort);
+		//	sortBooks(books, count, iSort);
+		//	show(lBook);;
+		//}
+
 		else if (mLib.n == 3) {//Редактировать книгу
-			int iChange = getShowArrows(count);
+			int iChange = getShowArrows(lBook.count);
 			if (iChange < -1) continue;
 			int whatChange = getShowMenu(mEdit);
 			setCursorPosition(0, 5);
@@ -502,19 +496,21 @@ void task2(char***& books, int& count, Menu& mLib, Menu& mSearch, Menu& mSort, M
 			char str[limitSymbol];
 			std::cin.getline(str, limitSymbol);
 			drawEmptyRectangle(0, 4, 4, mLib.start.x - 1, 0);
-			editBook(books, count, iChange, whatChange, str);
-			showBook(books, count);
+			edit_cur(lBook, iChange, whatChange, str);
+			show(lBook);
+		}
+		if (mLib.n == 0) {//Печать всех книг
+			show(lBook);
 		}
 		else if (mLib.n == 2) {//Удалить  книгу
-			showBook(books, count);
-			int iDel = getShowArrows(count);
-			if (iDel > -1)
-				delBook(books, count, iDel);
-			showBook(books, count);
+			show(lBook);
+			drawEmptyRectangle(0, 8, lBook.count * 3, 5, 0);
+			int in = getShowArrows(lBook.count);
+			go_to(lBook, in);
+			del_cur(lBook);
+			show(lBook);
 		}
-		else if (mLib.n == 0) {//Печать всех книг
-			showBook(books, count);
-		}
+		
 		else if (mLib.n == 1) { //Добавить книгу
 			char** newB = new char* [4];
 			ColorANSI3b c;
@@ -540,13 +536,10 @@ void task2(char***& books, int& count, Menu& mLib, Menu& mSearch, Menu& mSort, M
 			std::cin.getline(str, limitSymbol);
 			newB[3] = new char[strlen(str) + 1];
 			strcpy_s(newB[3], strlen(str) + 1, str);
-
+			LBook* b1 = new  LBook{ newB[0] , newB[1] ,newB[2] ,newB[3] };
+			add_to_start(lBook, b1);
 			drawEmptyRectangle(0, 4, 4, mLib.start.x - 1, c.BlackBG);
-			addBook(books, count, newB);
-			for (int i = 0; i < 4; i++)
-				delete[] newB[i];
-			delete[] newB;
-			showBook(books, count);
+			show(lBook);
 		}
 		else if (mLib.n == 6) { //Назад
 			clsHead(mLib);

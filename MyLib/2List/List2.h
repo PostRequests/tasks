@@ -2,14 +2,14 @@
 #include "../console/console.h"
 /*List*/
 
-struct lBook {
+struct LBook {
     char* title = nullptr;
     char* author = nullptr;
     char* publishing = nullptr;
     char* genre = nullptr;
 };
 struct Mitem {
-    lBook* data = nullptr;
+    LBook* data = nullptr;
     Mitem* next = nullptr;
     Mitem* prev = nullptr;
 };
@@ -22,7 +22,7 @@ struct Mlist {
 };
 
 //Добавляет в начало новый элемент
-void add_to_prev(Mlist& lst, lBook* data);
+void add_to_prev(Mlist& lst, LBook* data);
 //Переходит в начало списка
 void to_start(Mlist& lst);
 //Переходим в конец списка
@@ -32,7 +32,7 @@ void to_next(Mlist& lst);
 //Переходим к предыдущему элементу списка
 void to_prev(Mlist& lst);
 //Получаем текущий элемент списка
-lBook* get_cur(Mlist& lst);
+LBook* get_cur(Mlist& lst);
 //Проверяем, выбран последний элемент списка?
 bool is_end(Mlist& lst);
 //Проверяем, выбран первый элемент списка?
@@ -43,10 +43,11 @@ void show(Mlist& lst);
 void del_cur(Mlist& lst);
 //Удаляет все элементы
 void cls_list(Mlist& lst);
-
-//void add_to_start(Mlist& lst, void* data);
 //Добавляет в начало новый элемент
-//Добавить перед текущим элементом
-//void add_to_prev(Mlist& lst, void* data);
+void add_to_start(Mlist& lst, LBook* data);
 //Добавить после текущего элемента
-//void add_to_next(Mlist& lst, void* data);
+void add_to_next(Mlist& lst, LBook* data);
+//Позволяет визуализировать пролистку текста вверх вниз
+void go_to(Mlist& lst, int index);
+bool get_search(Mlist& lst, int numIndex, char* what);
+void edit_cur(Mlist& lst, int num, int numIndex, char* text);
