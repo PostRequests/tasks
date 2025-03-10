@@ -57,7 +57,7 @@ int main()
 	system("chcp 1251>null");
 	FullScreenMode();
 	Coordinate cSize = getConsoleSize();
-	gitPush("Осталось провести работу над ошибками и комментировать записи  ДЗ № 24");
+	gitPush("Готово!  ДЗ № 24");
 	
 	//Добавляем первоначальные книги
 	int count = 0;

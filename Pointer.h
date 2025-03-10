@@ -55,5 +55,12 @@ void editBook(char***& book, int count, int numBook, int numIndex, char* textedi
 /// <param name="what">Текст или часть текста по которому осуществляется поиск</param>
 /// <returns>Возвращает индекс найденного элемента</returns>
 int searchBook(char*** books, int count, int numIndex, char* what);
+/// <summary>
+/// Сортирует книги, по выбранному индексу
+/// </summary>
+/// <param name="books">Массив книг</param>
+/// <param name="count">Количество книг</param>
+/// <param name="sortIndex">Номер индекса элемента по которому осуществляется сортировка
+///  0 - название, 1 - автор, 2 - издательство, 3 - жанр</param>
 void sortBooks(char*** books, int count, int sortIndex);
 bool textMatch(const char* text1, const char* text2);
